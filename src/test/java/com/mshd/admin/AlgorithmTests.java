@@ -17,6 +17,15 @@ import static java.lang.System.out;
 public class AlgorithmTests {
 
     @Test
+    public void testJia(){
+        int i = 12;
+        //i + (i - i * i)
+        //(i + i) - (i * i)
+        //先算运算符右边的
+        System.out.println(i+=i-=i*=i);
+    }
+
+    @Test
     public void testWei() {
         int a = 1 << 2;
         out.println(a);

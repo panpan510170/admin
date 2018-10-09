@@ -15,9 +15,12 @@ spring:
       pool:
         min-idle: 100
     database: 1
-
-server:
-  port: 8001
-
+aliyun:
+  oss:
+    AccessKeyID: LTAIPxACpM1voKll
+    AccessKeySecret: 85vjeEKlf4bZvlcvHi1XSumy39tfz6
+    endpoint: oss-cn-beijing.aliyuncs.com
 swagger2:
   enable: true
+
+
