@@ -1,4 +1,4 @@
-package com.mshd.第三方api;
+package com.mshd.third_api;
 
 /**
  * Created by Pangaofeng on 2018/9/3
@@ -47,7 +47,7 @@ public class KdniaoTrackQueryAPI {
     private String AppKey="fc76799a-2f4a-4017-81a8-aaea3b61c340";
     //请求url
     //private String ReqURL="http://sandboxapi.kdniao.cc:8080/kdniaosandbox/gateway/exterfaceInvoke.json";//测试环境
-    private String ReqURL="http://第三方api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";//正式环境
+    private String ReqURL="http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";//正式环境
 
 
     /**

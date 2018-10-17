@@ -273,6 +273,12 @@ public class LomdbaTest {
         appleList.add(apple2);
         appleList.add(apple3);
 
+        appleList.sort((Apple h1, Apple h2) ->
+                h1.getMoney().compareTo(h2.getMoney())
+        );
+
+        System.out.println("123"+appleList);
+
         BigDecimal totalMoney = appleList.stream().map(Apple::getMoney).reduce(BigDecimal.ZERO, BigDecimal::add);
         System.err.println("totalMoney:"+totalMoney); //totalMoney:17.48
 
