@@ -10,4 +10,6 @@ public interface TestService {
     Integer testThread();
 
     Integer testThrow(int a);
+
+    void testRedisTime(String s);
 }

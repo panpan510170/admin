@@ -31,4 +31,9 @@ public class TestServiceImpl implements TestService {
 
         return a;
     }
+
+    @Override
+    public void testRedisTime(String s) {
+        logger.info("str==="+s);
+    }
 }

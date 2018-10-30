@@ -9,9 +9,195 @@ import java.util.Date;
  */
 public class DateUtils {
 
+
     public static void main(String[] args) {
-        System.out.println(getNextDay(new Date(),3));
+        String lastDay = getLastDayOfMonth(2018,10);
+
+        System.out.println("获取2014年2月的最后一天：" + lastDay);
+
+        String currentLDay= getLastDayOfCurrentMonth();
+
+        System.out.println("获取本月的最后一天：" + currentLDay);
+
+        String firstDay = getFirstDayOfMonth(2014,2);
+
+        System.out.println("获取2014年2月的第一天：" + firstDay);
+
+        String currentFDay= getFirstDayOfCurrentMonth();
+
+        System.out.println("获取本月的第一天：" + currentFDay);
+
     }
+
+
+    /**
+
+     * 获取某月的最后一天
+
+     */
+
+    public static String getLastDayOfMonth(int year,int month) {
+
+        Calendar cal = Calendar.getInstance();
+        //设置年份
+        cal.set(Calendar.YEAR,year);
+        //设置月份
+        cal.set(Calendar.MONTH, month-1);
+        //获取某月最大天数
+        int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        //设置日历中月份的最大天数
+        cal.set(Calendar.DAY_OF_MONTH, lastDay);
+        //格式化日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String lastDayOfMonth = sdf.format(cal.getTime());
+        return lastDayOfMonth;
+
+    }
+
+    /**
+
+     * 获取这个月的最后一天
+
+     */
+
+    public static String getLastDayOfCurrentMonth() {
+
+        Calendar cal = Calendar.getInstance();
+        //获取某月最大天数
+        int lastDay = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        //设置日历中月份的最大天数
+        cal.set(Calendar.DAY_OF_MONTH, lastDay);
+        //格式化日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String lastDayOfMonth = sdf.format(cal.getTime());
+        return lastDayOfMonth;
+
+    }
+
+    /**
+
+     * 获取某月的第一天
+
+     */
+
+    public static String getFirstDayOfMonth(int year,int month) {
+
+        Calendar cal = Calendar.getInstance();
+        //设置年份
+        cal.set(Calendar.YEAR,year);
+        //设置月份
+        cal.set(Calendar.MONTH, month-1);
+        //获取某月最大天数
+        int lastDay = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        //设置日历中月份的最大天数
+        cal.set(Calendar.DAY_OF_MONTH, lastDay);
+        //格式化日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String lastDayOfMonth = sdf.format(cal.getTime());
+        return lastDayOfMonth;
+
+    }
+
+    /**
+
+     * 获取这个月的第一天
+
+     */
+
+    public static String getFirstDayOfCurrentMonth() {
+
+        Calendar cal = Calendar.getInstance();
+        //获取某月最大天数
+        int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        //设置日历中月份的最大天数
+        cal.set(Calendar.DAY_OF_MONTH, lastDay);
+        //格式化日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String lastDayOfMonth = sdf.format(cal.getTime());
+        return lastDayOfMonth;
+
+    }
+
+
+    /**
+     * 获取当前月的第一天
+     * */
+    public static String getMonthFirstDay() {
+        // 获取前月的第一天
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        cale.add(Calendar.MONTH, 0);
+        cale.set(Calendar.DAY_OF_MONTH, 1);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String firstday = format.format(cale.getTime());
+        return firstday + " 00:00:00";
+    }
+
+    /**
+     * 获取当前月的最后一天
+     * */
+    public static String getMonthLastDay() {
+        // 获取前月的第一天
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        cale.add(Calendar.MONTH, 1);
+        cale.set(Calendar.DAY_OF_MONTH, 0);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String lastday = format.format(cale.getTime());
+        return lastday + " 59:59:59";
+    }
+
+    /**
+     * 获取当前年份
+     * */
+    public static Integer getYear() {
+        // 获取前月的第一天
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        int year = cale.get(Calendar.YEAR);
+        return year;
+    }
+
+    /**
+     * 获取当前月份
+     * */
+    public static Integer getMonth() {
+        // 获取前月的第一天
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        int month = cale.get(Calendar.MONTH) + 1;
+        return month;
+    }
+
+    /**
+     * 获取想要的时间值
+     * */
+    public static void getYouWant() {
+        // 获取当前年份、月份、日期
+        Calendar cale = null;
+        cale = Calendar.getInstance();
+        int year = cale.get(Calendar.YEAR);
+        int month = cale.get(Calendar.MONTH) + 1;
+        int day = cale.get(Calendar.DATE);
+        int hour = cale.get(Calendar.HOUR_OF_DAY);
+        int minute = cale.get(Calendar.MINUTE);
+        int second = cale.get(Calendar.SECOND);
+        int dow = cale.get(Calendar.DAY_OF_WEEK);
+        int dom = cale.get(Calendar.DAY_OF_MONTH);
+        int doy = cale.get(Calendar.DAY_OF_YEAR);
+
+        System.out.println("Current Date: " + cale.getTime());
+        System.out.println("Year: " + year);
+        System.out.println("Month: " + month);
+        System.out.println("Day: " + day);
+        System.out.println("Hour: " + hour);
+        System.out.println("Minute: " + minute);
+        System.out.println("Second: " + second);
+        System.out.println("Day of Week: " + dow);
+        System.out.println("Day of Month: " + dom);
+        System.out.println("Day of Year: " + doy);
+    }
+
     /**
      * 时间加天数
      *

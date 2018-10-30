@@ -6,10 +6,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 缓存测试类
@@ -22,6 +26,51 @@ public class RedisTests {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    /**
+     * 测试set
+     * */
+    @Test
+    public void testSet() {
+        String str = "test";
+        Long add = redisTemplate.opsForSet().add(str, "test");
+        System.out.println(add);
+
+        Set members = redisTemplate.opsForSet().members(str);
+        System.out.println(members);
+    }
+
+    /**
+     * 测试zset
+     * */
+    @Test
+    public void testZSet() {
+        String strZSet = "testZSet";
+        /*redisTemplate.opsForZSet().add(strZSet, "test-2", 1.1d);
+        redisTemplate.opsForZSet().add(strZSet, "test-7", 1.11d);
+        redisTemplate.opsForZSet().add(strZSet, "test-3", 2d);
+        redisTemplate.opsForZSet().add(strZSet, "test-4", 2.2d);
+        redisTemplate.opsForZSet().add(strZSet, "test-5", 3d);*/
+        Boolean add = redisTemplate.opsForZSet().add(strZSet, "test-6", 3.8d);
+        System.out.println(add);
+
+       /* ZSetOperations.TypedTuple<Object> objectTypedTuple1 = new DefaultTypedTuple<Object>("zset-5",9.6);
+        ZSetOperations.TypedTuple<Object> objectTypedTuple2 = new DefaultTypedTuple<Object>("zset-6",9.9);
+        Set<ZSetOperations.TypedTuple<Object>> tuples = new HashSet<ZSetOperations.TypedTuple<Object>>();
+        tuples.add(objectTypedTuple1);
+        tuples.add(objectTypedTuple2);
+        System.out.println(redisTemplate.opsForZSet().add("zset1",tuples));
+        System.out.println(redisTemplate.opsForZSet().range("zset1",0,-1));*/
+
+        //range  只是值  没有标记
+        System.out.println(redisTemplate.opsForZSet().range(strZSet, 0, -1));
+        //rangeWithScores  数量
+        Set<DefaultTypedTuple> set = redisTemplate.opsForZSet().rangeWithScores(strZSet, 0L, 4L);
+        for (DefaultTypedTuple str : set) {
+            System.out.println("set==="+str.getScore()+"==="+str.getValue());
+        }
+    }
+
     @Test
     public void selectRedisUser() {
         //List<User> list = (List<User>)redisTemplate.opsForList().range(RedisKeys.userTable, 0, -1);

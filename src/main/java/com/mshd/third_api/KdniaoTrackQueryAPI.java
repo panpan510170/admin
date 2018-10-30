@@ -4,12 +4,17 @@ package com.mshd.third_api;
  * Created by Pangaofeng on 2018/9/3
  */
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,11 +37,68 @@ public class KdniaoTrackQueryAPI {
         KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
         try {
             String result = api.getOrderTracesByJson("ZTO", "215229801796");
-            System.out.print(result);
-
+            System.out.println(result);
+            //System.out.println("list=="+getInfoList(result));
+            //System.out.println("getLastInfo=="+getLastInfo(result));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /***
+     *
+     * 获取最后一次物流信息
+     */
+    private static String getLastInfo(String result) {
+        Traces traces1 = new Traces();
+        try {
+            List<Traces> tracesList = new ArrayList<Traces>();
+
+            JSONObject jsonObject = JSONObject.fromObject(result);
+            String TracesInfo = jsonObject.getString("Traces");
+            JSONArray jsonArray = JSONArray.fromObject(TracesInfo);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                String o = jsonArray.get(i).toString();
+
+                JSONObject dd = JSONObject.fromObject(o);
+
+                Traces traces = new Traces();
+                traces.setAcceptStation(dd.getString("AcceptStation"));
+                traces.setAcceptTime(dd.getString("AcceptTime"));
+                tracesList.add(traces);
+            }
+
+            int size = tracesList.size();
+
+            traces1 = tracesList.get(size-1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return traces1.getAcceptStation();
+    }
+
+    /***
+     * 封装物流信息
+     */
+    private static List<Traces> getInfoList(String result){
+        List<Traces> tracesList = new ArrayList<Traces>();
+
+        JSONObject jsonObject = JSONObject.fromObject(result);
+        String TracesInfo = jsonObject.getString("Traces");
+        JSONArray jsonArray = JSONArray.fromObject(TracesInfo);
+        for(int i = 0 ; i < jsonArray.size(); i++){
+            String o = jsonArray.get(i).toString();
+
+            JSONObject dd = JSONObject.fromObject(o);
+
+            Traces traces = new Traces();
+            traces.setAcceptStation(dd.getString("AcceptStation"));
+            traces.setAcceptTime(dd.getString("AcceptTime"));
+            tracesList.add(traces);
+        }
+
+        return tracesList;
     }
 
     //电商ID

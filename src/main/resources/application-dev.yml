@@ -9,12 +9,12 @@ spring:
       max-active: 1000
   redis:
     host: 101.201.144.134
-    password: 730947a71392472ba65a68a09fd00b8c
     port: 3104
     lettuce:
       pool:
         min-idle: 100
-    database: 1
+    database: 13
+    password: 730947a71392472ba65a68a09fd00b8c
 aliyun:
   oss:
     AccessKeyID: LTAIPxACpM1voKll

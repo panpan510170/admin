@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.ex.BOException;
 import com.mshd.serivce.TestService;
+import com.mshd.util.RedisKey;
 import com.mshd.vo.JsonResult;
 
 import com.mshd.vo.testVO.UserVO;
@@ -13,12 +14,15 @@ import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -33,6 +37,11 @@ public class TestController extends BaseController {
 
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+
 
     @ApiOperation(value = "测试程序错误")
     @PostMapping("/testLoginErrorException")
@@ -130,4 +139,15 @@ public class TestController extends BaseController {
         userVO.success(ResultCodeEnum.success);
         return userVO;
     }
+
+    @ApiOperation(value = "测试redisTime")
+    @PostMapping("/redisTime")
+    public void redisTime(HttpServletRequest request) {
+        System.out.println("123");
+
+        redisTemplate.opsForValue().set(RedisKey.TEST+"@"+"1234","1",1*60, TimeUnit.SECONDS);
+
+        System.out.println("456");
+    }
+
 }
