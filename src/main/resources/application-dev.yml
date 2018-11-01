@@ -20,6 +20,9 @@ aliyun:
     AccessKeyID: LTAIPxACpM1voKll
     AccessKeySecret: 85vjeEKlf4bZvlcvHi1XSumy39tfz6
     endpoint: oss-cn-beijing.aliyuncs.com
+    sonAccessKeyID: LTAIHgdiUYGPuRsG
+    sonAccessKeySecret: 2pgaiHc9TKwcUKwrxt0N2LSy3ZS4qn
+    roleArn: acs:ram::1861742825276971:role/aliyunosstokengeneratorrole
 swagger2:
   enable: true
 
