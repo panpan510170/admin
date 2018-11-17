@@ -10,3 +10,11 @@ spring:
     multipart:
       max-file-size: 1024MB
       max-request-size: 1024MB
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    com.mshd.mapper: debug

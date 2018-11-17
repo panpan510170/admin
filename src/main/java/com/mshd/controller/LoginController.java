@@ -33,23 +33,19 @@ public class LoginController extends BaseController{
     @PostMapping("/login")
     public JsonResult login(@ApiParam(value = "用户名", required = true)
                                 @RequestParam(name = "userName") String userName,
-                                @ApiParam(value = "密码", required = true)
+                      @ApiParam(value = "密码", required = true)
                                 @RequestParam(name = "password") String password) throws Exception{
 
         logger.info("LoginController...login...用户登陆接口入参:用户名:[" + userName + "],密码:[" + password + "]");
 
-        if(null == userName || "".equals(userName.trim()) ||
-            null == password || "".equals(password.trim())){
-            return this.buildErrorResult(ResultCodeEnum.paramError);
-        }
+        if(null == userName) return this.buildErrorResult(ResultCodeEnum.paramError);
 
-        UserVO userVO= userService.login(userName,password);
+        if(null == password) return this.buildErrorResult(ResultCodeEnum.paramError);
 
-        if(null != userVO){
-            return this.buildSuccessResult(userVO);
-        }else{
-            return this.buildErrorResult();
-        }
+        UserVO userVO = userService.login(userName,password);
 
+        if(null == userVO) return this.buildErrorResult(ResultCodeEnum.bussinessError);
+
+        return this.buildSuccessResult(userVO);
     }
 }

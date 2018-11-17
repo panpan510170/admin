@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mshd.mapper.TUserMapper" >
+  <resultMap id="BaseResultMap" type="com.mshd.model.TUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, password, real_name, id_no, phone, email, sex, status, reg_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <sql id="varSql">
+    <where>
+      <if test="userName!=null and userName!=''">and user_name = #{userName} </if>
+      <if test="status!=null and status!=''">and status = #{status} </if>
+     <!-- <if test="payStartTime!=null and payStartTime!=''"> and payment_time >= #{payStartTime} </if>
+      <if test="date!=null and date!=''"> and DATE_FORMAT(payment_time,'%Y-%m-%d') = #{date} </if>
+      <if test="endTime!=null and endTime!=''"><![CDATA[ and create_time <= #{endTime} ]]></if>
+      <if test="payEndTime!=null and payEndTime!=''"><![CDATA[ and payment_time <= #{payEndTime} ]]></if>-->
+    </where>
+  </sql>
+
+  <select id="selectUser" resultMap="BaseResultMap" parameterType="com.mshd.model.TUser" >
+    select <include refid="Base_Column_List" />
+    from t_user
+    <include refid="varSql" />
+  </select>
+
+  <select id="selectUserCount" resultType="java.lang.Integer" parameterType="com.mshd.model.TUser" >
+    select count(1)
+    from t_user
+    <include refid="varSql" />
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mshd.model.TUser" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (user_name, password, real_name, 
+      id_no, phone, email, 
+      sex, status, reg_time
+      )
+    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{idNo,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mshd.model.TUser" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="idNo != null" >
+        id_no,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="regTime != null" >
+        reg_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mshd.model.TUser" >
+    update t_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null" >
+        id_no = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="regTime != null" >
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mshd.model.TUser" >
+    update t_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      reg_time = #{regTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

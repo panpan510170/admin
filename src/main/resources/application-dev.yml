@@ -2,10 +2,10 @@ spring:
   datasource:
     druid:
       min-idle: 100
-      url: jdbc:mysql://weilaifu.mysql.rds.aliyuncs.com:3306/treat?zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://localhost:3306/free?zeroDateTimeBehavior=convertToNull
       driver-class-name: com.mysql.jdbc.Driver
-      username: demo_test
-      password: 11223344
+      username: root
+      password: 111111
       max-active: 1000
   redis:
     host: 101.201.144.134

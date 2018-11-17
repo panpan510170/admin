@@ -1,5 +1,6 @@
 package com.mshd.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -302,4 +303,50 @@ public class DateUtils {
             return dateFormat.format(dateValue);
         }
     }
+
+    /***
+     * 获取当前日期距离过期时间的日期差值
+     *  日,小时,分钟,秒
+     * @param endTime
+     * @return
+     */
+    public static Long dateDiff(String endTime) {
+        String strTime = null;
+        // 按照传入的格式生成一个simpledateformate对象
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long nd = 1000 * 24 * 60 * 60;// 一天的毫秒数
+        long nh = 1000 * 60 * 60;// 一小时的毫秒数
+        long nm = 1000 * 60;// 一分钟的毫秒数
+        long ns = 1000;// 一秒钟的毫秒数
+        long diff;
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        String str = sd.format(curDate);
+        try {
+            // 获得两个时间的毫秒时间差异
+            diff = sd.parse(endTime).getTime() - sd.parse(str).getTime();
+            long day = diff / nd;// 计算差多少天
+            long hour = diff / nh + 1;// 计算差多少小时
+            long min = diff / nm + 1;// 计算差多少分钟
+            long sec = diff / ns + 1;// 计算差多少秒
+
+            return hour;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    /**
+     * @Description:
+     * 比较时间大小  date小  返回ture  反之
+     */
+    public static Boolean compareDate(Date date, Date end) {
+        if(date.getTime() < end.getTime()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

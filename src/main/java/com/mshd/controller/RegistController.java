@@ -2,18 +2,17 @@ package com.mshd.controller;
 
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.serivce.UserService;
+import com.mshd.util.ValidateUtils;
 import com.mshd.vo.JsonResult;
-import com.mshd.vo.user.UserRegistVO;
+import com.mshd.vo.regist.RegistVO;
+import com.mshd.vo.user.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by Pangaofeng on 2018/9/6
@@ -29,21 +28,23 @@ public class RegistController extends BaseController{
     private UserService userService;
 
     @ApiOperation(value = "用户注册")
-    @PostMapping("/regist")
-    public JsonResult regist(@RequestBody(required = false) UserRegistVO userRegistVO) throws Exception{
+    @PostMapping(value = "/regist")
+    public JsonResult regist(RegistVO registVO) throws Exception{
 
-        logger.info("RegistController...regist...用户注册接口入参:[" + userRegistVO + "]");
+        logger.info("RegistController...regist...前端用户注册接口入参:[" + registVO.toString() + "]");
 
-        //效验参数
+        if(null == registVO) return this.buildErrorResult(ResultCodeEnum.paramError);
 
-        //效验用户名唯一
+        //验证码效验
+        Boolean validate = ValidateUtils.validate(registVO);
 
-        Boolean flag = userService.regist(userRegistVO);
+        if(!validate) return this.buildErrorResult(ResultCodeEnum.paramError.getId(),"验证码错误");
 
-        if(flag){
-            return this.buildSuccessResult(flag);
-        }else{
-            return this.buildErrorResult();
-        }
+        UserVO userVO = userService.regist(registVO);
+
+        if(null == userVO) return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(),"注册失败,请稍后重试或联系管理员");
+
+        return this.buildSuccessResult(userVO);
     }
+
 }

@@ -136,7 +136,7 @@ public class TestController extends BaseController {
         UserVO userVO = new UserVO();
         userVO.setUserName(userName);
         userVO.setUserNo("213");
-        userVO.success(ResultCodeEnum.success);
+        userVO.success();
         return userVO;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.SQLOutput;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -100,5 +101,22 @@ public class RedisTests {
         System.out.println(list3);*/
         Long key12345999 = redisTemplate.opsForList().size("key12345999");
         System.out.println(key12345999);
+    }
+
+    @Test
+    public void setIfAbsent() {
+        redisTemplate.opsForValue().set("123",2L);
+
+
+        Long o = (Long) redisTemplate.opsForValue().get("123");
+
+        System.out.println("o===="+o);
+
+        redisTemplate.opsForValue().set("123",5L);
+
+        Long o1 = (Long) redisTemplate.opsForValue().get("123");
+
+        System.out.println("o===="+o1);
+
     }
 }
