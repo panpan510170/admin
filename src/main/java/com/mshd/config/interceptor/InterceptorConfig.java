@@ -1,5 +1,6 @@
 package com.mshd.config.interceptor;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,11 +22,19 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     static {
         tokenExcludeUrlList.add("/login/login");//登录
         tokenExcludeUrlList.add("/regist/regist");//注册
+        tokenExcludeUrlList.add("/user/userNameOnly");//用户名唯一效验
         tokenExcludeUrlList.add("/swagger-resources/**");//接口页面-静态资源
         tokenExcludeUrlList.add("/swagger-ui.html/**");//接口页面
         tokenExcludeUrlList.add("/webjars/**");//接口页面-静态资源
         tokenExcludeUrlList.add("/v2/**");//接口页面-静态资源
     }
+
+    //若要将拦截器注入service,关键，将拦截器作为bean写入配置中
+    @Bean
+    public TokenInterceptor tokenInterceptor(){
+        return new TokenInterceptor();
+    }
+
 
     /**
      * 拦截器链
@@ -33,7 +42,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new RequestInterceptor()).addPathPatterns("/**");
-        //registry.addInterceptor(new TokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
+        registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
         super.addInterceptors(registry);
     }
     /**

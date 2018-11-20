@@ -34,7 +34,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, OPTIONS, DELETE");
 
         // 响应头设置
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token,userFromType");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token,Access-Source");
 
         response.setHeader("Access-Control-Allow-Credentials", "true");
 

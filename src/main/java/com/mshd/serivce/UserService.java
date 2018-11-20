@@ -1,5 +1,8 @@
 package com.mshd.serivce;
 
+import com.mshd.model.TUser;
+import com.mshd.model.TUserToken;
+import com.mshd.model.User;
 import com.mshd.vo.regist.RegistVO;
 import com.mshd.vo.user.UserVO;
 
@@ -12,4 +15,8 @@ public interface UserService {
     UserVO regist(RegistVO registVO) throws Exception;
 
     Boolean userNameOnly(String userName) throws Exception;
+
+    TUser getUser(Long id);
+
+    TUserToken selectTokenByUserId(Long id);
 }

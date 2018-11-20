@@ -1,6 +1,8 @@
 package com.mshd.controller;
 
 import com.mshd.enums.ResultCodeEnum;
+import com.mshd.model.TUser;
+import com.mshd.model.User;
 import com.mshd.serivce.UserService;
 import com.mshd.vo.JsonResult;
 import io.swagger.annotations.Api;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Pangaofeng on 2018/11/13
@@ -41,5 +45,20 @@ public class UserController extends BaseController{
         if(!flag) return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(),"用户名已存在");
 
         return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "查询用户详情")
+    @PostMapping(value = "/getUser")
+    public JsonResult getUser(HttpServletRequest request) throws Exception{
+
+        TUser user = (TUser)request.getAttribute("user");
+
+        if (null == user) {
+            return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
+        }
+
+        TUser tUser = userService.getUser(user.getId());
+
+        return this.buildSuccessResult(tUser);
     }
 }

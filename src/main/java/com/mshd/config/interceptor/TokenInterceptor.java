@@ -1,8 +1,15 @@
 package com.mshd.config.interceptor;
 
 import com.mshd.enums.ResultCodeEnum;
+import com.mshd.enums.UserSourceEnum;
+import com.mshd.model.TUser;
+import com.mshd.model.TUserToken;
+import com.mshd.model.UserToken;
+import com.mshd.serivce.UserService;
 import com.mshd.util.JwtUtils;
 import com.mshd.util.ResponseUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,20 +21,32 @@ import com.mshd.model.User;
  * @Description: 管理token
  *
  * Created by Pangaofeng on 2018/9/11
+ *
+ * 如果拦截器里面要注入service  就必须加注解@Component
  */
+@Component
 public class TokenInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("Access-Token");
-        User user = JwtUtils.decode(token, User.class);
-        if(null != user){
-            request.setAttribute("user",user);
-            return true;
+        String source = request.getHeader("Access-Source");
+        if(null != source && null != token && UserSourceEnum.behind.getId() != Integer.parseInt(source)){
+            TUser user = JwtUtils.decode(token, TUser.class);
+            TUserToken tUserToken = userService.selectTokenByUserId(user.getId());
+            if(null == user || null == tUserToken || !tUserToken.getToken().equals(token)) {
+                ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
+                return false;
+            }else{
+                request.setAttribute("user",user);
+                return true;
+            }
         }
-        ResponseUtils.doReturn(ResultCodeEnum.tokenError,response);
+        ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
         return false;
-
     }
 
     @Override
