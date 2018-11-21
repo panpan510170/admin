@@ -15,10 +15,13 @@ public class UserParamVO implements Serializable {
 
     @ApiModelProperty(value = "用户id")
     private Integer id;
+
     @ApiModelProperty(value = "用户姓名")
     private String name;
+
     @ApiModelProperty(value = "年龄")
     private Integer age;
+
     @ApiModelProperty(value = "性别")
     private Integer sex;
 

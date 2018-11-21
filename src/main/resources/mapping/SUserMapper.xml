@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mshd.mapper.SUserMapper" >
+  <resultMap id="BaseResultMap" type="com.mshd.model.SUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="varSql">
+    <where>
+      <if test="userName!=null and userName!=''">and user_name = #{userName} </if>
+      <!--<if test="statusString!=null and statusString!=''">and status in (${statusString}) </if>
+      <if test="startTime!=null and startTime!=''"> and create_time >= #{startTime} </if>
+      <if test="payStartTime!=null and payStartTime!=''"> and payment_time >= #{payStartTime} </if>
+      <if test="date!=null and date!=''"> and DATE_FORMAT(payment_time,'%Y-%m-%d') = #{date} </if>
+      <if test="endTime!=null and endTime!=''"><![CDATA[ and create_time <= #{endTime} ]]></if>
+      <if test="payEndTime!=null and payEndTime!=''"><![CDATA[ and payment_time <= #{payEndTime} ]]></if>-->
+    </where>
+  </sql>
+
+  <sql id="limitVarSql">
+    <if test="startRow!=null and endRow != null"> limit ${startRow},${endRow} </if>
+  </sql>
+
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
+    select
+    <include refid="Base_Column_List" />
+    from s_user
+    <include refid="varSql" />
+    order by id desc
+    <include refid="limitVarSql" />
+  </select>
+
+  <select id="getUserListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SUser" >
+    select count(1)
+    from s_user
+    <include refid="varSql" />
+  </select>
+
+  <select id="selectSUser" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
+    select
+    <include refid="Base_Column_List" />
+    from s_user
+    <include refid="varSql" />
+  </select>
+
+  <sql id="Base_Column_List" >
+    id, user_name, password, phone, status, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from s_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from s_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mshd.model.SUser" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_user (user_name, password, phone, 
+      status, create_time)
+    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mshd.model.SUser" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into s_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mshd.model.SUser" >
+    update s_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mshd.model.SUser" >
+    update s_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

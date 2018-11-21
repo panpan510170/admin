@@ -11,7 +11,7 @@ public class PageUtils {
     }
 
     public static int getEndRow(int pageNo,int pageSize) {
-        int endRow = (pageNo==0?1:pageNo) * pageSize;
+        int endRow = pageSize;
         return endRow;
     }
 }
