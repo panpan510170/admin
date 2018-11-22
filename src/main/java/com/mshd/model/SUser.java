@@ -15,24 +15,24 @@ public class SUser {
 
     private Date createTime;
 
-    private Integer startRow;
+    private Integer pageNo;
 
-    private Integer endRow;
+    private Integer pageSize;
 
-    public Integer getStartRow() {
-        return startRow;
+    public Integer getPageNo() {
+        return pageNo;
     }
 
-    public void setStartRow(Integer startRow) {
-        this.startRow = startRow;
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
     }
 
-    public Integer getEndRow() {
-        return endRow;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setEndRow(Integer endRow) {
-        this.endRow = endRow;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Long getId() {

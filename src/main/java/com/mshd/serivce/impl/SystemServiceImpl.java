@@ -10,9 +10,7 @@ import com.mshd.model.SUserToken;
 import com.mshd.model.TUser;
 import com.mshd.model.TUserToken;
 import com.mshd.serivce.SystemService;
-import com.mshd.util.JwtUtils;
-import com.mshd.util.MD5Utils;
-import com.mshd.util.PageUtils;
+import com.mshd.util.*;
 import com.mshd.vo.system.UserParamVO;
 import com.mshd.vo.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +33,7 @@ public class SystemServiceImpl implements SystemService {
     private SUserTokenMapper sUserTokenMapper;
 
     @Override
-    public UserVO login(String userName, String password) {
+    public UserVO login(String userName, String password) throws Exception{
         UserVO userVO = new UserVO();
         SUser sUser = new SUser();
         sUser.setUserName(userName.trim());
@@ -69,22 +67,16 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public Map<String,Object> getUserList(UserParamVO userParamVO) {
-        Map<String,Object> returnMap = new HashMap<>();
-        SUser sUser = new SUser();
+    public QueryResult getUserList(Map paramMap) throws Exception{
+        QueryResult queryResult = new QueryResult();
 
-        if (1 == userParamVO.getIsPage()) {
-            sUser.setStartRow(PageUtils.getStartRow(userParamVO.getPageNo(), userParamVO.getPageSize()));
-            sUser.setEndRow(PageUtils.getEndRow(userParamVO.getPageNo(), userParamVO.getPageSize()));
-        }
-
-        if (null != userParamVO.getUserName()) sUser.setUserName(userParamVO.getUserName());
+        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
 
         List<SUser> sUserList = sUserMapper.getUserList(sUser);
         Integer count = sUserMapper.getUserListCount(sUser);
 
-        returnMap.put("list",sUserList);
-        returnMap.put("count",count);
-        return returnMap;
+        queryResult.setRows(sUserList);
+        queryResult.setTotal(count);
+        return queryResult;
     }
 }

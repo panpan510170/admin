@@ -2,6 +2,7 @@ package com.mshd.controller;
 
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.ex.BOException;
+import com.mshd.util.QueryResult;
 import com.mshd.util.RequestUtils;
 import com.mshd.vo.JsonResult;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -134,6 +136,15 @@ public class BaseController {
     public <T> JsonResult buildErrorResult(Integer code, String msg) {
         return new JsonResult(code, msg);
     }
+
+    /**
+     * list 封装结果集
+     * @return
+     */
+    public <T> QueryResult buildQueryResult(QueryResult queryResult){
+        return new QueryResult(queryResult.getRows(),queryResult.getTotal());
+    }
+
 
     /**
      * @Description: 处理抛出到父类的异常信息

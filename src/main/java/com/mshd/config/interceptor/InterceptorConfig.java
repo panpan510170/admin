@@ -43,7 +43,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new RequestInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
+        //registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
         super.addInterceptors(registry);
     }
     /**

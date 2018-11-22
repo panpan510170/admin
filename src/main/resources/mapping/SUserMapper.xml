@@ -23,7 +23,7 @@
   </sql>
 
   <sql id="limitVarSql">
-    <if test="startRow!=null and endRow != null"> limit ${startRow},${endRow} </if>
+    <if test="pageNo!=null and pageSize != null"> limit ${pageNo * pageSize},${pageSize} </if>
   </sql>
 
   <select id="getUserList" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >

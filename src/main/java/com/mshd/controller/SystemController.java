@@ -3,6 +3,7 @@ package com.mshd.controller;
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.model.SUser;
 import com.mshd.serivce.SystemService;
+import com.mshd.util.QueryResult;
 import com.mshd.vo.JsonResult;
 import com.mshd.vo.PageVO;
 import com.mshd.vo.system.UserParamVO;
@@ -13,10 +14,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -56,13 +54,12 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "系统用户管理")
     @PostMapping("/getUserList")
-    public JsonResult getUserList(UserParamVO userParamVO) throws Exception{
+    public QueryResult getUserList(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...getUserList...系统用户管理入参:[" + paramMap + "]");
 
-        logger.info("SystemController...getUserList...系统用户管理入参:[" + userParamVO + "]");
+        QueryResult result = systemService.getUserList(paramMap);
 
-        Map<String,Object> returnMap = systemService.getUserList(userParamVO);
-
-        return this.buildSuccessResult(returnMap);
+        return this.buildQueryResult(result);
     }
 
 }

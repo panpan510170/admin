@@ -1,6 +1,7 @@
 package com.mshd.serivce;
 
 import com.mshd.model.SUser;
+import com.mshd.util.QueryResult;
 import com.mshd.vo.system.UserParamVO;
 import com.mshd.vo.user.UserVO;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public interface SystemService {
 
-    UserVO login(String userName, String password);
+    UserVO login(String userName, String password) throws Exception;
 
-    Map<String,Object> getUserList(UserParamVO userParamVO);
+    QueryResult getUserList(Map paramMap) throws Exception;
 }
