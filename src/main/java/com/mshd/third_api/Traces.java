@@ -11,6 +11,10 @@ public class Traces {
 
     @ApiModelProperty(value = "物流信息")
     private String AcceptStation;
+
     @ApiModelProperty(value = "时间")
     private String AcceptTime;
+
+    @ApiModelProperty(value = "状态")
+    private String status;
 }

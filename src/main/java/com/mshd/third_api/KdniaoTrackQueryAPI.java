@@ -39,7 +39,8 @@ public class KdniaoTrackQueryAPI {
             String result = api.getOrderTracesByJson("ZTO", "215229801796");
             System.out.println(result);
             //System.out.println("list=="+getInfoList(result));
-            //System.out.println("getLastInfo=="+getLastInfo(result));
+            Traces lastInfo = getLastInfo(result);
+            System.out.println("getLastInfo=="+lastInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,13 +50,14 @@ public class KdniaoTrackQueryAPI {
      *
      * 获取最后一次物流信息
      */
-    private static String getLastInfo(String result) {
+    private static Traces getLastInfo(String result) {
         Traces traces1 = new Traces();
         try {
             List<Traces> tracesList = new ArrayList<Traces>();
 
             JSONObject jsonObject = JSONObject.fromObject(result);
             String TracesInfo = jsonObject.getString("Traces");
+            String status = jsonObject.getString("State");
             JSONArray jsonArray = JSONArray.fromObject(TracesInfo);
             for (int i = 0; i < jsonArray.size(); i++) {
                 String o = jsonArray.get(i).toString();
@@ -65,6 +67,7 @@ public class KdniaoTrackQueryAPI {
                 Traces traces = new Traces();
                 traces.setAcceptStation(dd.getString("AcceptStation"));
                 traces.setAcceptTime(dd.getString("AcceptTime"));
+                traces.setStatus(status);
                 tracesList.add(traces);
             }
 
@@ -75,7 +78,29 @@ public class KdniaoTrackQueryAPI {
             e.printStackTrace();
         }
 
-        return traces1.getAcceptStation();
+        return traces1;
+    }
+
+    /**
+     * Json方式 查询订单物流轨迹
+     * @throws Exception
+     */
+    public String getOrderTracesByJson(String expCode, String expNo,String EBusinessID,String AppKey,String ReqURL) throws Exception{
+        String requestData= "{'OrderCode':'','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";
+        System.out.println(requestData);
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("RequestData", urlEncoder(requestData, "UTF-8"));
+        params.put("EBusinessID", EBusinessID);
+        params.put("RequestType", "1002");
+        String dataSign=encrypt(requestData, AppKey, "UTF-8");
+        params.put("DataSign", urlEncoder(dataSign, "UTF-8"));
+        params.put("DataType", "2");
+
+        String result=sendPost(ReqURL, params);
+
+        //根据公司业务处理返回的信息......
+
+        return result;
     }
 
     /***
