@@ -2,7 +2,7 @@ package com.mshd.model;
 
 import java.util.Date;
 
-public class SUserLog {
+public class SUserLog extends BaseDO {
     private Long id;
 
     private Long userId;

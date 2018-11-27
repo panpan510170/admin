@@ -41,6 +41,43 @@
     <include refid="varSql" />
   </select>
 
+  <sql id="varSqlUserRole">
+    <where>
+      <if test="userName!=null and userName!=''">and su.user_name = #{userName} </if>
+      <if test="roleName!=null and roleName!=''">and sr.role_name = #{roleName} </if>
+      <!--<if test="statusString!=null and statusString!=''">and status in (${statusString}) </if>
+      <if test="startTime!=null and startTime!=''"> and create_time >= #{startTime} </if>
+      <if test="payStartTime!=null and payStartTime!=''"> and payment_time >= #{payStartTime} </if>
+      <if test="date!=null and date!=''"> and DATE_FORMAT(payment_time,'%Y-%m-%d') = #{date} </if>
+      <if test="endTime!=null and endTime!=''"><![CDATA[ and create_time <= #{endTime} ]]></if>
+      <if test="payEndTime!=null and payEndTime!=''"><![CDATA[ and payment_time <= #{payEndTime} ]]></if>-->
+    </where>
+  </sql>
+
+  <select id="getUserRoleList" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
+    select
+    su.id, su.user_name, su.password, su.phone, su.status, su.create_time,sr.role_name,sr.descrition
+    from s_user su
+    inner join s_user_role sur
+    on su.id = sur.user_id
+    inner join s_role sr
+    on sr.id = sur.role_id
+    <include refid="varSqlUserRole" />
+    order by su.id desc
+    <include refid="limitVarSql" />
+  </select>
+
+  <select id="getUserRoleListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SUser" >
+    select count(1)
+    from s_user su
+    inner join s_user_role sur
+    on su.id = sur.user_id
+    inner join s_role sr
+    on sr.id = sur.role_id
+    <include refid="varSql" />
+  </select>
+
+
   <select id="selectSUser" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
     select
     <include refid="Base_Column_List" />

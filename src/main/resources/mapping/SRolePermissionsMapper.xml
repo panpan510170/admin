@@ -9,6 +9,16 @@
   <sql id="Base_Column_List" >
     id, role_id, permissions_id
   </sql>
+
+  <select id="selectByObj" resultMap="BaseResultMap" parameterType="com.mshd.model.SRolePermissions" >
+    select
+    <include refid="Base_Column_List" />
+    from s_role_permissions
+    where role_id = #{roleId,jdbcType=BIGINT} and  permissions_id = #{permissionsId,jdbcType=BIGINT}
+  </select>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -18,6 +28,10 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from s_role_permissions
     where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByRoleId" parameterType="java.lang.Long" >
+    delete from s_role_permissions
+    where role_id = #{roleId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.mshd.model.SRolePermissions" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >

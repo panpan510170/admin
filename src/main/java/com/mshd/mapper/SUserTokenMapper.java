@@ -20,4 +20,6 @@ public interface SUserTokenMapper {
     int updateByPrimaryKey(SUserToken record);
 
     void updateByUserId(SUserToken sUserToken);
+
+    SUserToken selectTokenByUserId(Long userId);
 }

@@ -4,14 +4,49 @@
   <resultMap id="BaseResultMap" type="com.mshd.model.SRole" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
-    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="descrition" property="descrition" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, role_name, describe, create_time
+    id, role_name, descrition, create_time
   </sql>
+
+
+  <sql id="varSql">
+    <where>
+      <if test="roleName!=null and roleName!=''">and role_name = #{roleName} </if>
+      <!--<if test="statusString!=null and statusString!=''">and status in (${statusString}) </if>
+      <if test="startTime!=null and startTime!=''"> and create_time >= #{startTime} </if>
+      <if test="payStartTime!=null and payStartTime!=''"> and payment_time >= #{payStartTime} </if>
+      <if test="date!=null and date!=''"> and DATE_FORMAT(payment_time,'%Y-%m-%d') = #{date} </if>
+      <if test="endTime!=null and endTime!=''"><![CDATA[ and create_time <= #{endTime} ]]></if>
+      <if test="payEndTime!=null and payEndTime!=''"><![CDATA[ and payment_time <= #{payEndTime} ]]></if>-->
+    </where>
+  </sql>
+
+  <sql id="limitVarSql">
+    <if test="pageNo!=null and pageSize != null"> limit ${pageNo * pageSize},${pageSize} </if>
+  </sql>
+
+  <select id="getRoleList" resultMap="BaseResultMap" parameterType="com.mshd.model.SRole" >
+    select
+    <include refid="Base_Column_List" />
+    from s_role
+    <include refid="varSql" />
+    order by id desc
+    <include refid="limitVarSql" />
+  </select>
+
+  <select id="getRoleListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SRole" >
+    select count(1)
+    from s_role
+    <include refid="varSql" />
+  </select>
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from s_role
     where id = #{id,jdbcType=BIGINT}
@@ -24,10 +59,10 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into s_role (role_name, describe, create_time
-      )
-    values (#{roleName,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into s_role (role_name, descrition, create_time
+    )
+    values (#{roleName,jdbcType=VARCHAR}, #{descrition,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.mshd.model.SRole" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -38,8 +73,8 @@
       <if test="roleName != null" >
         role_name,
       </if>
-      <if test="describe != null" >
-        describe,
+      <if test="descrition != null" >
+        descrition,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -49,8 +84,8 @@
       <if test="roleName != null" >
         #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        #{describe,jdbcType=VARCHAR},
+      <if test="descrition != null" >
+        #{descrition,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -63,8 +98,8 @@
       <if test="roleName != null" >
         role_name = #{roleName,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null" >
-        describe = #{describe,jdbcType=VARCHAR},
+      <if test="descrition != null" >
+        descrition = #{descrition,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -75,7 +110,7 @@
   <update id="updateByPrimaryKey" parameterType="com.mshd.model.SRole" >
     update s_role
     set role_name = #{roleName,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      descrition = #{descrition,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

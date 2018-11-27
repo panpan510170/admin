@@ -2,12 +2,12 @@ package com.mshd.model;
 
 import java.util.Date;
 
-public class SRole {
+public class SRole extends BaseDO {
     private Long id;
 
     private String roleName;
 
-    private String describe;
+    private String descrition;
 
     private Date createTime;
 
@@ -27,12 +27,12 @@ public class SRole {
         this.roleName = roleName == null ? null : roleName.trim();
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescrition() {
+        return descrition;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDescrition(String descrition) {
+        this.descrition = descrition == null ? null : descrition.trim();
     }
 
     public Date getCreateTime() {

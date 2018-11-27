@@ -2,11 +2,11 @@ package com.mshd.controller;
 
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.model.SUser;
+import com.mshd.model.TUser;
 import com.mshd.serivce.SystemService;
 import com.mshd.util.QueryResult;
 import com.mshd.vo.JsonResult;
-import com.mshd.vo.PageVO;
-import com.mshd.vo.system.UserParamVO;
+import com.mshd.vo.PermissionsVO;
 import com.mshd.vo.user.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,107 @@ public class SystemController extends BaseController{
         QueryResult result = systemService.getUserList(paramMap);
 
         return this.buildQueryResult(result);
+    }
+
+    @ApiOperation(value = "角色管理")
+    @PostMapping("/getRoleList")
+    public QueryResult getRoleList(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...getRoleList...角色管理入参:[" + paramMap + "]");
+
+        QueryResult result = systemService.getRoleList(paramMap);
+
+        return this.buildQueryResult(result);
+    }
+
+    @ApiOperation(value = "权限管理")
+    @PostMapping("/getPermissionsList")
+    public QueryResult getPermissionsList(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...getPermissionsList...权限管理入参:[" + paramMap + "]");
+
+        QueryResult result = systemService.getPermissionsList(paramMap);
+
+        return this.buildQueryResult(result);
+    }
+
+    @ApiOperation(value = "增加权限")
+    @PostMapping("/addPermissions")
+    public JsonResult addPermissions(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...addPermissions...权限管理入参:[" + paramMap + "]");
+
+        systemService.addPermissions(paramMap);
+
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "左侧权限列表")
+    @PostMapping("/userPermissionsList")
+    public JsonResult userPermissionsList(HttpServletRequest request) throws Exception{
+
+        SUser user = (SUser)request.getAttribute("suser");
+
+        if (null == user) {
+            return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
+        }
+
+        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
+
+        List<PermissionsVO> list = systemService.userPermissionsList(user.getId());
+
+        return this.buildSuccessResult(list);
+    }
+
+
+    @ApiOperation(value = "查询角色权限列表")
+    @PostMapping("/rolePermissionsTreeList")
+    public JsonResult rolePermissionsTreeList(@RequestBody Map paramMap,HttpServletRequest request) throws Exception{
+
+        SUser user = (SUser)request.getAttribute("suser");
+
+        if (null == user) {
+            return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
+        }
+
+        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
+
+        List<Map<String,Object>> list = systemService.rolePermissionsTreeList(paramMap);
+
+        return this.buildSuccessResult(list);
+    }
+
+    @ApiOperation(value = "保存角色权限列表")
+    @PostMapping("/saveRolePermissionsTree")
+    public JsonResult saveRolePermissionsTree(@RequestBody Map<String,Object> paramMap,HttpServletRequest request) throws Exception{
+        SUser user = (SUser)request.getAttribute("suser");
+
+        if (null == user) {
+            return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
+        }
+
+        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
+
+        systemService.saveRolePermissionsTree(paramMap);
+
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "用户角色管理")
+    @PostMapping("/getUserRoleList")
+    public QueryResult getUserRoleList(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...getUserRoleList...用户角色管理入参:[" + paramMap + "]");
+
+        QueryResult result = systemService.getUserRoleList(paramMap);
+
+        return this.buildQueryResult(result);
+    }
+
+    @ApiOperation(value = "用户角色管理")
+    @PostMapping("/delPermissions")
+    public JsonResult delPermissions(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...getUserRoleList...用户角色管理入参:[" + paramMap + "]");
+
+        systemService.delPermissions(paramMap);
+
+        return this.buildSuccessResult();
     }
 
 }

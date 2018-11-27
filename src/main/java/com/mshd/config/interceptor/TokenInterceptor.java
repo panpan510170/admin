@@ -2,9 +2,8 @@ package com.mshd.config.interceptor;
 
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.enums.UserSourceEnum;
-import com.mshd.model.TUser;
-import com.mshd.model.TUserToken;
-import com.mshd.model.UserToken;
+import com.mshd.model.*;
+import com.mshd.serivce.SystemService;
 import com.mshd.serivce.UserService;
 import com.mshd.util.JwtUtils;
 import com.mshd.util.ResponseUtils;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.mshd.model.User;
 
 /**
  * @Description: 管理token
@@ -30,18 +28,38 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SystemService systemService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("Access-Token");
         String source = request.getHeader("Access-Source");
-        if(null != source && null != token && UserSourceEnum.behind.getId() != Integer.parseInt(source)){
+        int sourceInt = source == null ? 0 : Integer.parseInt(source);
+        //前台
+        if(null != source && null != token && UserSourceEnum.front.getId() == sourceInt){
             TUser user = JwtUtils.decode(token, TUser.class);
+            if(null == user) return false;
             TUserToken tUserToken = userService.selectTokenByUserId(user.getId());
             if(null == user || null == tUserToken || !tUserToken.getToken().equals(token)) {
                 ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
                 return false;
             }else{
                 request.setAttribute("user",user);
+                return true;
+            }
+        }
+
+        //后台其他
+        if(null != source && null != token && UserSourceEnum.behind.getId() == sourceInt){
+            SUser user = JwtUtils.decode(token, SUser.class);
+            if(null == user) return false;
+            SUserToken sUserToken = systemService.selectTokenByUserId(user.getId());
+            if(null == user || null == sUserToken || !sUserToken.getToken().equals(token)) {
+                ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
+                return false;
+            }else{
+                request.setAttribute("suser",user);
                 return true;
             }
         }

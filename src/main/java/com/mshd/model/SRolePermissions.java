@@ -1,6 +1,6 @@
 package com.mshd.model;
 
-public class SRolePermissions {
+public class SRolePermissions extends BaseDO {
     private Long id;
 
     private Long roleId;

@@ -3,22 +3,18 @@ package com.mshd.serivce.impl;
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.enums.UserStatusEnum;
 import com.mshd.ex.BOException;
-import com.mshd.mapper.SUserMapper;
-import com.mshd.mapper.SUserTokenMapper;
-import com.mshd.model.SUser;
-import com.mshd.model.SUserToken;
-import com.mshd.model.TUser;
-import com.mshd.model.TUserToken;
+import com.mshd.mapper.*;
+import com.mshd.model.*;
 import com.mshd.serivce.SystemService;
 import com.mshd.util.*;
-import com.mshd.vo.system.UserParamVO;
+import com.mshd.vo.PermissionsVO;
 import com.mshd.vo.user.UserVO;
+import io.lettuce.core.ZAddArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Pangaofeng on 2018/11/20
@@ -30,9 +26,22 @@ public class SystemServiceImpl implements SystemService {
     private SUserMapper sUserMapper;
 
     @Autowired
+    private SRoleMapper sRoleMapper;
+
+    @Autowired
+    private SPermissionsMapper sPermissionsMapper;
+
+    @Autowired
+    private SUserRoleMapper sUserRoleMapper;
+
+    @Autowired
+    private SRolePermissionsMapper sRolePermissionsMapper;
+
+    @Autowired
     private SUserTokenMapper sUserTokenMapper;
 
     @Override
+    @Transactional
     public UserVO login(String userName, String password) throws Exception{
         UserVO userVO = new UserVO();
         SUser sUser = new SUser();
@@ -58,6 +67,7 @@ public class SystemServiceImpl implements SystemService {
             sUserTokenMapper.updateByUserId(sUserToken);
 
             //封装返回参数
+            userVO.setUserId(user.getId());
             userVO.setUserName(user.getUserName());
             userVO.setToken(token);
         }else{
@@ -78,5 +88,201 @@ public class SystemServiceImpl implements SystemService {
         queryResult.setRows(sUserList);
         queryResult.setTotal(count);
         return queryResult;
+    }
+
+    @Override
+    public QueryResult getRoleList(Map paramMap) throws Exception{
+        QueryResult queryResult = new QueryResult();
+
+        SRole sRole  = (SRole) BeanMapUtil.Map2Bean(SRole.class,paramMap);
+
+        List<SRole> sRoleList = sRoleMapper.getRoleList(sRole);
+        Integer count = sRoleMapper.getRoleListCount(sRole);
+
+        queryResult.setRows(sRoleList);
+        queryResult.setTotal(count);
+        return queryResult;
+    }
+
+    @Override
+    public QueryResult getPermissionsList(Map paramMap) throws Exception {
+        QueryResult queryResult = new QueryResult();
+
+        SPermissions sPermissions  = (SPermissions) BeanMapUtil.Map2Bean(SPermissions.class,paramMap);
+
+        List<SPermissions> sPermissionsList = sPermissionsMapper.getPermissionsList(sPermissions);
+        Integer count = sPermissionsMapper.getPermissionsListCount(sPermissions);
+
+        queryResult.setRows(sPermissionsList);
+        queryResult.setTotal(count);
+        return queryResult;
+    }
+
+    @Override
+    @Transactional
+    public void addPermissions(Map paramMap) throws Exception {
+        SPermissions sPermissions  = (SPermissions) BeanMapUtil.Map2Bean(SPermissions.class,paramMap);
+
+        if(null == sPermissions) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sPermissions.getPermissionsName()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sPermissions.getType()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        //查询一级权限
+        Integer max = sPermissionsMapper.getMaxPermissions(sPermissions.getType());
+        if(null == max){
+            if(1 == sPermissions.getType()) max = 0;
+
+            if(2 == sPermissions.getType()) max = 1000;
+        }
+        sPermissions.setSerialNumber(max+1);
+        sPermissions.setCreateTime(new Date());
+        sPermissionsMapper.insertSelective(sPermissions);
+    }
+
+    @Override
+    public List<PermissionsVO> userPermissionsList(Long userId) throws Exception {
+        List<PermissionsVO> list = new ArrayList<>();
+
+        SPermissions firstPermissions = new SPermissions();
+        firstPermissions.setType(1);
+        firstPermissions.setUserId(userId);
+        List<SPermissions> sPermissionsList = sPermissionsMapper.userPermissionsList(firstPermissions);
+
+        for(SPermissions sPermissions : sPermissionsList){
+            PermissionsVO firstPermissionsVO = new PermissionsVO();
+
+            SPermissions secondPermissions = new SPermissions();
+            secondPermissions.setType(2);
+            secondPermissions.setUserId(userId);
+            secondPermissions.setParentId(sPermissions.getId());
+            List<SPermissions> secondPermissionslist = sPermissionsMapper.userPermissionsList(secondPermissions);
+
+            List<PermissionsVO> secondList = new ArrayList<>();
+            for(SPermissions sp : secondPermissionslist){
+                PermissionsVO secondPermissionsVO = new PermissionsVO();
+
+                secondPermissionsVO.setName(sp.getPermissionsName());
+                secondPermissionsVO.setUrl(sp.getPermissionsUrl());
+                secondPermissionsVO.setImageUrl(sp.getPermissionsImageUrl());
+                secondList.add(secondPermissionsVO);
+            }
+            firstPermissionsVO.setName(sPermissions.getPermissionsName());
+            firstPermissionsVO.setUrl(sPermissions.getPermissionsUrl());
+            firstPermissionsVO.setImageUrl(sPermissions.getPermissionsImageUrl());
+            firstPermissionsVO.setList(secondList);
+            list.add(firstPermissionsVO);
+        }
+        return list;
+    }
+
+    @Override
+    public SUserToken selectTokenByUserId(Long userId) throws Exception{
+        return sUserTokenMapper.selectTokenByUserId(userId);
+    }
+
+    @Override
+    public QueryResult getUserRoleList(Map paramMap) throws Exception {
+        QueryResult queryResult = new QueryResult();
+
+        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+
+        List<SUser> sUserList = sUserMapper.getUserRoleList(sUser);
+        Integer count = sUserMapper.getUserRoleListCount(sUser);
+
+        queryResult.setRows(sUserList);
+        queryResult.setTotal(count);
+        return queryResult;
+    }
+
+    @Override
+    public List<Map<String, Object>> rolePermissionsTreeList(Map<String, Object> paramMap) throws Exception {
+
+        if(null == paramMap.get("roleId")) throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
+
+        if("".equals(paramMap.get("roleId").toString())) throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
+
+        Long roleId = Long.parseLong(paramMap.get("roleId").toString());
+
+        List<Map<String, Object>> listmap = new ArrayList<>();
+
+        SPermissions firstPermissions = new SPermissions();
+        firstPermissions.setType(1);
+        List<SPermissions> allPermissionsList = sPermissionsMapper.rolePermissionsTreeList(firstPermissions);
+
+        Map<String, Object> stateMap = new HashMap<>();
+        stateMap.put("checked",true);//默认勾选
+        //所有一级
+        for(SPermissions sPermissions : allPermissionsList){
+            Map<String, Object> map = new HashMap<>();
+
+            SPermissions secondPermissions = new SPermissions();
+            secondPermissions.setType(2);
+            secondPermissions.setParentId(sPermissions.getId());
+            List<SPermissions> secondPermissionslist = sPermissionsMapper.rolePermissionsTreeList(secondPermissions);
+            //所有二级
+            List<Map<String, Object>> secondList = new ArrayList<>();
+            for(SPermissions sp : secondPermissionslist){
+                Map<String, Object> secondMap = new HashMap<>();
+                secondMap.put("id",sp.getId());
+                secondMap.put("text",sp.getPermissionsName());
+                SRolePermissions sRolePermissions = new SRolePermissions();
+                sRolePermissions.setRoleId(roleId);
+                sRolePermissions.setPermissionsId(sp.getId());
+                SRolePermissions rolePermissions = sRolePermissionsMapper.selectByObj(sRolePermissions);
+                if(null != rolePermissions) secondMap.put("state",stateMap);//默认勾选
+                secondList.add(secondMap);
+            }
+            map.put("id",sPermissions.getId());
+            map.put("text",sPermissions.getPermissionsName());
+            SRolePermissions sRolePermissions = new SRolePermissions();
+            sRolePermissions.setRoleId(roleId);
+            sRolePermissions.setPermissionsId(sPermissions.getId());
+            SRolePermissions rolePermissions = sRolePermissionsMapper.selectByObj(sRolePermissions);
+            if(null != rolePermissions) map.put("state",stateMap);//默认勾选
+            map.put("nodes",secondList);
+
+            listmap.add(map);
+        }
+        return listmap;
+    }
+
+    @Override
+    @Transactional
+    public void saveRolePermissionsTree(Map<String,Object> paramMap) throws Exception {
+
+        if(null == paramMap.get("roleId")) throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
+
+        if("".equals(paramMap.get("roleId").toString())) throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
+
+        Long roleId = Long.parseLong(paramMap.get("roleId").toString());
+
+        //删除原有绑定角色权限
+        sRolePermissionsMapper.deleteByRoleId(roleId);
+
+        //保存
+        if(null != paramMap.get("rolePermissionsList")) {
+            List<Map<String,Object>> rolePermissionsList = (List<Map<String,Object>>)paramMap.get("rolePermissionsList");
+            for (Map<String,Object> map : rolePermissionsList) {
+                Integer id = (Integer) map.get("id");
+                SRolePermissions sRolePermissions = new SRolePermissions();
+                sRolePermissions.setRoleId(roleId);
+                sRolePermissions.setPermissionsId(Long.parseLong(id+""));
+                sRolePermissionsMapper.insertSelective(sRolePermissions);
+            }
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delPermissions(Map paramMap) throws Exception {
+        if(null == paramMap.get("id")) throw new BOException(ResultCodeEnum.paramError.getId(),"id必传");
+
+        if("".equals(paramMap.get("id").toString())) throw new BOException(ResultCodeEnum.paramError.getId(),"id必传");
+
+        Long id = Long.parseLong(paramMap.get("id").toString());
+
+        sPermissionsMapper.deleteByPrimaryKey(id);
     }
 }

@@ -2,7 +2,7 @@ package com.mshd.model;
 
 import java.util.Date;
 
-public class SPermissions {
+public class SPermissions extends BaseDO {
     private Long id;
 
     private String permissionsName;
@@ -18,6 +18,16 @@ public class SPermissions {
     private Long parentId;
 
     private Date createTime;
+
+    private Long userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;

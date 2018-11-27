@@ -18,4 +18,8 @@ public interface SRolePermissionsMapper {
     int updateByPrimaryKeySelective(SRolePermissions record);
 
     int updateByPrimaryKey(SRolePermissions record);
+
+    SRolePermissions selectByObj(SRolePermissions sRolePermissions);
+
+    void deleteByRoleId(Long roleId);
 }

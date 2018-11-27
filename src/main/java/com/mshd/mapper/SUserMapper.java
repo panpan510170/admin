@@ -26,4 +26,8 @@ public interface SUserMapper {
     Integer getUserListCount(SUser sUser);
 
     SUser selectSUser(SUser sUser);
+
+    List<SUser> getUserRoleList(SUser sUser);
+
+    Integer getUserRoleListCount(SUser sUser);
 }

@@ -2,7 +2,7 @@ package com.mshd.model;
 
 import java.util.Date;
 
-public class SUser {
+public class SUser extends BaseDO {
     private Long id;
 
     private String userName;
@@ -15,24 +15,24 @@ public class SUser {
 
     private Date createTime;
 
-    private Integer pageNo;
+    private String roleName;
 
-    private Integer pageSize;
+    private String descrition;
 
-    public Integer getPageNo() {
-        return pageNo;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
+    public String getDescrition() {
+        return descrition;
     }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void setDescrition(String descrition) {
+        this.descrition = descrition;
     }
 
     public Long getId() {

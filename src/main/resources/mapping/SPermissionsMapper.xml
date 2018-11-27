@@ -15,6 +15,83 @@
     id, permissions_name, permissions_url, permissions_image_url, serial_number, type, 
     parent_id, create_time
   </sql>
+
+  <sql id="varSql">
+    <where>
+      <if test="permissionsName!=null and permissionsName!=''">and permissions_name = #{permissionsName} </if>
+      <if test="type!=null and type!=''">and type = #{type} </if>
+      <!--<if test="statusString!=null and statusString!=''">and status in (${statusString}) </if>
+      <if test="startTime!=null and startTime!=''"> and create_time >= #{startTime} </if>
+      <if test="payStartTime!=null and payStartTime!=''"> and payment_time >= #{payStartTime} </if>
+      <if test="date!=null and date!=''"> and DATE_FORMAT(payment_time,'%Y-%m-%d') = #{date} </if>
+      <if test="endTime!=null and endTime!=''"><![CDATA[ and create_time <= #{endTime} ]]></if>
+      <if test="payEndTime!=null and payEndTime!=''"><![CDATA[ and payment_time <= #{payEndTime} ]]></if>-->
+    </where>
+  </sql>
+
+  <sql id="limitVarSql">
+    <if test="pageNo!=null and pageSize != null"> limit ${pageNo * pageSize},${pageSize} </if>
+  </sql>
+
+  <select id="getPermissionsList" resultMap="BaseResultMap" parameterType="com.mshd.model.SPermissions" >
+    select
+    <include refid="Base_Column_List" />
+    from s_permissions
+    <include refid="varSql" />
+    order by id desc
+    <include refid="limitVarSql" />
+  </select>
+
+  <select id="getPermissionsListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SPermissions" >
+    select count(1)
+    from s_permissions
+    <include refid="varSql" />
+  </select>
+
+
+  <select id="getMaxPermissions" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select max(serial_number)
+    from s_permissions where type = #{type,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="userPermissionsList" resultMap="BaseResultMap" parameterType="com.mshd.model.SPermissions" >
+    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url
+    from s_permissions sp
+    inner join s_role_permissions srp
+    on sp.id = srp.permissions_id
+    inner join s_role sr
+    on srp.role_id = sr.id
+    inner join s_user_role sur
+    on sur.role_id = sr.id
+    inner join s_user su
+    on su.id = sur.user_id
+    <where>
+      <if test="type!=null and type!=''">and sp.type = #{type} </if>
+      <if test="userId!=null and userId!=''">and su.id = #{userId} </if>
+      <if test="parentId!=null and parentId!=''">and sp.parent_id = #{parentId} </if>
+    </where>
+    order by sp.serial_number
+  </select>
+
+  <select id="rolePermissionsTreeList" resultMap="BaseResultMap" parameterType="com.mshd.model.SPermissions" >
+    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url
+    from s_permissions sp
+    <where>
+      <if test="type!=null and type!=''">and sp.type = #{type} </if>
+      <if test="parentId!=null and parentId!=''">and sp.parent_id = #{parentId} </if>
+    </where>
+    order by sp.serial_number
+  </select>
+
+
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

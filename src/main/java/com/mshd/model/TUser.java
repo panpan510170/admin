@@ -2,7 +2,7 @@ package com.mshd.model;
 
 import java.util.Date;
 
-public class TUser {
+public class TUser extends BaseDO {
     private Long id;
 
     private String userName;

@@ -4,6 +4,8 @@ import com.mshd.model.SRole;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface SRoleMapper {
@@ -18,4 +20,8 @@ public interface SRoleMapper {
     int updateByPrimaryKeySelective(SRole record);
 
     int updateByPrimaryKey(SRole record);
+
+    List<SRole> getRoleList(SRole sRole);
+
+    Integer getRoleListCount(SRole sRole);
 }

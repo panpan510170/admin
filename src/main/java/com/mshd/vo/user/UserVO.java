@@ -9,6 +9,9 @@ import lombok.Data;
 @Data
 public class UserVO {
 
+    @ApiModelProperty("用户id")
+    private Long userId;
+
     @ApiModelProperty("用户名")
     private String userName;
 

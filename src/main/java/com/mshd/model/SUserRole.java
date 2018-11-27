@@ -1,6 +1,6 @@
 package com.mshd.model;
 
-public class SUserRole {
+public class SUserRole extends BaseDO {
     private Long id;
 
     private Long userId;
