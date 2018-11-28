@@ -39,7 +39,10 @@ public class TokenInterceptor implements HandlerInterceptor {
         //前台
         if(null != source && null != token && UserSourceEnum.front.getId() == sourceInt){
             TUser user = JwtUtils.decode(token, TUser.class);
-            if(null == user) return false;
+            if(null == user) {
+                ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
+                return false;
+            }
             TUserToken tUserToken = userService.selectTokenByUserId(user.getId());
             if(null == user || null == tUserToken || !tUserToken.getToken().equals(token)) {
                 ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
@@ -53,7 +56,10 @@ public class TokenInterceptor implements HandlerInterceptor {
         //后台其他
         if(null != source && null != token && UserSourceEnum.behind.getId() == sourceInt){
             SUser user = JwtUtils.decode(token, SUser.class);
-            if(null == user) return false;
+            if(null == user) {
+                ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);
+                return false;
+            }
             SUserToken sUserToken = systemService.selectTokenByUserId(user.getId());
             if(null == user || null == sUserToken || !sUserToken.getToken().equals(token)) {
                 ResponseUtils.doReturn(ResultCodeEnum.tokenError, response);

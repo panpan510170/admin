@@ -18,4 +18,8 @@ public interface SUserRoleMapper {
     int updateByPrimaryKeySelective(SUserRole record);
 
     int updateByPrimaryKey(SUserRole record);
+
+    SUserRole selectByUserId(Long userId);
+
+    void deleteByUserId(Long userId);
 }

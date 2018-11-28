@@ -1,6 +1,7 @@
 package com.mshd.serivce;
 
 
+import com.mshd.model.SRole;
 import com.mshd.model.SUserToken;
 import com.mshd.util.QueryResult;
 import com.mshd.vo.PermissionsVO;
@@ -35,4 +36,14 @@ public interface SystemService {
     void saveRolePermissionsTree(Map<String,Object> paramMap) throws Exception;
 
     void delPermissions(Map paramMap) throws Exception;
+
+    void addSystemUser(Map paramMap) throws Exception;
+
+    void addRole(Map paramMap) throws Exception;
+
+    void updateSystemUser(Map paramMap) throws Exception;
+
+    List<SRole> getRoleAllList(Map paramMap) throws Exception;
+
+    void saveUserRole(Map paramMap) throws Exception;
 }

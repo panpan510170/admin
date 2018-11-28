@@ -58,9 +58,9 @@
     select
     su.id, su.user_name, su.password, su.phone, su.status, su.create_time,sr.role_name,sr.descrition
     from s_user su
-    inner join s_user_role sur
+    left join s_user_role sur
     on su.id = sur.user_id
-    inner join s_role sr
+    left join s_role sr
     on sr.id = sur.role_id
     <include refid="varSqlUserRole" />
     order by su.id desc

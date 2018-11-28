@@ -1,6 +1,7 @@
 package com.mshd.controller;
 
 import com.mshd.enums.ResultCodeEnum;
+import com.mshd.model.SRole;
 import com.mshd.model.SUser;
 import com.mshd.model.TUser;
 import com.mshd.serivce.SystemService;
@@ -8,9 +9,7 @@ import com.mshd.util.QueryResult;
 import com.mshd.vo.JsonResult;
 import com.mshd.vo.PermissionsVO;
 import com.mshd.vo.user.UserVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +72,16 @@ public class SystemController extends BaseController{
         return this.buildQueryResult(result);
     }
 
+    @ApiOperation(value = "所有角色管理")
+    @PostMapping("/getRoleAllList")
+    public JsonResult getRoleAllList(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...getRoleAllList...所有角色管理入参:[" + paramMap + "]");
+
+        List<SRole> result = systemService.getRoleAllList(paramMap);
+
+        return this.buildSuccessResult(result);
+    }
+
     @ApiOperation(value = "权限管理")
     @PostMapping("/getPermissionsList")
     public QueryResult getPermissionsList(@RequestBody Map paramMap) throws Exception{
@@ -109,7 +118,6 @@ public class SystemController extends BaseController{
 
         return this.buildSuccessResult(list);
     }
-
 
     @ApiOperation(value = "查询角色权限列表")
     @PostMapping("/rolePermissionsTreeList")
@@ -160,6 +168,54 @@ public class SystemController extends BaseController{
         logger.info("SystemController...getUserRoleList...用户角色管理入参:[" + paramMap + "]");
 
         systemService.delPermissions(paramMap);
+
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "增加用户")
+    @PostMapping("/addSystemUser")
+    public JsonResult addSystemUser(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...addSystemUser...增加用户入参:[" + paramMap + "]");
+
+        systemService.addSystemUser(paramMap);
+
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "修改用户信息")
+    @PostMapping("/updateSystemUser")
+    public JsonResult updateSystemUser(@RequestBody Map paramMap,HttpServletRequest request) throws Exception{
+        logger.info("SystemController...updateSystemUser...修改用户信息入参:[" + paramMap + "]");
+
+        SUser user = (SUser)request.getAttribute("suser");
+
+        if (null == user) {
+            return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
+        }else{
+            paramMap.put("id",user.getId());
+        }
+
+        systemService.updateSystemUser(paramMap);
+
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "增加角色")
+    @PostMapping("/addRole")
+    public JsonResult addRole(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...addPermissions...增加用户入参:[" + paramMap + "]");
+
+        systemService.addRole(paramMap);
+
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "保存用户角色")
+    @PostMapping("/saveUserRole")
+    public JsonResult saveUserRole(@RequestBody Map paramMap) throws Exception{
+        logger.info("SystemController...saveUserRole...保存用户角色入参:[" + paramMap + "]");
+
+        systemService.saveUserRole(paramMap);
 
         return this.buildSuccessResult();
     }

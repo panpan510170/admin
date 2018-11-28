@@ -9,7 +9,6 @@ import com.mshd.serivce.SystemService;
 import com.mshd.util.*;
 import com.mshd.vo.PermissionsVO;
 import com.mshd.vo.user.UserVO;
-import io.lettuce.core.ZAddArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -284,5 +283,92 @@ public class SystemServiceImpl implements SystemService {
         Long id = Long.parseLong(paramMap.get("id").toString());
 
         sPermissionsMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    @Transactional
+    public void addSystemUser(Map paramMap) throws Exception {
+        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+
+        if(null == sUser) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sUser.getUserName()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sUser.getPhone()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        //初始密码
+        sUser.setPassword(MD5Utils.md5(MD5Utils.md5(sUser.getUserName().trim())));
+        sUser.setStatus(UserStatusEnum.normal.getId());
+        sUser.setCreateTime(new Date());
+        sUserMapper.insertSelective(sUser);
+
+        //封装token加密参数
+        TUser user = new TUser();
+        user.setId(sUser.getId());
+        String token = JwtUtils.encode(user,60*1000*60);
+
+        //保存token
+        SUserToken sUserToken = new SUserToken();
+        sUserToken.setUserId(user.getId());
+        sUserToken.setToken(token);
+        sUserToken.setCreateTime(new Date());
+        sUserTokenMapper.insertSelective(sUserToken);
+    }
+
+    @Override
+    @Transactional
+    public void addRole(Map paramMap) throws Exception {
+        SRole sRole  = (SRole) BeanMapUtil.Map2Bean(SRole.class,paramMap);
+
+        if(null == sRole) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sRole.getRoleName()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sRole.getDescrition()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        sRole.setCreateTime(new Date());
+        sRoleMapper.insertSelective(sRole);
+    }
+
+    @Override
+    @Transactional
+    public void updateSystemUser(Map paramMap) throws Exception {
+        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+
+        if(null == sUser) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sUser.getId()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sUser.getPassword()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        sUser.setPassword(MD5Utils.md5(MD5Utils.md5(sUser.getPassword().trim())));
+
+        sUserMapper.updateByPrimaryKeySelective(sUser);
+    }
+
+    @Override
+    public List<SRole> getRoleAllList(Map paramMap) throws Exception {
+        //SRole sRole  = (SRole) BeanMapUtil.Map2Bean(SRole.class,paramMap);
+        SRole sRole = new SRole();
+        List<SRole> sRoleList = sRoleMapper.getRoleList(sRole);
+        return sRoleList;
+    }
+
+    @Override
+    @Transactional
+    public void saveUserRole(Map paramMap) throws Exception {
+        SUserRole sUserRole  = (SUserRole) BeanMapUtil.Map2Bean(SUserRole.class,paramMap);
+
+        if(null == sUserRole) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sUserRole.getUserId()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        if(null == sUserRole.getRoleId()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
+
+        //SUserRole userRole = sUserRoleMapper.selectByUserId(sUserRole.getUserId());
+
+        sUserRoleMapper.deleteByUserId(sUserRole.getUserId());
+
+        sUserRoleMapper.insertSelective(sUserRole);
     }
 }
