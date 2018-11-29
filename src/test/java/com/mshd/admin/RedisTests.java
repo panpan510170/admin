@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -27,6 +28,9 @@ public class RedisTests {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 测试set
@@ -105,18 +109,11 @@ public class RedisTests {
 
     @Test
     public void setIfAbsent() {
-        redisTemplate.opsForValue().set("123",2L);
+        stringRedisTemplate.opsForValue().set("123","1233");
 
+        String s = stringRedisTemplate.opsForValue().get("123");
 
-        Long o = (Long) redisTemplate.opsForValue().get("123");
-
-        System.out.println("o===="+o);
-
-        redisTemplate.opsForValue().set("123",5L);
-
-        Long o1 = (Long) redisTemplate.opsForValue().get("123");
-
-        System.out.println("o===="+o1);
+        System.out.println("o===="+s);
 
     }
 }
