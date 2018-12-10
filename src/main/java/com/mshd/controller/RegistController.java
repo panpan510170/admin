@@ -29,7 +29,7 @@ public class RegistController extends BaseController{
 
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/regist")
-    public JsonResult regist(RegistVO registVO) throws Exception{
+    public JsonResult<UserVO> regist(RegistVO registVO) throws Exception{
 
         logger.info("RegistController...regist...前端用户注册接口入参:[" + registVO.toString() + "]");
 

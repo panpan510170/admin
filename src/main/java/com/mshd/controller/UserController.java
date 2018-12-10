@@ -49,7 +49,7 @@ public class UserController extends BaseController{
 
     @ApiOperation(value = "查询用户详情")
     @PostMapping(value = "/getUser")
-    public JsonResult getUser(HttpServletRequest request) throws Exception{
+    public JsonResult<TUser> getUser(HttpServletRequest request) throws Exception{
 
         TUser user = (TUser)request.getAttribute("user");
 

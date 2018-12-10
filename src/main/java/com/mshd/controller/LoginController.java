@@ -31,7 +31,7 @@ public class LoginController extends BaseController{
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public JsonResult login(@ApiParam(value = "用户名", required = true)
+    public JsonResult<UserVO> login(@ApiParam(value = "用户名", required = true)
                                 @RequestParam(name = "userName") String userName,
                       @ApiParam(value = "密码", required = true)
                                 @RequestParam(name = "password") String password) throws Exception{

@@ -43,7 +43,7 @@ public class AliyunOssController extends BaseController{
     private String roleArn;
 
     @GetMapping(value = "/getSign")
-    public JsonResult getSign(HttpServletRequest request) throws UnsupportedEncodingException {
+    public JsonResult<Map<String, String>> getSign(HttpServletRequest request) throws UnsupportedEncodingException {
 
         String bucket = "midautumn";
         if ("1".equals(request.getHeader("fromId")))

@@ -58,7 +58,7 @@ public class TestController extends BaseController {
 
     @ApiOperation(value = "测试")
     @PostMapping("/testLogin")
-    public JsonResult testLogin(@ApiParam(value = "用户名", required = true)
+    public JsonResult<JSONObject> testLogin(@ApiParam(value = "用户名", required = true)
                                 @RequestParam(name = "userName") String userName,
                                 @ApiParam(value = "密码", required = true)
                                 @RequestParam(name = "password") String password, HttpServletRequest request) {
@@ -80,7 +80,7 @@ public class TestController extends BaseController {
 
     @ApiOperation(value = "测试参数错误")
     @PostMapping("/testLoginParamError")
-    public JsonResult testLoginError(@ApiParam(value = "用户名")
+    public JsonResult<JSONObject> testLoginError(@ApiParam(value = "用户名")
                                      @RequestParam(name = "userName") String userName,
                                      @ApiParam(value = "密码", required = true)
                                      @RequestParam(name = "password") String password, HttpServletRequest request) {

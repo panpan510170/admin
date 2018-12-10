@@ -1,6 +1,7 @@
 package com.mshd.controller;
 
 import com.mshd.enums.ResultCodeEnum;
+import com.mshd.model.SPermissions;
 import com.mshd.model.SRole;
 import com.mshd.model.SUser;
 import com.mshd.model.TUser;
@@ -34,7 +35,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
-    public JsonResult login(@ApiParam(value = "用户名", required = true)
+    public JsonResult<UserVO> login(@ApiParam(value = "用户名", required = true)
                             @RequestParam(name = "userName") String userName,
                             @ApiParam(value = "密码", required = true)
                             @RequestParam(name = "password") String password) throws Exception{
@@ -54,7 +55,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "系统用户管理")
     @PostMapping("/getUserList")
-    public QueryResult getUserList(@RequestBody Map paramMap) throws Exception{
+    public QueryResult<SUser> getUserList(@RequestBody Map paramMap) throws Exception{
         logger.info("SystemController...getUserList...系统用户管理入参:[" + paramMap + "]");
 
         QueryResult result = systemService.getUserList(paramMap);
@@ -64,7 +65,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "角色管理")
     @PostMapping("/getRoleList")
-    public QueryResult getRoleList(@RequestBody Map paramMap) throws Exception{
+    public QueryResult<SRole> getRoleList(@RequestBody Map paramMap) throws Exception{
         logger.info("SystemController...getRoleList...角色管理入参:[" + paramMap + "]");
 
         QueryResult result = systemService.getRoleList(paramMap);
@@ -74,7 +75,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "所有角色管理")
     @PostMapping("/getRoleAllList")
-    public JsonResult getRoleAllList(@RequestBody Map paramMap) throws Exception{
+    public JsonResult<List<SRole>> getRoleAllList(@RequestBody Map paramMap) throws Exception{
         logger.info("SystemController...getRoleAllList...所有角色管理入参:[" + paramMap + "]");
 
         List<SRole> result = systemService.getRoleAllList(paramMap);
@@ -84,7 +85,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "权限管理")
     @PostMapping("/getPermissionsList")
-    public QueryResult getPermissionsList(@RequestBody Map paramMap) throws Exception{
+    public QueryResult<SPermissions> getPermissionsList(@RequestBody Map paramMap) throws Exception{
         logger.info("SystemController...getPermissionsList...权限管理入参:[" + paramMap + "]");
 
         QueryResult result = systemService.getPermissionsList(paramMap);
@@ -104,7 +105,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "左侧权限列表")
     @PostMapping("/userPermissionsList")
-    public JsonResult userPermissionsList(HttpServletRequest request) throws Exception{
+    public JsonResult<List<PermissionsVO>> userPermissionsList(HttpServletRequest request) throws Exception{
 
         SUser user = (SUser)request.getAttribute("suser");
 
@@ -121,7 +122,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "查询角色权限列表")
     @PostMapping("/rolePermissionsTreeList")
-    public JsonResult rolePermissionsTreeList(@RequestBody Map paramMap,HttpServletRequest request) throws Exception{
+    public JsonResult<List<Map<String,Object>>> rolePermissionsTreeList(@RequestBody Map paramMap,HttpServletRequest request) throws Exception{
 
         SUser user = (SUser)request.getAttribute("suser");
 
@@ -154,7 +155,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "用户角色管理")
     @PostMapping("/getUserRoleList")
-    public QueryResult getUserRoleList(@RequestBody Map paramMap) throws Exception{
+    public QueryResult<SUser> getUserRoleList(@RequestBody Map paramMap) throws Exception{
         logger.info("SystemController...getUserRoleList...用户角色管理入参:[" + paramMap + "]");
 
         QueryResult result = systemService.getUserRoleList(paramMap);

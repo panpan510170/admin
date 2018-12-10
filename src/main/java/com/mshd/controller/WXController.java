@@ -74,7 +74,7 @@ public class WXController extends BaseController{
      */
     @ApiOperation(value = "获取token--测试")
     @PostMapping("/getWXToken")
-    public JsonResult getWXToken() throws Exception{
+    public JsonResult<String> getWXToken() throws Exception{
 
         log.info("WXController...getWXToken...获取token--测试");
 
@@ -90,7 +90,7 @@ public class WXController extends BaseController{
      */
     @ApiOperation(value = "发送模板消息--测试")
     @PostMapping("/sendMessage")
-    public JsonResult sendMessage() throws Exception{
+    public JsonResult<Boolean> sendMessage() throws Exception{
 
         log.info("WXController...sendMessage...发送模板消息--测试");
 

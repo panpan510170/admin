@@ -176,6 +176,60 @@ public class OSSFileUpLoadUtils {
         return response;
     }
 
+
+    /**
+     * oss上传文件流
+     *
+     * buckName  文件夹名
+     * filename  文件名
+     * byteArrayInputStream  文件流
+     *
+     * return 文件路径
+     * */
+    public static String ossFileUpload(String buckName, String fileName, ByteArrayInputStream byteArrayInputStream) {
+
+        String AccessKeyID = "LTAIPxACpM1voKll";
+        String AccessKeySecret= "85vjeEKlf4bZvlcvHi1XSumy39tfz6";
+        String endpoint= "oss-cn-beijing.aliyuncs.com";
+
+        OSSClient ossClient = null;
+        try {
+            ossClient = new OSSClient(endpoint, AccessKeyID,AccessKeySecret);
+            // 上传Byte数组。byte[] content = "Hello OSS".getBytes();
+            ossClient.putObject(buckName, fileName, byteArrayInputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            //关闭OSSClient。
+            ossClient.shutdown();
+        }
+        return "https://"+buckName+"."+endpoint+"/"+fileName;
+    }
+
+    /**
+     * oss下载文件流
+     *
+     * filename  文件名
+     *
+     * return 文件流
+     * */
+    public static InputStream getFileIO(String fileName) {
+        String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
+        // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
+        String accessKeyId = "<yourAccessKeyId>";
+        String accessKeySecret = "<yourAccessKeySecret>";
+        String bucketName = "<yourBucketName>";
+        String objectName = "<yourObjectName>";
+        // 创建OSSClient实例。
+        OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+        // ossObject包含文件所在的存储空间名称、文件名称、文件元信息以及一个输入流。
+        OSSObject ossObject = ossClient.getObject(bucketName, fileName);
+
+        InputStream objectContent = ossObject.getObjectContent();
+
+        return objectContent;
+    }
+
     public static void main(String[] args) {
         //String accessKeyId = "LTAI8hXNVL2gp1Xt";
         //String accessKeySecret = "Sl5LjsdCaGsemTdHCCtGreacyaUvoe";
