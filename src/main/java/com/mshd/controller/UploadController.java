@@ -71,4 +71,13 @@ public class UploadController extends BaseController{
 
         return this.buildSuccessResult("https://"+buckName+"."+endpoint+"/"+fileName);
     }
+
+    @ApiOperation(value = "上传文本")
+    @PostMapping("/uploadText")
+    public JsonResult<String> uploadImg(@RequestParam(value="texts") String texts) throws Exception{
+
+        System.out.println("first:"+texts.trim());
+
+        return this.buildSuccessResult();
+    }
 }

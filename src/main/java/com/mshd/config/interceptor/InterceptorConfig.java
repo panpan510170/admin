@@ -24,6 +24,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         tokenExcludeUrlList.add("/system/login");//系统用户登录
         tokenExcludeUrlList.add("/regist/regist");//注册
         tokenExcludeUrlList.add("/upload/uploadImg");//上传图片
+        tokenExcludeUrlList.add("/upload/uploadText");//上传图片
         tokenExcludeUrlList.add("/user/userNameOnly");//用户名唯一效验
         tokenExcludeUrlList.add("/swagger-resources/**");//接口页面-静态资源
         tokenExcludeUrlList.add("/swagger-ui.html/**");//接口页面

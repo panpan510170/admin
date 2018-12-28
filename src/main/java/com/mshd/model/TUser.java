@@ -1,10 +1,15 @@
 package com.mshd.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel(value = "用户对象")
 public class TUser extends BaseDO {
+    @ApiModelProperty(value = "主键id")
     private Long id;
-
+    @ApiModelProperty(value = "用户名")
     private String userName;
 
     private String password;

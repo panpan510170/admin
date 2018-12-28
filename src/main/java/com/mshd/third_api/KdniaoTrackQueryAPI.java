@@ -36,7 +36,8 @@ public class KdniaoTrackQueryAPI {
     public static void main(String[] args) {
         KdniaoTrackQueryAPI api = new KdniaoTrackQueryAPI();
         try {
-            String result = api.getOrderTracesByJson("ZTO", "215229801796");
+            //String result = api.getOrderTracesByJson("ZTO", "75116042640756");
+            String result = api.getOrderTracesByJson("YTO", "802328997154416469");
             System.out.println(result);
             //System.out.println("list=="+getInfoList(result));
             Traces lastInfo = getLastInfo(result);
@@ -134,7 +135,8 @@ public class KdniaoTrackQueryAPI {
     private String AppKey="fc76799a-2f4a-4017-81a8-aaea3b61c340";
     //请求url
     //private String ReqURL="http://sandboxapi.kdniao.cc:8080/kdniaosandbox/gateway/exterfaceInvoke.json";//测试环境
-    private String ReqURL="http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";//正式环境
+    private String ReqURL="http://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx";//正式环境
+
 
 
     /**

@@ -116,4 +116,19 @@ public class RedisTests {
         System.out.println("o===="+s);
 
     }
+
+    @Test
+    public void testjishuqi() {
+        stringRedisTemplate.opsForValue().set("123","789");
+        stringRedisTemplate.delete("123");
+        Long increment = stringRedisTemplate.opsForValue().increment("123", 1);
+
+        String s = stringRedisTemplate.opsForValue().get("123");
+
+        System.out.println(s);
+        System.out.println(increment);
+
+
+
+    }
 }
