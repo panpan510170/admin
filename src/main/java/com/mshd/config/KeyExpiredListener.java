@@ -45,7 +45,7 @@ public class KeyExpiredListener extends JedisPubSub {
     public void onPMessage(String pattern, String channel, String message) {
         if(StringUtils.isNotBlank(message)){
             String[] split = message.split("@");
-            if(RedisKey.TEST.equals(split[0])){
+            if(RedisKey.test.equals(split[0])){
                 keyExpiredListener.testService.testRedisTime(split[1]);
             }
         }

@@ -1,8 +1,5 @@
 package com.mshd.config.interceptor;
 
-import com.mshd.enums.ResultCodeEnum;
-import com.mshd.enums.UserFromTypeEnum;
-import com.mshd.util.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @Description: 解决跨域请求
@@ -40,17 +36,6 @@ public class RequestInterceptor implements HandlerInterceptor {
 
         response.setHeader("Access-Control-Expose-Headers", "*");
 
-        /**
-         * 判断来源用户
-         */
-        /*HttpSession session = request.getSession();
-        if (UserFromTypeEnum.app.getId().equals(request.getHeader("userFromType"))) {
-            if (session.getAttribute("user") != null) return true;
-        } else if (UserFromTypeEnum.system.getId().equals(request.getHeader("userFromType"))) {
-            if (session.getAttribute("systemUser") != null) return true;
-        }
-
-        ResponseUtils.doReturn(ResultCodeEnum.sessionExpire,response);*/
         return true;
 
     }

@@ -38,6 +38,11 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         return new TokenInterceptor();
     }
 
+    @Bean
+    public PreDupSubmissionsIntercetor preDupSubmissionsIntercetor(){
+        return new PreDupSubmissionsIntercetor();
+    }
+
 
     /**
      * 拦截器链
@@ -45,6 +50,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new RequestInterceptor()).addPathPatterns("/**");
+        //registry.addInterceptor(preDupSubmissionsIntercetor()).addPathPatterns("/**");
         registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
         super.addInterceptors(registry);
     }

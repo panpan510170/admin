@@ -145,7 +145,7 @@ public class TestController extends BaseController {
     public void redisTime(HttpServletRequest request) {
         System.out.println("123");
 
-        redisTemplate.opsForValue().set(RedisKey.TEST+"@"+"1234","1",1*60, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(RedisKey.test+"@"+"1234","1",1*60, TimeUnit.SECONDS);
 
         System.out.println("456");
     }
