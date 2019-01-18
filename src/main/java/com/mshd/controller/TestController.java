@@ -3,6 +3,8 @@ package com.mshd.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.mshd.enums.ResultCodeEnum;
 import com.mshd.ex.BOException;
+import com.mshd.entitys.Test;
+import com.mshd.repository.TestRepository;
 import com.mshd.serivce.TestService;
 import com.mshd.util.RedisKey;
 import com.mshd.vo.JsonResult;
@@ -14,7 +16,8 @@ import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 
@@ -37,6 +43,9 @@ public class TestController extends BaseController {
 
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private TestRepository testRepository;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -148,6 +157,103 @@ public class TestController extends BaseController {
         redisTemplate.opsForValue().set(RedisKey.test+"@"+"1234","1",1*60, TimeUnit.SECONDS);
 
         System.out.println("456");
+    }
+
+    @ApiOperation(value = "测试JPA---查询全部数据")
+    @PostMapping("/testJPAFindAll")
+    public JsonResult testJPAFindAll() {
+        List<Test> list = testRepository.findAll();
+        return this.buildSuccessResult(list);
+    }
+
+    @ApiOperation(value = "测试JPA---根据id查询数据")
+    @PostMapping("/testJPAFindById")
+    public JsonResult testJPAFindById() {
+        Optional<Test> test = testRepository.findById(1L);
+        return this.buildSuccessResult(test);
+    }
+
+    @ApiOperation(value = "测试JPA---保存")
+    @PostMapping("/testJPASave")
+    public JsonResult testJPASave() {
+        Test test = new Test();
+        test.setAge(20);
+        test.setName("孙婧");
+        Test save = testRepository.save(test);
+        return this.buildSuccessResult(test);
+    }
+
+
+    @ApiOperation(value = "测试JPA---批量保存")
+    @PostMapping("/testJPASaveAll")
+    public JsonResult testJPASaveAll() {
+        Test test = new Test();
+        test.setAge(20);
+        test.setName("孙婧");
+
+        Test test1 = new Test();
+        test1.setAge(21);
+        test1.setName("孙婧婧");
+
+        List<Test> tests = new ArrayList<>();
+        tests.add(test);
+        tests.add(test1);
+        List<Test> tests1 = testRepository.saveAll(tests);
+        return this.buildSuccessResult(tests1);
+    }
+
+    @ApiOperation(value = "测试JPA---修改1(使用保存方法更新)")
+    @PostMapping("/testJPAUpdate")
+    public JsonResult testJPAUpdate() {
+        Test test = new Test();
+        test.setAge(28);
+        test.setId(1L);
+        Test save = testRepository.save(test);
+        return this.buildSuccessResult(save);
+    }
+
+    @ApiOperation(value = "测试JPA---修改2（使用saveAndFlush发放更新）")
+    @PostMapping("/testJPAUpdateSaveAndFlush")
+    public JsonResult testJPAUpdateSaveAndFlush() {
+        Test test1 = new Test();
+        Optional<Test> test = testRepository.findById(1L);
+        Test test2 = test.get();
+        test2.setAge(80);
+        testRepository.saveAndFlush(test2);
+        return this.buildSuccessResult(test2);
+    }
+
+    @ApiOperation(value = "测试JPA---条件查询")
+    @PostMapping("/testJPAFindByExample")
+    public JsonResult testJPAFindByExample() {
+
+       /* User user = new User();
+        user.setUsername("y");
+        user.setAddress("sh");
+        user.setPassword("admin");
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("username", ExampleMatcher.GenericPropertyMatchers.startsWith())//模糊查询匹配开头，即{username}%
+                .withMatcher("address" ,ExampleMatcher.GenericPropertyMatchers.contains())//全部模糊查询，即%{address}%
+                .withIgnorePaths("password")//忽略字段，即不管password是什么值都不加入查询条件
+                .withIgnorePaths("id");  //忽略属性：是否关注。因为是基本类型，需要忽略掉
+        Example<User> example = Example.of(user ,matcher);*/
+        Test test = new Test();
+        ExampleMatcher matching = ExampleMatcher.matching();
+        matching.withMatcher("name",ExampleMatcher.GenericPropertyMatchers.contains());
+
+        Example<Test> example = Example.of(test ,matching);
+        List<Test> list = testRepository.findAll(example);
+        return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "测试JPA---分页")
+    @PostMapping("/testJPAFindByPage")
+    public JsonResult testJPAFindByPage() {
+        //JPA---分页是从0开始的
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(0,2,sort);
+        Page<Test> all = testRepository.findAll(pageable);
+        return this.buildSuccessResult(all);
     }
 
 }
