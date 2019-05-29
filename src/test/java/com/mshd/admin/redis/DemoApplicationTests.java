@@ -107,7 +107,7 @@ public class DemoApplicationTests {
         Long userId = 000003L;
 
         //判断用户是否第一次领取红包
-        Long increment = stringRedisTemplate.opsForValue().increment(hb_key + "_" + userId);
+        Long increment = stringRedisTemplate.opsForValue().increment(hb_key + "_" + userId,1);
         System.out.println("计数：" + increment);
 
         stringRedisTemplate.expire(hb_key + "_" + userId,10, TimeUnit.MINUTES);
