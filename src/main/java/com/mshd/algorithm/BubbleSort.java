@@ -2,6 +2,8 @@ package com.mshd.algorithm;
 
 /**
  * Created by Pangaofeng on 2018/11/2
+ *
+ * 冒泡算法
  */
 public class BubbleSort {
     public static void main(String[] args) {

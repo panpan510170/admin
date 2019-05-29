@@ -2,6 +2,8 @@ package com.mshd.algorithm;
 
 /**
  * Created by Pangaofeng on 2018/11/2
+ *
+ * 快速算法
  */
 public class FastSort {
     public static void main(String[] args) {
