@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mshd.mapper.SUserMapper" >
-  <resultMap id="BaseResultMap" type="com.mshd.model.SUser" >
+<mapper namespace="com.pan.mapper.SUserMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.model.SUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
     <if test="pageNo!=null and pageSize != null"> limit ${pageNo * pageSize},${pageSize} </if>
   </sql>
 
-  <select id="getUserList" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
+  <select id="getUserList" resultMap="BaseResultMap" parameterType="com.pan.model.SUser" >
     select
     <include refid="Base_Column_List" />
     from s_user
@@ -35,7 +35,7 @@
     <include refid="limitVarSql" />
   </select>
 
-  <select id="getUserListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SUser" >
+  <select id="getUserListCount" resultType="java.lang.Integer" parameterType="com.pan.model.SUser" >
     select count(1)
     from s_user
     <include refid="varSql" />
@@ -54,7 +54,7 @@
     </where>
   </sql>
 
-  <select id="getUserRoleList" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
+  <select id="getUserRoleList" resultMap="BaseResultMap" parameterType="com.pan.model.SUser" >
     select
     su.id, su.user_name, su.password, su.phone, su.status, su.create_time,sr.role_name,sr.descrition
     from s_user su
@@ -67,7 +67,7 @@
     <include refid="limitVarSql" />
   </select>
 
-  <select id="getUserRoleListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SUser" >
+  <select id="getUserRoleListCount" resultType="java.lang.Integer" parameterType="com.pan.model.SUser" >
     select count(1)
     from s_user su
     inner join s_user_role sur
@@ -78,7 +78,7 @@
   </select>
 
 
-  <select id="selectSUser" resultMap="BaseResultMap" parameterType="com.mshd.model.SUser" >
+  <select id="selectSUser" resultMap="BaseResultMap" parameterType="com.pan.model.SUser" >
     select
     <include refid="Base_Column_List" />
     from s_user
@@ -99,7 +99,7 @@
     delete from s_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mshd.model.SUser" >
+  <insert id="insert" parameterType="com.pan.model.SUser" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -108,7 +108,7 @@
     values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.mshd.model.SUser" >
+  <insert id="insertSelective" parameterType="com.pan.model.SUser" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -148,7 +148,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mshd.model.SUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.model.SUser" >
     update s_user
     <set >
       <if test="userName != null" >
@@ -169,7 +169,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mshd.model.SUser" >
+  <update id="updateByPrimaryKey" parameterType="com.pan.model.SUser" >
     update s_user
     set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,0 +1,26 @@
+package com.pan.test.classes;
+
+import java.io.Serializable;
+
+/**
+ * Created by Pangaofeng on 2018/9/25
+ */
+public class UselessParent {
+    public Serializable s1 = new Serializable() {
+        {
+            System.out.println(getClass() + "域变量");
+        }
+    };
+    public static Serializable s2 = new Serializable()
+    {
+        {
+            System.out.println(getClass() + "静态域变量");
+        }
+    };
+
+    static { System.out.println("静态代码块"); }
+
+
+    { System.out.println(getClass() + "代码块"); }
+
+}

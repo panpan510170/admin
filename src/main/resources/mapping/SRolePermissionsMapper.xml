@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mshd.mapper.SRolePermissionsMapper" >
-  <resultMap id="BaseResultMap" type="com.mshd.model.SRolePermissions" >
+<mapper namespace="com.pan.mapper.SRolePermissionsMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.model.SRolePermissions" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="role_id" property="roleId" jdbcType="BIGINT" />
     <result column="permissions_id" property="permissionsId" jdbcType="BIGINT" />
@@ -10,7 +10,7 @@
     id, role_id, permissions_id
   </sql>
 
-  <select id="selectByObj" resultMap="BaseResultMap" parameterType="com.mshd.model.SRolePermissions" >
+  <select id="selectByObj" resultMap="BaseResultMap" parameterType="com.pan.model.SRolePermissions" >
     select
     <include refid="Base_Column_List" />
     from s_role_permissions
@@ -33,14 +33,14 @@
     delete from s_role_permissions
     where role_id = #{roleId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mshd.model.SRolePermissions" >
+  <insert id="insert" parameterType="com.pan.model.SRolePermissions" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into s_role_permissions (role_id, permissions_id)
     values (#{roleId,jdbcType=BIGINT}, #{permissionsId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.mshd.model.SRolePermissions" >
+  <insert id="insertSelective" parameterType="com.pan.model.SRolePermissions" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -62,7 +62,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mshd.model.SRolePermissions" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.model.SRolePermissions" >
     update s_role_permissions
     <set >
       <if test="roleId != null" >
@@ -74,7 +74,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mshd.model.SRolePermissions" >
+  <update id="updateByPrimaryKey" parameterType="com.pan.model.SRolePermissions" >
     update s_role_permissions
     set role_id = #{roleId,jdbcType=BIGINT},
       permissions_id = #{permissionsId,jdbcType=BIGINT}

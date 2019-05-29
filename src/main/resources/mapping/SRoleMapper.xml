@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mshd.mapper.SRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.mshd.model.SRole" >
+<mapper namespace="com.pan.mapper.SRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.model.SRole" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="descrition" property="descrition" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
     <if test="pageNo!=null and pageSize != null"> limit ${pageNo * pageSize},${pageSize} </if>
   </sql>
 
-  <select id="getRoleList" resultMap="BaseResultMap" parameterType="com.mshd.model.SRole" >
+  <select id="getRoleList" resultMap="BaseResultMap" parameterType="com.pan.model.SRole" >
     select
     <include refid="Base_Column_List" />
     from s_role
@@ -37,7 +37,7 @@
     <include refid="limitVarSql" />
   </select>
 
-  <select id="getRoleListCount" resultType="java.lang.Integer" parameterType="com.mshd.model.SRole" >
+  <select id="getRoleListCount" resultType="java.lang.Integer" parameterType="com.pan.model.SRole" >
     select count(1)
     from s_role
     <include refid="varSql" />
@@ -55,7 +55,7 @@
     delete from s_role
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mshd.model.SRole" >
+  <insert id="insert" parameterType="com.pan.model.SRole" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -64,7 +64,7 @@
     values (#{roleName,jdbcType=VARCHAR}, #{descrition,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
     )
   </insert>
-  <insert id="insertSelective" parameterType="com.mshd.model.SRole" >
+  <insert id="insertSelective" parameterType="com.pan.model.SRole" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -92,7 +92,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mshd.model.SRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.model.SRole" >
     update s_role
     <set >
       <if test="roleName != null" >
@@ -107,7 +107,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mshd.model.SRole" >
+  <update id="updateByPrimaryKey" parameterType="com.pan.model.SRole" >
     update s_role
     set role_name = #{roleName,jdbcType=VARCHAR},
       descrition = #{descrition,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mshd.mapper.SUserLogMapper" >
-  <resultMap id="BaseResultMap" type="com.mshd.model.SUserLog" >
+<mapper namespace="com.pan.mapper.SUserLogMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.model.SUserLog" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="type" property="type" jdbcType="INTEGER" />
@@ -20,7 +20,7 @@
     delete from s_user_log
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.mshd.model.SUserLog" >
+  <insert id="insert" parameterType="com.pan.model.SUserLog" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -29,7 +29,7 @@
     values (#{userId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mshd.model.SUserLog" >
+  <insert id="insertSelective" parameterType="com.pan.model.SUserLog" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mshd.model.SUserLog" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.model.SUserLog" >
     update s_user_log
     <set >
       <if test="userId != null" >
@@ -72,7 +72,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mshd.model.SUserLog" >
+  <update id="updateByPrimaryKey" parameterType="com.pan.model.SUserLog" >
     update s_user_log
     set user_id = #{userId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
