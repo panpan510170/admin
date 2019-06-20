@@ -1,0 +1,47 @@
+一.路径说明
+algorithm:算法测试
+
+config:项目的一些核心配置,例如:拦截器,阿里云配置文件,redis过期事件订阅,websocket,swagger2
+
+controller:控制器,配和swagger2进行测试
+    book:图书管理系统
+
+demo:没什么用
+
+designPatterns:设计模式
+    factory:工厂模式
+    factoryAddstrategy:工厂模式+策略模式
+    singleton:单例模式
+
+entitys:springDate-jpa  自动建表 现在重要使用这个 DB的数据模型都在这里
+
+enums:枚举类
+
+ex:异常类
+
+interview:面试题的实现
+
+mapper:数据库映射,以后用到的不多
+
+repository:不知道干什么
+
+serivce:接口
+
+skills:一些功能的实现,有榜单,限制,websocket
+
+task:定时任务
+
+test:测试
+
+third_api:第三方接口
+
+util:工具类,但大部分都没用过
+
+vo:前端视图
+
+
+
+
+
+
+
