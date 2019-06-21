@@ -23,7 +23,7 @@ interview:面试题的实现
 
 mapper:数据库映射,以后用到的不多
 
-repository:不知道干什么
+repository:配合entitys的操作数据库的文件
 
 serivce:接口
 
@@ -35,9 +35,11 @@ test:测试
 
 third_api:第三方接口
 
-util:工具类,但大部分都没用过
+util:工具类,但大部分都没用过(以后不往这里写)
 
 vo:前端视图
+
+handler:工具类（完善）
 
 
 

@@ -1,4 +1,4 @@
-package com.pan.util;
+package com.pan.handler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -6,39 +6,30 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Pangaofeng on 2018/10/9
+ * 时间处理工具
+ * @author pan
+ * @date 2019/6/20 18:33
  */
-public class DateUtils {
-
-
+public class Datehandler {
     public static void main(String[] args) {
         String lastDay = getLastDayOfMonth(2018,10);
-
         System.out.println("获取2014年2月的最后一天：" + lastDay);
 
         String currentLDay= getLastDayOfCurrentMonth();
-
         System.out.println("获取本月的最后一天：" + currentLDay);
 
         String firstDay = getFirstDayOfMonth(2014,2);
-
         System.out.println("获取2014年2月的第一天：" + firstDay);
 
         String currentFDay= getFirstDayOfCurrentMonth();
-
         System.out.println("获取本月的第一天：" + currentFDay);
-
     }
 
 
     /**
-
      * 获取某月的最后一天
-
      */
-
     public static String getLastDayOfMonth(int year,int month) {
-
         Calendar cal = Calendar.getInstance();
         //设置年份
         cal.set(Calendar.YEAR,year);
@@ -56,13 +47,9 @@ public class DateUtils {
     }
 
     /**
-
      * 获取这个月的最后一天
-
      */
-
     public static String getLastDayOfCurrentMonth() {
-
         Calendar cal = Calendar.getInstance();
         //获取某月最大天数
         int lastDay = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
@@ -72,17 +59,12 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String lastDayOfMonth = sdf.format(cal.getTime());
         return lastDayOfMonth;
-
     }
 
     /**
-
      * 获取某月的第一天
-
      */
-
     public static String getFirstDayOfMonth(int year,int month) {
-
         Calendar cal = Calendar.getInstance();
         //设置年份
         cal.set(Calendar.YEAR,year);
@@ -96,17 +78,12 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String lastDayOfMonth = sdf.format(cal.getTime());
         return lastDayOfMonth;
-
     }
 
     /**
-
      * 获取这个月的第一天
-
      */
-
     public static String getFirstDayOfCurrentMonth() {
-
         Calendar cal = Calendar.getInstance();
         //获取某月最大天数
         int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -116,7 +93,6 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String lastDayOfMonth = sdf.format(cal.getTime());
         return lastDayOfMonth;
-
     }
 
 
@@ -203,7 +179,7 @@ public class DateUtils {
      * 时间加天数
      *
      * */
-    public static Date getNextDay(Date date,Integer days) {
+    public static Date getNextDay(Date date, Integer days) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, +days);//+1今天的时间加一天
@@ -217,7 +193,6 @@ public class DateUtils {
      * days : 想获取的时间和当前时间相差的天数
      * */
     public static String getDatePoor(Date endDate, Date nowDate) {
-
         long nd = 1000 * 24 * 60 * 60;
         long nh = 1000 * 60 * 60;
         long nm = 1000 * 60;
@@ -244,11 +219,8 @@ public class DateUtils {
                 }else{
                     return  sec + "秒";
                 }
-
             }
-
         }
-
     }
 
     /**
@@ -348,5 +320,4 @@ public class DateUtils {
             return false;
         }
     }
-
 }

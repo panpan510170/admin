@@ -3,10 +3,13 @@ package com.pan.serivce.impl;
 import com.pan.enums.ResultCodeEnum;
 import com.pan.enums.UserStatusEnum;
 import com.pan.ex.BOException;
+import com.pan.handler.DataHandler;
 import com.pan.mapper.*;
 import com.pan.model.*;
 import com.pan.serivce.SystemService;
-import com.pan.util.*;
+import com.pan.util.JwtUtils;
+import com.pan.util.MD5Utils;
+import com.pan.util.QueryResult;
 import com.pan.vo.PermissionsVO;
 import com.pan.vo.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +82,7 @@ public class SystemServiceImpl implements SystemService {
     public QueryResult getUserList(Map paramMap) throws Exception{
         QueryResult queryResult = new QueryResult();
 
-        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+        SUser sUser  = (SUser) DataHandler.Map2Bean(SUser.class,paramMap);
 
         List<SUser> sUserList = sUserMapper.getUserList(sUser);
         Integer count = sUserMapper.getUserListCount(sUser);
@@ -93,7 +96,7 @@ public class SystemServiceImpl implements SystemService {
     public QueryResult getRoleList(Map paramMap) throws Exception{
         QueryResult queryResult = new QueryResult();
 
-        SRole sRole  = (SRole) BeanMapUtil.Map2Bean(SRole.class,paramMap);
+        SRole sRole  = (SRole) DataHandler.Map2Bean(SRole.class,paramMap);
 
         List<SRole> sRoleList = sRoleMapper.getRoleList(sRole);
         Integer count = sRoleMapper.getRoleListCount(sRole);
@@ -107,7 +110,7 @@ public class SystemServiceImpl implements SystemService {
     public QueryResult getPermissionsList(Map paramMap) throws Exception {
         QueryResult queryResult = new QueryResult();
 
-        SPermissions sPermissions  = (SPermissions) BeanMapUtil.Map2Bean(SPermissions.class,paramMap);
+        SPermissions sPermissions  = (SPermissions) DataHandler.Map2Bean(SPermissions.class,paramMap);
 
         List<SPermissions> sPermissionsList = sPermissionsMapper.getPermissionsList(sPermissions);
         Integer count = sPermissionsMapper.getPermissionsListCount(sPermissions);
@@ -120,7 +123,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void addPermissions(Map paramMap) throws Exception {
-        SPermissions sPermissions  = (SPermissions) BeanMapUtil.Map2Bean(SPermissions.class,paramMap);
+        SPermissions sPermissions  = (SPermissions) DataHandler.Map2Bean(SPermissions.class,paramMap);
 
         if(null == sPermissions) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 
@@ -185,7 +188,7 @@ public class SystemServiceImpl implements SystemService {
     public QueryResult getUserRoleList(Map paramMap) throws Exception {
         QueryResult queryResult = new QueryResult();
 
-        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+        SUser sUser  = (SUser) DataHandler.Map2Bean(SUser.class,paramMap);
 
         List<SUser> sUserList = sUserMapper.getUserRoleList(sUser);
         Integer count = sUserMapper.getUserRoleListCount(sUser);
@@ -288,7 +291,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void addSystemUser(Map paramMap) throws Exception {
-        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+        SUser sUser  = (SUser) DataHandler.Map2Bean(SUser.class,paramMap);
 
         if(null == sUser) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 
@@ -318,7 +321,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void addRole(Map paramMap) throws Exception {
-        SRole sRole  = (SRole) BeanMapUtil.Map2Bean(SRole.class,paramMap);
+        SRole sRole  = (SRole) DataHandler.Map2Bean(SRole.class,paramMap);
 
         if(null == sRole) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 

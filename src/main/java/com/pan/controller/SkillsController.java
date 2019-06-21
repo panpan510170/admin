@@ -1,27 +1,42 @@
 package com.pan.controller;
 
+import com.pan.serivce.RankService;
 import com.pan.skills.webSocket.WebSocketServer;
 import com.pan.vo.JsonResult;
+import com.pan.vo.rank.CoreRankVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
 /**
- * websocket 实现消息主动推送
+ * 工具接口测试
  * @author pan
- * @date 2019/6/20 14:47
+ * @date 2019/6/20 17:38
  */
-@Api(tags = {"websocket测试"})
+@Api(tags = {"工具接口测试(websocket,榜单,限制)"})
 @RestController
-@RequestMapping(value = {"/websocket"})
-public class WebSocketController extends BaseController{
+@RequestMapping(value = {"/skills"})
+public class SkillsController extends BaseController{
+
+    @Autowired
+    private RankService rankService;
+
+    @ApiOperation(value = "添加榜单")
+    @PostMapping("/rank/addCoreRank")
+    public JsonResult addCoreRank(CoreRankVO coreRankVO){
+        //类转化
+
+        rankService.addCoreRank(coreRankVO);
+        return this.buildSuccessResult();
+    }
 
     @ApiOperation(value = "页面请求")
-    @GetMapping("/socket/{cid}")
+    @GetMapping("/websocket/socket/cid")
     public ModelAndView socket(@PathVariable String sid) {
         ModelAndView mav=new ModelAndView("/socket");
         mav.addObject("cid", sid);
@@ -29,9 +44,9 @@ public class WebSocketController extends BaseController{
     }
 
     @ApiOperation(value = "推送数据接口")
-    @PostMapping("/socket/push")
+    @PostMapping("/websocket/socket/push")
     public JsonResult pushToWeb(@ApiParam(value = "用户表示", required = true)
-                                    @RequestParam(name = "sid") String sid, String message) {
+                                @RequestParam(name = "sid") String sid, String message) {
         try {
             WebSocketServer.sendInfo(message, sid);
         } catch (IOException e) {
