@@ -3,6 +3,7 @@ package com.pan.entitys.rank;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 榜单控制表,主要控制榜单的使用,清除,维度,权重,时间
@@ -81,5 +82,5 @@ public class CoreRank {
     @Column(name = "end_time",nullable = false,columnDefinition = "bigint(20) comment '结束使用时间,若无期限可以使用253402271999000(9999-12-31 23:59:59)'")
     private Long endTime;
     @Column(name = "create_time",nullable = false,columnDefinition = "datetime comment '创建时间'")
-    private int createTime;
+    private Date createTime;
 }

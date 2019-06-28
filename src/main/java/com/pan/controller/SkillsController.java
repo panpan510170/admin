@@ -1,6 +1,9 @@
 package com.pan.controller;
 
-import com.pan.serivce.RankService;
+import com.pan.entitys.rank.CoreRank;
+import com.pan.handler.DataHandler;
+import com.pan.repository.RankRepository;
+import com.pan.skills.rank.RankManager;
 import com.pan.skills.webSocket.WebSocketServer;
 import com.pan.vo.JsonResult;
 import com.pan.vo.rank.CoreRankVO;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * 工具接口测试
@@ -24,14 +28,16 @@ import java.io.IOException;
 public class SkillsController extends BaseController{
 
     @Autowired
-    private RankService rankService;
+    private RankRepository rankRepository;
+    @Autowired
+    private RankManager rankManager;
 
     @ApiOperation(value = "添加榜单")
     @PostMapping("/rank/addCoreRank")
     public JsonResult addCoreRank(CoreRankVO coreRankVO){
-        //类转化
-
-        rankService.addCoreRank(coreRankVO);
+        CoreRank coreRank = DataHandler.beanConver(coreRankVO, CoreRank.class);
+        coreRank.setCreateTime(new Date());
+        rankRepository.save(coreRank);
         return this.buildSuccessResult();
     }
 

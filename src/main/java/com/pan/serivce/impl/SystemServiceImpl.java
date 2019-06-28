@@ -336,7 +336,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void updateSystemUser(Map paramMap) throws Exception {
-        SUser sUser  = (SUser) BeanMapUtil.Map2Bean(SUser.class,paramMap);
+        SUser sUser  = (SUser) DataHandler.Map2Bean(SUser.class,paramMap);
 
         if(null == sUser) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 
@@ -351,7 +351,7 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public List<SRole> getRoleAllList(Map paramMap) throws Exception {
-        //SRole sRole  = (SRole) BeanMapUtil.Map2Bean(SRole.class,paramMap);
+        //SRole sRole  = (SRole) DataHandler.Map2Bean(SRole.class,paramMap);
         SRole sRole = new SRole();
         List<SRole> sRoleList = sRoleMapper.getRoleList(sRole);
         return sRoleList;
@@ -360,7 +360,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     @Transactional
     public void saveUserRole(Map paramMap) throws Exception {
-        SUserRole sUserRole  = (SUserRole) BeanMapUtil.Map2Bean(SUserRole.class,paramMap);
+        SUserRole sUserRole  = (SUserRole) DataHandler.Map2Bean(SUserRole.class,paramMap);
 
         if(null == sUserRole) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 

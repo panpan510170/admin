@@ -29,6 +29,25 @@ public class DataHandler {
 
     /**
      * ---------------------------------javaBean---------------------------------------------------------------
+     *
+     *
+
+     //将对象转换成为字符串
+
+     String str = JSON.toJSONString(infoDo);
+
+     //将字符串转换成为对象
+
+     InfoDo infoDo = JSON.parseObject(strInfoDo, InfoDo.class);
+
+     //将对象集合转换成为字符串
+
+     String users = JSON.toJSONString(users);
+
+     //将字符串转换成为对象集合
+
+     List<User> userList = JSON.parseArray(userStr, User.class);
+     *
      * */
 
     /**
@@ -83,16 +102,27 @@ public class DataHandler {
     }
 
     /**
-     * javaBean转javaBean
-     * @param bean1
-     * @param bean2
+     * JsonString转javaBean
+     * @param json
+     * @param clazz bean.class
      * @return
      */
-    public static JSONObject beanConver(Object bean1,Object bean2){
-        String jsonString = JSONObject.toJSONString(bean1);
-        JSONObject jsonObject = JSONObject.parseObject(jsonString);
+    public static <T> T jsonString2Bean(String json,Class<T> clazz){
+        T bean = JSONObject.parseObject(json, clazz);
+        return bean;
+    }
 
-        return jsonObject;
+
+    /**
+     * javaBean转javaBean
+     * @param bean1
+     * @param clazz bean.class
+     * @return
+     */
+    public static <T> T beanConver(Object bean1, Class<T> clazz){
+        String jsonString = JSONObject.toJSONString(bean1);
+        T bean = JSONObject.parseObject(jsonString, clazz);
+        return bean;
     }
 
 
