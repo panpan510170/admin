@@ -1,8 +1,7 @@
 package com.pan.skills.rank;
 
 import com.pan.entitys.rank.CoreRank;
-import com.pan.mapper.TCoreRankMapper;
-import com.pan.repository.CoreRankRepository;
+import com.pan.serivce.RankService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +22,17 @@ public class RankManager implements CommandLineRunner {
     private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
-    private TCoreRankMapper tCoreRankMapper;
-
-    @Autowired
-    private CoreRankRepository coreRankRepository;
+    private RankService rankService;
 
     @Override
     public void run(String... args) throws Exception {
         while (true) {
-            logger.info("加载榜单信息");
             try {
                 Thread.sleep(60000);
                 load();
+                logger.info("加载榜单信息");
             } catch (Exception e) {
-                logger.error("加载排行信息异常","", e);
+                logger.error("加载排行信息异常",null, e);
             }
         }
     }
@@ -47,8 +43,10 @@ public class RankManager implements CommandLineRunner {
     private void load() {
         CoreRank coreRank = new CoreRank();
         long time = System.currentTimeMillis();
+        logger.info("榜单信息加载--当前时间"+time);
         coreRank.setStartTime(time);
         coreRank.setEndTime(time);
-        List<CoreRank> list = tCoreRankMapper.getRankList(coreRank);
+        List<CoreRank> list = rankService.getRankList(coreRank);
+        System.out.println(list);
     }
 }

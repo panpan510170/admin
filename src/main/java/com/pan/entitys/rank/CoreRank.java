@@ -71,7 +71,7 @@ public class CoreRank {
     private Long id;
     @Column(name = "name",nullable = false,unique = true,columnDefinition = "varchar(100) comment '榜单名称'")
     private String name;
-    @Column(name = "dimension_type",nullable = false,unique = true,columnDefinition = "int(2) comment '维度 1有2没有'")
+    @Column(name = "dimension_type",nullable = false,columnDefinition = "int(2) comment '维度 1有2没有'")
     private int dimensionType;
     @Column(name = "basics",nullable = false,columnDefinition = "bigint(20) comment '权重,根据场景自行分配'")
     private Long basics;
@@ -84,5 +84,5 @@ public class CoreRank {
     @Column(name = "create_time",nullable = false,columnDefinition = "datetime comment '创建时间'")
     private Date createTime;
     @Column(name = "pro_name",nullable = false,columnDefinition = "varchar(100) comment '项目名称'")
-    private Date proName;
+    private String proName;
 }

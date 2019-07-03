@@ -112,7 +112,6 @@ public class DataHandler {
         return bean;
     }
 
-
     /**
      * javaBean转javaBean
      * @param bean1

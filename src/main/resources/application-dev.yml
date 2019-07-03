@@ -39,5 +39,9 @@ aliyun:
     roleArn: acs:ram::1861742825276971:role/aliyunosstokengeneratorrole
 swagger2:
   enable: true
+# 打印sql
+logging:
+  level:
+    com.pan : debug
 
 

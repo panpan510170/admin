@@ -9,15 +9,27 @@
     <result column="dimension_type" property="dimensionType" jdbcType="INTEGER" />
     <result column="end_time" property="endTime" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, basics, clear_time, create_time, dimension_type, end_time, name, start_time
+    id, basics, clear_time, create_time, dimension_type, end_time, name, start_time,pro_name
   </sql>
+  <sql id="varSql">
+    <where>
+      <if test="startTime!=null and startTime!=''"><![CDATA[ and start_time <= #{startTime} ]]></if>
+      <if test="endTime!=null and endTime!=''"> and end_time >= #{endTime} </if>
+      <!--<if test="statusString!=null and statusString!=''">and status in (${statusString}) </if>
+      <if test="payStartTime!=null and payStartTime!=''"> and payment_time >= #{payStartTime} </if>
+      <if test="date!=null and date!=''"> and DATE_FORMAT(payment_time,'%Y-%m-%d') = #{date} </if>
+      <if test="payEndTime!=null and payEndTime!=''"><![CDATA[ and payment_time <= #{payEndTime} ]]></if>-->
+    </where>
+  </sql>
+
   <select id="getRankList" resultMap="BaseResultMap" parameterType="com.pan.entitys.rank.CoreRank" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_core_rank
-    where id = #{id,jdbcType=BIGINT}
+    <include refid="varSql" />
   </select>
 </mapper>

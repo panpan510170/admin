@@ -21,7 +21,7 @@ ex:异常类
 
 interview:面试题的实现
 
-mapper:数据库映射,以后用到的不多
+mapper:数据库映射
 
 repository:配合entitys的操作数据库的文件
 
@@ -45,6 +45,13 @@ handler:工具类（完善）
 正常类 ：private Logger logger = LogManager.getLogger(this.getClass());
 
 工具类 ：private static Logger logger = LogManager.getLogger(SFtpUtils.class);
+
+三.分层
+controller-->service-->repository/mapper(读写分离)
+controller:控制层：效验参数，转化vo
+service:逻辑层：事务控制
+repositor：数据层：数据持久化，一些常用的，不用写sql
+mapper:数据层：数据查询，复杂sql
 
 
 
