@@ -7,8 +7,8 @@ import com.pan.vo.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/user")
 public class UserController extends BaseController{
 
-    private Logger logger = LoggerFactory.getLogger(RegistController.class);
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     private UserService userService;

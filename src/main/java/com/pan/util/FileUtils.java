@@ -1,9 +1,8 @@
 package com.pan.util;
 
-import com.pan.serivce.impl.TestServiceImpl;
 import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.Map;
  */
 public class FileUtils {
 
-    private static Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
+    private static Logger logger = LogManager.getLogger(FileUtils.class);
 
     /**
      * 获取路径下的所有文件/文件夹

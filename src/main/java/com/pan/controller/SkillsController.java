@@ -2,7 +2,7 @@ package com.pan.controller;
 
 import com.pan.entitys.rank.CoreRank;
 import com.pan.handler.DataHandler;
-import com.pan.repository.RankRepository;
+import com.pan.repository.CoreRankRepository;
 import com.pan.skills.rank.RankManager;
 import com.pan.skills.webSocket.WebSocketServer;
 import com.pan.vo.JsonResult;
@@ -28,7 +28,7 @@ import java.util.Date;
 public class SkillsController extends BaseController{
 
     @Autowired
-    private RankRepository rankRepository;
+    private CoreRankRepository coreRankRepository;
     @Autowired
     private RankManager rankManager;
 
@@ -37,7 +37,7 @@ public class SkillsController extends BaseController{
     public JsonResult addCoreRank(CoreRankVO coreRankVO){
         CoreRank coreRank = DataHandler.beanConver(coreRankVO, CoreRank.class);
         coreRank.setCreateTime(new Date());
-        rankRepository.save(coreRank);
+        coreRankRepository.save(coreRank);
         return this.buildSuccessResult();
     }
 

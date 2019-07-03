@@ -5,8 +5,8 @@ import com.pan.ex.BOException;
 import com.pan.util.QueryResult;
 import com.pan.util.RequestUtils;
 import com.pan.vo.JsonResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,7 +29,7 @@ import java.util.Map;
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public class BaseController {
 
-    private Logger logger = LoggerFactory.getLogger(BaseController.class);
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

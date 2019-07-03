@@ -24,4 +24,6 @@ public class CoreRankVO{
     private Long startTime;
     @ApiModelProperty("结束使用时间:毫秒")
     private Long endTime;
+    @ApiModelProperty("项目名称")
+    private String proName;
 }

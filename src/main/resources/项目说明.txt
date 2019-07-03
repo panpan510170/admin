@@ -41,6 +41,13 @@ vo:前端视图
 
 handler:工具类（完善）
 
+二.日志管理
+正常类 ：private Logger logger = LogManager.getLogger(this.getClass());
+
+工具类 ：private static Logger logger = LogManager.getLogger(SFtpUtils.class);
+
+
+
 
 
 

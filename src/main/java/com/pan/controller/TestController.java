@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/test")
 public class TestController extends BaseController {
 
-    private Logger log = LogManager.getLogger(this.getClass());
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     private TestService testService;
@@ -70,7 +70,7 @@ public class TestController extends BaseController {
                                 @RequestParam(name = "userName") String userName,
                                 @ApiParam(value = "密码", required = true)
                                 @RequestParam(name = "password") String password, HttpServletRequest request) {
-        log.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
+        logger.info("TestController...testloggerin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
 
         JSONObject resMap = null;
         try {
@@ -81,7 +81,7 @@ public class TestController extends BaseController {
             e.printStackTrace();
         }
 
-        log.info("TestController...testLogin...出参：" + resMap);
+        logger.info("TestController...testLogin...出参：" + resMap);
 
         return this.buildSuccessResult(resMap);
     }
@@ -92,7 +92,7 @@ public class TestController extends BaseController {
                                      @RequestParam(name = "userName") String userName,
                                      @ApiParam(value = "密码", required = true)
                                      @RequestParam(name = "password") String password, HttpServletRequest request) {
-        log.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
+        logger.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
 
         if ("".equals(userName.trim()) || userName == null ||
                 "".equals(password) || password == null) {
@@ -107,7 +107,7 @@ public class TestController extends BaseController {
             e.printStackTrace();
         }
 
-        log.info("TestController...testLogin...出参：" + resMap);
+        logger.info("TestController...testLogin...出参：" + resMap);
 
         return this.buildSuccessResult(resMap);
     }
@@ -118,7 +118,7 @@ public class TestController extends BaseController {
                                           @RequestParam(name = "userName") String userName,
                                           @ApiParam(value = "密码", required = true)
                                           @RequestParam(name = "password") String password, HttpServletRequest request) {
-        log.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
+        logger.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
 
 
         try {
@@ -128,7 +128,7 @@ public class TestController extends BaseController {
             return this.buildErrorResult(ResultCodeEnum.paramError);
         }
 
-        log.info("TestController...testLogin...出参：");
+        logger.info("TestController...testLogin...出参：");
 
         return this.buildErrorResult(ResultCodeEnum.paramError);
     }
@@ -139,7 +139,7 @@ public class TestController extends BaseController {
                                           @RequestParam(name = "userName") String userName,
                                           @ApiParam(value = "密码", required = true)
                                           @RequestParam(name = "password") String password, HttpServletRequest request) {
-        log.info("TestController...testBaseVO...入参：用户名：[" + userName + "]，密码：[" + password + "]");
+        logger.info("TestController...testBaseVO...入参：用户名：[" + userName + "]，密码：[" + password + "]");
 
         UserVO userVO = new UserVO();
         userVO.setUserName(userName);

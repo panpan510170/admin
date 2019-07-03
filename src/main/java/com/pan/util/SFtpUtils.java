@@ -1,9 +1,8 @@
 package com.pan.util;
 
 import com.jcraft.jsch.*;
-import com.pan.serivce.impl.TestServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +16,7 @@ import java.util.Vector;
  */
 public class SFtpUtils {
 
-    private static Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
+    private static Logger logger = LogManager.getLogger(SFtpUtils.class);
 
     private static ChannelSftp sftp;
 

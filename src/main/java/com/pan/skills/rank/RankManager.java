@@ -1,7 +1,8 @@
 package com.pan.skills.rank;
 
 import com.pan.entitys.rank.CoreRank;
-import com.pan.repository.RankRepository;
+import com.pan.mapper.TCoreRankMapper;
+import com.pan.repository.CoreRankRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,10 @@ public class RankManager implements CommandLineRunner {
     private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
-    private RankRepository rankRepository;
+    private TCoreRankMapper tCoreRankMapper;
+
+    @Autowired
+    private CoreRankRepository coreRankRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,6 +49,6 @@ public class RankManager implements CommandLineRunner {
         long time = System.currentTimeMillis();
         coreRank.setStartTime(time);
         coreRank.setEndTime(time);
-        List<CoreRank> list = rankRepository.getRankList(coreRank);
+        List<CoreRank> list = tCoreRankMapper.getRankList(coreRank);
     }
 }

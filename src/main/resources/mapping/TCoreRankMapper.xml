@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pan.mapper.TCoreRankMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.entitys.rank.CoreRank" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="basics" property="basics" jdbcType="BIGINT" />
+    <result column="clear_time" property="clearTime" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="dimension_type" property="dimensionType" jdbcType="INTEGER" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, basics, clear_time, create_time, dimension_type, end_time, name, start_time
+  </sql>
+  <select id="getRankList" resultMap="BaseResultMap" parameterType="com.pan.entitys.rank.CoreRank" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_core_rank
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

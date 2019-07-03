@@ -83,4 +83,6 @@ public class CoreRank {
     private Long endTime;
     @Column(name = "create_time",nullable = false,columnDefinition = "datetime comment '创建时间'")
     private Date createTime;
+    @Column(name = "pro_name",nullable = false,columnDefinition = "varchar(100) comment '项目名称'")
+    private Date proName;
 }
