@@ -12,6 +12,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,33 @@ public class DataHandler {
     /**
      * ---------------------------------公用---------------------------------------------------------------
      * */
+    /**
+     * 对象为空(String Map List Set为空)
+     * @return true为空
+     */
+    public static boolean isEmpty(Object object) {
+        if (null == object) {
+            return true;
+        }
+        if(object instanceof String){
+            return "".equals(((String) object).trim());
+        }
+        else if(object instanceof Map){
+            return ((Map<?, ?>) object).isEmpty();
+        }
+        else if(object instanceof Collection){
+            return ((Collection<?>) object).isEmpty();
+        }
+        return false;
+    }
 
+    /**
+     * 对象非空(String Map List Set非空)
+     * @return true为非空
+     */
+    public static boolean isNotEmpty(Object object) {
+        return !isEmpty(object);
+    }
     /**
      * ---------------------------------javaBean---------------------------------------------------------------
      *

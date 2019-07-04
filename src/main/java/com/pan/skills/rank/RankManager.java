@@ -1,6 +1,7 @@
 package com.pan.skills.rank;
 
 import com.pan.entitys.rank.CoreRank;
+import com.pan.handler.DataHandler;
 import com.pan.serivce.RankService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +10,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 排行管理器
@@ -24,13 +27,16 @@ public class RankManager implements CommandLineRunner {
     @Autowired
     private RankService rankService;
 
+    /** 所有排行模型 */
+    private static Map<String, CoreRank> rankModelMap = new HashMap<>();
+
     @Override
     public void run(String... args) throws Exception {
         while (true) {
             try {
-                Thread.sleep(60000);
                 load();
                 logger.info("加载榜单信息");
+                Thread.sleep(1000*60*60);
             } catch (Exception e) {
                 logger.error("加载排行信息异常",null, e);
             }
@@ -47,6 +53,15 @@ public class RankManager implements CommandLineRunner {
         coreRank.setStartTime(time);
         coreRank.setEndTime(time);
         List<CoreRank> list = rankService.getRankList(coreRank);
-        System.out.println(list);
+        // 整理排行配置
+        if (DataHandler.isEmpty(list)) {
+            return;
+        }
+        Map<String, CoreRank> map = new HashMap<>(list.size());
+        for (CoreRank rank : list) {
+            map.put(rank.getName(), rank);
+        }
+        // 将配置同步到内存
+        rankModelMap = map;
     }
 }
