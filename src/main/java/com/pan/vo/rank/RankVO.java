@@ -1,5 +1,6 @@
 package com.pan.vo.rank;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,17 +9,22 @@ import lombok.Data;
  */
 @Data
 public class RankVO {
-    /** 排行名称(可以是活动名称、游戏名称) */
+    @ApiModelProperty("排行名称")
     private String name;
-    /** 维度值 */
+
+    @ApiModelProperty("维度值")
     private String dimValue;
-    /** 用户id */
+
+    @ApiModelProperty("用户id")
     private long userId;
-    /** 权重值 */
+
+    @ApiModelProperty("权重值")
     private long weight;
-    /** 排名 */
+
+    @ApiModelProperty("排名")
     private long rank;
-    /** 排名 */
+
+    @ApiModelProperty("时间戳")
     private long time;
 
     public RankVO() {

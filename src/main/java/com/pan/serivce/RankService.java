@@ -1,11 +1,13 @@
 package com.pan.serivce;
 
 import com.pan.entitys.rank.CoreRank;
+import com.pan.entitys.rank.RankInfo;
 import com.pan.enums.ResultCodeEnum;
 import com.pan.ex.BOException;
 import com.pan.handler.DataHandler;
 import com.pan.mapper.TCoreRankMapper;
 import com.pan.repository.CoreRankRepository;
+import com.pan.repository.RankInfoRepository;
 import com.pan.vo.rank.RankAddResultVO;
 import com.pan.vo.rank.RankInfoVO;
 import com.pan.vo.rank.RankVO;
@@ -28,6 +30,9 @@ import java.util.concurrent.TimeUnit;
 public class RankService {
     @Autowired
     private CoreRankRepository coreRankRepository;
+
+    @Autowired
+    private RankInfoRepository rankInfoRepository;
 
     @Autowired
     private TCoreRankMapper tCoreRankMapper;
@@ -275,5 +280,9 @@ public class RankService {
     public int remList(RankVO rankVO, CoreRank coreRank, List<String> list) {
         String key = rankKey(rankVO,coreRank);
         return redisTemplate.opsForZSet().remove(key,list.toArray(new String[list.size()])).intValue();
+    }
+
+    public void saveLog(RankInfo rankInfo) {
+        rankInfoRepository.save(rankInfo);
     }
 }

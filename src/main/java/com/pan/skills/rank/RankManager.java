@@ -81,16 +81,6 @@ public class RankManager implements CommandLineRunner {
     }
 
     /**
-     * 累计权重值
-     * @param rankVO  排名信息
-     * @return 返回累计之前的排名信息和累计之后的排名信息
-     */
-    public RankAddResultVO add(RankVO rankVO) {
-        CoreRank coreRank = getCoreRank(rankVO);
-        return rankService.add(rankVO,coreRank);
-    }
-
-    /**
      * 获取排行模型
      *
      * @param name
@@ -98,6 +88,16 @@ public class RankManager implements CommandLineRunner {
      */
     private CoreRank rank(String name) {
         return rankModelMap.get(name);
+    }
+
+    /**
+     * 累计权重值
+     * @param rankVO  排名信息
+     * @return 返回累计之前的排名信息和累计之后的排名信息
+     */
+    public RankAddResultVO add(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.add(rankVO,coreRank);
     }
 
     /**

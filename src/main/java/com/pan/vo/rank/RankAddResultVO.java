@@ -1,5 +1,6 @@
 package com.pan.vo.rank;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,8 +9,8 @@ import lombok.Data;
  */
 @Data
 public class RankAddResultVO {
-
+    @ApiModelProperty("更新前的排名信息")
     private RankVO before;
-
+    @ApiModelProperty("更新后的排名信息")
     private RankVO after;
 }

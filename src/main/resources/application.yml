@@ -15,8 +15,11 @@ spring:
       database: MySQL
       show-sql: true
       generate-ddl: true
-      hibernate.ddl-auto: update
-      hibernate.naming_strategy: org.hibernate.cfg.ImprovedNamingStrate
+      hibernate:
+        ddl-auto: update
+        naming_strategy: org.hibernate.cfg.ImprovedNamingStrate
+        naming:
+          physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
 
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml
