@@ -1,8 +1,13 @@
 package com.pan.skills.rank;
 
 import com.pan.entitys.rank.CoreRank;
+import com.pan.enums.ResultCodeEnum;
+import com.pan.ex.BOException;
 import com.pan.handler.DataHandler;
 import com.pan.serivce.RankService;
+import com.pan.vo.rank.RankAddResultVO;
+import com.pan.vo.rank.RankInfoVO;
+import com.pan.vo.rank.RankVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +68,80 @@ public class RankManager implements CommandLineRunner {
         }
         // 将配置同步到内存
         rankModelMap = map;
+    }
+
+    private CoreRank getCoreRank(RankVO rankVO) {
+        //获取排行模型
+        CoreRank coreRank = rank(rankVO.getName());
+        //排行模型不存在
+        if (DataHandler.isEmpty(coreRank)){
+            throw new BOException(ResultCodeEnum.bussinessError.getId(),"排行模型不存在无法累计" + rankVO.getName());
+        }
+        return coreRank;
+    }
+
+    /**
+     * 累计权重值
+     * @param rankVO  排名信息
+     * @return 返回累计之前的排名信息和累计之后的排名信息
+     */
+    public RankAddResultVO add(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.add(rankVO,coreRank);
+    }
+
+    /**
+     * 获取排行模型
+     *
+     * @param name
+     * @return
+     */
+    private CoreRank rank(String name) {
+        return rankModelMap.get(name);
+    }
+
+    /**
+     * 累计权重值
+     * @param rankVO  排名信息
+     * @return 返回上一名和自己和下一名的排名信息
+     */
+    public RankInfoVO addRank(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.addRank(rankVO,coreRank);
+    }
+
+    public RankInfoVO delScore(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.delScore(rankVO,coreRank);
+    }
+
+    public List<RankVO> list(RankVO rankVO, long size) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.list(rankVO,coreRank,size);
+    }
+
+    public boolean del(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.del(rankVO,coreRank);
+    }
+
+    public RankVO get(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.get(rankVO,coreRank);
+    }
+
+    public RankVO first(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.first(rankVO,coreRank);
+    }
+
+    public int rem(RankVO rankVO) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.rem(rankVO,coreRank);
+    }
+
+    public int remList(RankVO rankVO, List<String> list) {
+        CoreRank coreRank = getCoreRank(rankVO);
+        return rankService.remList(rankVO,coreRank,list);
     }
 }

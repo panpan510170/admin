@@ -73,7 +73,7 @@ public class CoreRank {
     private String name;
     @Column(name = "dimension_type",nullable = false,columnDefinition = "int(2) comment '维度 1有2没有'")
     private int dimensionType;
-    @Column(name = "basics",nullable = false,columnDefinition = "bigint(20) comment '权重,根据场景自行分配'")
+    @Column(name = "basics",nullable = false,columnDefinition = "bigint(20) comment '权重,根据场景自行分配,最小为1'")
     private Long basics;
     @Column(name = "clear_time",columnDefinition = "bigint(20) default 0 comment '清除榜单数据时间,可以为空'")
     private Long clearTime;
