@@ -1,6 +1,6 @@
-package com.pan.repository;
+package com.pan.repository.skills.rank;
 
-import com.pan.entitys.rank.CoreRank;
+import com.pan.entitys.skills.rank.CoreRank;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

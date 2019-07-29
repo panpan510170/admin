@@ -4,7 +4,11 @@ algorithm:算法测试
 config:项目的一些核心配置,例如:拦截器,阿里云配置文件,redis过期事件订阅,websocket,swagger2
 
 controller:控制器,配和swagger2进行测试
-    book:图书管理系统
+    project:项目
+        book:图书管理
+        billiards:台球管理
+    skills:工具
+    基础controller
 
 demo:没什么用
 
@@ -16,6 +20,11 @@ designPatterns:设计模式
 entitys:springDate-jpa  自动建表 现在重要使用这个 DB的数据模型都在这里
 
 enums:枚举类
+    project:项目
+        book:图书管理
+        billiards:台球管理
+    skills:工具
+    基础Enum
 
 ex:异常类
 
@@ -24,8 +33,18 @@ interview:面试题的实现
 mapper:数据库映射
 
 repository:配合entitys的操作数据库的文件
+    project:项目
+        book:图书管理
+        billiards:台球管理
+    skills:工具
+    基础
 
 serivce:接口
+    project:项目
+        book:图书管理
+        billiards:台球管理
+    skills:工具
+    基础
 
 skills:一些功能的实现,有榜单,限制,websocket
 

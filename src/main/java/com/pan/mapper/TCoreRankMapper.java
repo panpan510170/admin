@@ -1,6 +1,6 @@
 package com.pan.mapper;
 
-import com.pan.entitys.rank.CoreRank;
+import com.pan.entitys.skills.rank.CoreRank;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 

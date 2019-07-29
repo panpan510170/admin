@@ -8,7 +8,7 @@ public enum UserSourceEnum {
     front(1, "前端"),
     behind(2, "后台"),
     android(3, "安卓"),
-    ios(4, "苹果"),
+    ios(4, "ios"),
     wx(5, "微信小程序");
 
     private int id;

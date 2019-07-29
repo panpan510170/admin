@@ -1,4 +1,4 @@
-package com.pan.entitys.rank;
+package com.pan.entitys.skills.rank;
 
 import lombok.Data;
 

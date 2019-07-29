@@ -1,13 +1,13 @@
-package com.pan.serivce;
+package com.pan.serivce.skills.rank;
 
-import com.pan.entitys.rank.CoreRank;
-import com.pan.entitys.rank.RankInfo;
+import com.pan.entitys.skills.rank.CoreRank;
+import com.pan.entitys.skills.rank.RankInfo;
 import com.pan.enums.ResultCodeEnum;
 import com.pan.ex.BOException;
 import com.pan.handler.DataHandler;
 import com.pan.mapper.TCoreRankMapper;
-import com.pan.repository.CoreRankRepository;
-import com.pan.repository.RankInfoRepository;
+import com.pan.repository.skills.rank.CoreRankRepository;
+import com.pan.repository.skills.rank.RankInfoRepository;
 import com.pan.vo.rank.RankAddResultVO;
 import com.pan.vo.rank.RankInfoVO;
 import com.pan.vo.rank.RankVO;

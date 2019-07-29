@@ -1,10 +1,10 @@
 package com.pan.skills.rank;
 
-import com.pan.entitys.rank.CoreRank;
+import com.pan.entitys.skills.rank.CoreRank;
 import com.pan.enums.ResultCodeEnum;
 import com.pan.ex.BOException;
 import com.pan.handler.DataHandler;
-import com.pan.serivce.RankService;
+import com.pan.serivce.skills.rank.RankService;
 import com.pan.vo.rank.RankAddResultVO;
 import com.pan.vo.rank.RankInfoVO;
 import com.pan.vo.rank.RankVO;
