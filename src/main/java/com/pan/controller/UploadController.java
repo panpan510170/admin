@@ -2,7 +2,7 @@ package com.pan.controller;
 
 import com.aliyun.oss.OSSClient;
 import com.pan.serivce.UserService;
-import com.pan.vo.JsonResult;
+import com.pan.model.vo.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;

@@ -1,13 +1,13 @@
 package com.pan.controller.skills;
 
 import com.pan.controller.BaseController;
-import com.pan.entitys.skills.rank.CoreRank;
-import com.pan.entitys.skills.rank.RankInfo;
-import com.pan.handler.DataHandler;
+import com.pan.model.entitys.skills.rank.CoreRank;
+import com.pan.model.entitys.skills.rank.RankInfo;
+import com.pan.base.handler.DataHandler;
 import com.pan.serivce.skills.rank.RankService;
-import com.pan.skills.rank.RankManager;
-import com.pan.vo.JsonResult;
-import com.pan.vo.rank.*;
+import com.pan.manager.skills.rank.RankManager;
+import com.pan.model.vo.JsonResult;
+import com.pan.model.vo.rank.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

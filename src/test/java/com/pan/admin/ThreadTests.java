@@ -1,10 +1,10 @@
 package com.pan.admin;
 
 import com.pan.serivce.TestService;
-import com.pan.util.thread.ThreadRunner;
-import com.pan.util.thread.testThread;
-import com.pan.vo.Constants;
-import com.pan.vo.PageVO;
+import com.pan.base.util.thread.ThreadRunner;
+import com.pan.base.util.thread.testThread;
+import com.pan.model.vo.Constants;
+import com.pan.model.vo.PageVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

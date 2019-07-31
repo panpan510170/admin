@@ -1,17 +1,17 @@
 package com.pan.serivce;
 
 
-import com.pan.enums.ResultCodeEnum;
-import com.pan.enums.UserStatusEnum;
-import com.pan.ex.BOException;
-import com.pan.handler.DataHandler;
-import com.pan.mapper.*;
-import com.pan.model.*;
-import com.pan.util.JwtUtils;
-import com.pan.util.MD5Utils;
-import com.pan.util.QueryResult;
-import com.pan.vo.PermissionsVO;
-import com.pan.vo.user.UserVO;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.enums.UserStatusEnum;
+import com.pan.base.ex.BOException;
+import com.pan.base.handler.DataHandler;
+import com.pan.dao.mapper.*;
+import com.pan.base.util.JwtUtils;
+import com.pan.base.util.MD5Utils;
+import com.pan.base.util.QueryResult;
+import com.pan.model.entitys.system.*;
+import com.pan.model.vo.PermissionsVO;
+import com.pan.model.vo.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

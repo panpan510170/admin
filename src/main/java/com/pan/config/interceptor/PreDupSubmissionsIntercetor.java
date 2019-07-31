@@ -1,6 +1,6 @@
 package com.pan.config.interceptor;
 
-import com.pan.util.RedisKey;
+import com.pan.base.util.RedisKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;

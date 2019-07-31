@@ -1,7 +1,7 @@
 package com.pan.admin;
 
-import com.pan.model.User;
-import com.pan.vo.RedisKeys;
+import com.pan.model.entitys.system.User;
+import com.pan.model.vo.RedisKeys;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

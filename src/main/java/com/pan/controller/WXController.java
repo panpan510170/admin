@@ -1,11 +1,11 @@
 package com.pan.controller;
 
-import com.pan.enums.ResultCodeEnum;
-import com.pan.enums.WXRequestUrlEnum;
-import com.pan.model.User;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.enums.WXRequestUrlEnum;
+import com.pan.model.entitys.system.User;
 import com.pan.serivce.SendMessageService;
-import com.pan.util.WxTemplateUtils;
-import com.pan.vo.JsonResult;
+import com.pan.base.util.WxTemplateUtils;
+import com.pan.model.vo.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

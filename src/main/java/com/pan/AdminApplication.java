@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableScheduling
 @ServletComponentScan
-@MapperScan("com.pan.mapper")
-@EntityScan("com.pan.entitys")
+@MapperScan("com.pan.dao.mapper")
+@EntityScan("com.pan.model.entitys")
 public class AdminApplication {
 
     public static void main(String[] args) {

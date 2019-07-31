@@ -1,15 +1,15 @@
 package com.pan.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pan.enums.ResultCodeEnum;
-import com.pan.ex.BOException;
-import com.pan.entitys.Test;
-import com.pan.repository.TestRepository;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.ex.BOException;
+import com.pan.model.entitys.Test;
+import com.pan.dao.repository.TestRepository;
 import com.pan.serivce.TestService;
-import com.pan.util.RedisKey;
-import com.pan.vo.JsonResult;
+import com.pan.base.util.RedisKey;
+import com.pan.model.vo.JsonResult;
 
-import com.pan.vo.testVO.UserVO;
+import com.pan.model.vo.testVO.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

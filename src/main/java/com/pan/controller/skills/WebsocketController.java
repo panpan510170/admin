@@ -1,8 +1,8 @@
 package com.pan.controller.skills;
 
 import com.pan.controller.BaseController;
-import com.pan.skills.webSocket.WebSocketServer;
-import com.pan.vo.JsonResult;
+import com.pan.manager.skills.webSocket.WebSocketServer;
+import com.pan.model.vo.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

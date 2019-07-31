@@ -1,7 +1,7 @@
 package com.pan.admin;
 
-import com.pan.vo.mathes.Apple;
-import com.pan.vo.user.UserRegistVO;
+import com.pan.model.vo.mathes.Apple;
+import com.pan.model.vo.user.UserRegistVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

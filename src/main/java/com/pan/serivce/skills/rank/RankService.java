@@ -1,16 +1,16 @@
 package com.pan.serivce.skills.rank;
 
-import com.pan.entitys.skills.rank.CoreRank;
-import com.pan.entitys.skills.rank.RankInfo;
-import com.pan.enums.ResultCodeEnum;
-import com.pan.ex.BOException;
-import com.pan.handler.DataHandler;
-import com.pan.mapper.TCoreRankMapper;
-import com.pan.repository.skills.rank.CoreRankRepository;
-import com.pan.repository.skills.rank.RankInfoRepository;
-import com.pan.vo.rank.RankAddResultVO;
-import com.pan.vo.rank.RankInfoVO;
-import com.pan.vo.rank.RankVO;
+import com.pan.model.entitys.skills.rank.CoreRank;
+import com.pan.model.entitys.skills.rank.RankInfo;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.ex.BOException;
+import com.pan.base.handler.DataHandler;
+import com.pan.dao.mapper.TCoreRankMapper;
+import com.pan.dao.repository.skills.rank.CoreRankRepository;
+import com.pan.dao.repository.skills.rank.RankInfoRepository;
+import com.pan.model.vo.rank.RankAddResultVO;
+import com.pan.model.vo.rank.RankInfoVO;
+import com.pan.model.vo.rank.RankVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.pan.mapper.TCoreRankMapper" >
-  <resultMap id="BaseResultMap" type="com.pan.entitys.skills.rank.CoreRank" >
+<mapper namespace="com.pan.dao.mapper.TCoreRankMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.model.entitys.skills.rank.CoreRank" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="basics" property="basics" jdbcType="BIGINT" />
     <result column="clear_time" property="clearTime" jdbcType="BIGINT" />
@@ -26,7 +26,7 @@
     </where>
   </sql>
 
-  <select id="getRankList" resultMap="BaseResultMap" parameterType="com.pan.entitys.skills.rank.CoreRank" >
+  <select id="getRankList" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.skills.rank.CoreRank" >
     select
     <include refid="Base_Column_List" />
     from t_core_rank

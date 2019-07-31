@@ -1,10 +1,10 @@
 package com.pan.controller;
 
-import com.pan.enums.ResultCodeEnum;
-import com.pan.ex.BOException;
-import com.pan.util.QueryResult;
-import com.pan.util.RequestUtils;
-import com.pan.vo.JsonResult;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.ex.BOException;
+import com.pan.base.util.QueryResult;
+import com.pan.base.util.RequestUtils;
+import com.pan.model.vo.JsonResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.propertyeditors.CustomDateEditor;

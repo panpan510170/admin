@@ -1,11 +1,11 @@
 package com.pan.controller;
 
-import com.pan.enums.ResultCodeEnum;
+import com.pan.base.enums.ResultCodeEnum;
 import com.pan.serivce.UserService;
-import com.pan.util.ValidateUtils;
-import com.pan.vo.JsonResult;
-import com.pan.vo.regist.RegistVO;
-import com.pan.vo.user.UserVO;
+import com.pan.base.util.ValidateUtils;
+import com.pan.model.vo.JsonResult;
+import com.pan.model.vo.regist.RegistVO;
+import com.pan.model.vo.user.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;

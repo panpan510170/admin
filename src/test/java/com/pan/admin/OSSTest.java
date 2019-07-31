@@ -1,7 +1,7 @@
 package com.pan.admin;
 
 import com.pan.config.Propertyconfig.OSSConfig;
-import com.pan.util.OSSFileUpLoadUtils;
+import com.pan.base.util.OSSFileUpLoadUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

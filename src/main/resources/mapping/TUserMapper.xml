@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.pan.mapper.TUserMapper" >
-  <resultMap id="BaseResultMap" type="com.pan.model.TUser" >
+<mapper namespace="com.pan.dao.mapper.TUserMapper" >
+  <resultMap id="BaseResultMap" type="com.pan.model.entitys.system.TUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -34,13 +34,13 @@
     </where>
   </sql>
 
-  <select id="selectUser" resultMap="BaseResultMap" parameterType="com.pan.model.TUser" >
+  <select id="selectUser" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.system.TUser" >
     select <include refid="Base_Column_List" />
     from t_user
     <include refid="varSql" />
   </select>
 
-  <select id="selectUserCount" resultType="java.lang.Integer" parameterType="com.pan.model.TUser" >
+  <select id="selectUserCount" resultType="java.lang.Integer" parameterType="com.pan.model.entitys.system.TUser" >
     select count(1)
     from t_user
     <include refid="varSql" />
@@ -50,7 +50,7 @@
     delete from t_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.pan.model.TUser" >
+  <insert id="insert" parameterType="com.pan.model.entitys.system.TUser" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -63,7 +63,7 @@
       #{sex,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.pan.model.TUser" >
+  <insert id="insertSelective" parameterType="com.pan.model.entitys.system.TUser" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -127,7 +127,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pan.model.TUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.pan.model.entitys.system.TUser" >
     update t_user
     <set >
       <if test="userName != null" >
@@ -160,7 +160,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pan.model.TUser" >
+  <update id="updateByPrimaryKey" parameterType="com.pan.model.entitys.system.TUser" >
     update t_user
     set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

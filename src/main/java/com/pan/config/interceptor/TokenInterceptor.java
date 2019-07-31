@@ -1,12 +1,15 @@
 package com.pan.config.interceptor;
 
-import com.pan.enums.ResultCodeEnum;
-import com.pan.enums.UserSourceEnum;
-import com.pan.model.*;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.enums.UserSourceEnum;
+import com.pan.model.entitys.system.SUser;
+import com.pan.model.entitys.system.SUserToken;
+import com.pan.model.entitys.system.TUser;
+import com.pan.model.entitys.system.TUserToken;
 import com.pan.serivce.SystemService;
 import com.pan.serivce.UserService;
-import com.pan.util.JwtUtils;
-import com.pan.util.ResponseUtils;
+import com.pan.base.util.JwtUtils;
+import com.pan.base.util.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

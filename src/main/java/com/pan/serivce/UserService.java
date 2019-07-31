@@ -1,16 +1,16 @@
 package com.pan.serivce;
 
-import com.pan.enums.ResultCodeEnum;
-import com.pan.enums.UserStatusEnum;
-import com.pan.ex.BOException;
-import com.pan.mapper.TUserMapper;
-import com.pan.mapper.TUserTokenMapper;
-import com.pan.model.TUser;
-import com.pan.model.TUserToken;
-import com.pan.util.JwtUtils;
-import com.pan.util.MD5Utils;
-import com.pan.vo.regist.RegistVO;
-import com.pan.vo.user.UserVO;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.enums.UserStatusEnum;
+import com.pan.base.ex.BOException;
+import com.pan.dao.mapper.TUserMapper;
+import com.pan.dao.mapper.TUserTokenMapper;
+import com.pan.model.entitys.system.TUser;
+import com.pan.model.entitys.system.TUserToken;
+import com.pan.base.util.JwtUtils;
+import com.pan.base.util.MD5Utils;
+import com.pan.model.vo.regist.RegistVO;
+import com.pan.model.vo.user.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

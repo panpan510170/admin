@@ -1,14 +1,14 @@
 package com.pan.controller;
 
-import com.pan.enums.ResultCodeEnum;
-import com.pan.model.SPermissions;
-import com.pan.model.SRole;
-import com.pan.model.SUser;
+import com.pan.base.enums.ResultCodeEnum;
+import com.pan.model.entitys.system.SPermissions;
+import com.pan.model.entitys.system.SRole;
+import com.pan.model.entitys.system.SUser;
 import com.pan.serivce.SystemService;
-import com.pan.util.QueryResult;
-import com.pan.vo.JsonResult;
-import com.pan.vo.PermissionsVO;
-import com.pan.vo.user.UserVO;
+import com.pan.base.util.QueryResult;
+import com.pan.model.vo.JsonResult;
+import com.pan.model.vo.PermissionsVO;
+import com.pan.model.vo.user.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
