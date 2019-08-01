@@ -70,12 +70,16 @@ public class LimitService {
         return all;
     }
 
+    //TODO  待完善
     public LimitInfo editLimitCount(LimitInfo limitInfo, CoreLimit coreLimit) {
         //判断限制信息是否还能添加
+        String dimension = limitInfo.getDimension();
+        int number = limitInfo.getNumber();
+        //查询用户的限制信息
         return null;
     }
 
-
+    //TODO  待完善
     public LimitInfo getLimitCountInfo(LimitInfo limitInfo, CoreLimit coreLimit) {
         //查询限制信息
         return null;

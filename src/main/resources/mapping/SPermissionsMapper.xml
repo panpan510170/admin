@@ -9,6 +9,7 @@
     <result column="serial_number" property="serialNumber" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="udpate_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -137,6 +138,9 @@
       <if test="parentId != null" >
         parent_id,
       </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
       <if test="createTime != null" >
         create_time,
       </if>
@@ -159,6 +163,9 @@
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -188,6 +195,9 @@
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}

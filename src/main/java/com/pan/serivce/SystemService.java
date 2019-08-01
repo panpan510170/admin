@@ -55,18 +55,15 @@ public class SystemService {
             }else{
                 throw new BOException(ResultCodeEnum.bussinessError.getId(),"您的账号已被停用,请联系管理员");
             }
-
             //封装token加密参数
             SUser sUser1 = new SUser();
             sUser1.setId(user.getId());
             String token = JwtUtils.encode(sUser1,60*1000*60);
-
             //保存token
             SUserToken sUserToken = new SUserToken();
             sUserToken.setUserId(user.getId());
             sUserToken.setToken(token);
             sUserTokenMapper.updateByUserId(sUserToken);
-
             //封装返回参数
             userVO.setUserId(user.getId());
             userVO.setUserName(user.getUserName());
@@ -126,15 +123,17 @@ public class SystemService {
 
         if(null == sPermissions.getType()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 
+        if(null == sPermissions.getSerialNumber()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
         //查询一级权限
-        Integer max = sPermissionsMapper.getMaxPermissions(sPermissions.getType());
+        /*Integer max = sPermissionsMapper.getMaxPermissions(sPermissions.getType());
         if(null == max){
             if(1 == sPermissions.getType()) max = 0;
 
             if(2 == sPermissions.getType()) max = 1000;
-        }
-        sPermissions.setSerialNumber(max+1);
+        }*/
+        sPermissions.setSerialNumber(sPermissions.getSerialNumber());
         sPermissions.setCreateTime(new Date());
+        sPermissions.setUpdateTime(new Date());
         sPermissionsMapper.insertSelective(sPermissions);
     }
 
@@ -357,5 +356,16 @@ public class SystemService {
         sUserRoleMapper.deleteByUserId(sUserRole.getUserId());
 
         sUserRoleMapper.insertSelective(sUserRole);
+    }
+
+    /**
+     * 根据用户名查询系统用户
+     * @param userName  用户名
+     * @return
+     */
+    public SUser getUserByUserName(String userName) {
+        SUser sUser = new SUser();
+        sUser.setUserName(userName.trim());
+        return sUserMapper.selectSUser(sUser);
     }
 }
