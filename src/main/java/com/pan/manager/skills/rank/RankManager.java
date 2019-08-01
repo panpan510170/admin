@@ -1,13 +1,13 @@
 package com.pan.manager.skills.rank;
 
-import com.pan.model.entitys.skills.rank.CoreRank;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.handler.DataHandler;
-import com.pan.serivce.skills.rank.RankService;
+import com.pan.model.entitys.skills.rank.CoreRank;
 import com.pan.model.vo.rank.RankAddResultVO;
 import com.pan.model.vo.rank.RankInfoVO;
 import com.pan.model.vo.rank.RankVO;
+import com.pan.serivce.skills.rank.RankService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import java.util.Map;
 
 /**
  * 排行管理器
+ * TODO 待优化，若是新增排名需要重启程序
  * @author pan
  * @date 2019/6/20 11:00
  */
@@ -38,14 +39,10 @@ public class RankManager implements CommandLineRunner {
     @Override
     @SuppressWarnings("InfiniteLoopStatement")
     public void run(String... args){
-        while (true) {
-            try {
-                load();
-                logger.info("加载榜单信息");
-                Thread.sleep(1000*60*60);
-            } catch (Exception e) {
-                logger.error("加载排行信息异常",null, e);
-            }
+        try {
+            load();
+        } catch (Exception e) {
+            logger.error("初始化加载排行信息异常",null, e);
         }
     }
 
@@ -53,6 +50,7 @@ public class RankManager implements CommandLineRunner {
      * 同步DB榜单配置到内存
      */
     private void load() {
+        logger.info("加载榜单信息");
         CoreRank coreRank = new CoreRank();
         long time = System.currentTimeMillis();
         logger.info("榜单信息加载--当前时间"+time);
@@ -88,6 +86,9 @@ public class RankManager implements CommandLineRunner {
      * @return 返回排行信息
      */
     private CoreRank rank(String name) {
+        if(DataHandler.isEmpty(rankModelMap)){
+            load();
+        }
         return rankModelMap.get(name);
     }
 

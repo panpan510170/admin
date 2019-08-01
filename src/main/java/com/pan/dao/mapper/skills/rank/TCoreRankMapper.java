@@ -1,4 +1,4 @@
-package com.pan.dao.mapper;
+package com.pan.dao.mapper.skills.rank;
 
 import com.pan.model.entitys.skills.rank.CoreRank;
 import org.mapstruct.Mapper;

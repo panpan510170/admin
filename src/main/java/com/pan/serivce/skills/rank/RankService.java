@@ -5,7 +5,7 @@ import com.pan.model.entitys.skills.rank.RankInfo;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.handler.DataHandler;
-import com.pan.dao.mapper.TCoreRankMapper;
+import com.pan.dao.mapper.skills.rank.TCoreRankMapper;
 import com.pan.dao.repository.skills.rank.CoreRankRepository;
 import com.pan.dao.repository.skills.rank.RankInfoRepository;
 import com.pan.model.vo.rank.RankAddResultVO;

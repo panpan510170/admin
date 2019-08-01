@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableScheduling
 @ServletComponentScan
-@MapperScan("com.pan.dao.mapper")
+@MapperScan("com.pan.dao.mapper*")
 @EntityScan("com.pan.model.entitys")
 public class AdminApplication {
 

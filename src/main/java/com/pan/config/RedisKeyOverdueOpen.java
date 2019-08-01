@@ -13,6 +13,7 @@ public class RedisKeyOverdueOpen implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         //随服务开启过期key事件
+        System.out.println("随服务开启过期key事件");
         //redisSubscribe.psubscribe();
     }
 }
