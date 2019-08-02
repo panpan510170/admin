@@ -111,4 +111,15 @@ public class UserService {
     public TUserToken selectTokenByUserId(Long userId) {
         return tUserTokenMapper.selectTokenByUserId(userId);
     }
+
+    public TUser selectUserByUserName(String userName) {
+        TUser tUser = new TUser();
+        tUser.setUserName(userName.trim());
+        return tUserMapper.selectUser(tUser);
+    }
+
+    public String getRoleByUserName(String username) {
+
+        return null;
+    }
 }

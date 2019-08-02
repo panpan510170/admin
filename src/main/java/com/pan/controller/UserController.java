@@ -2,18 +2,15 @@ package com.pan.controller;
 
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.model.entitys.system.TUser;
-import com.pan.serivce.UserService;
 import com.pan.model.vo.JsonResult;
+import com.pan.serivce.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,6 +26,11 @@ public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/getMessage", method = RequestMethod.GET)
+    public JsonResult getMessage() {
+        return this.buildSuccessResult("您拥有用户权限，可以获得该接口的信息！");
+    }
 
     @ApiOperation(value = "用户名唯一效验")
     @PostMapping(value = "/userNameOnly")
