@@ -8,6 +8,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
 @EnableScheduling
@@ -20,8 +21,22 @@ public class AdminApplication {
         SpringApplication.run(AdminApplication.class, args);
     }
 
+    /**
+     * 处理乱码问题
+     */
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
+    }
+
+    /**
+     * 处理jsp无法访问问题
+     */
+    @Bean
+    public InternalResourceViewResolver setupViewResolver(){
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setSuffix(".jsp");
+        return resolver;
     }
 }

@@ -52,7 +52,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(new RequestInterceptor()).addPathPatterns("/**");
         //registry.addInterceptor(preDupSubmissionsIntercetor()).addPathPatterns("/**");
         //因为websocket的原因，所以这个不效验token
-        registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
+        //registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
         super.addInterceptors(registry);
     }
     /**
