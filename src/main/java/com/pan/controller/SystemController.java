@@ -1,19 +1,22 @@
 package com.pan.controller;
 
 import com.pan.base.enums.ResultCodeEnum;
+import com.pan.base.ex.BOException;
+import com.pan.base.util.QueryResult;
+import com.pan.model.LoginLog;
 import com.pan.model.entitys.system.SPermissions;
 import com.pan.model.entitys.system.SRole;
 import com.pan.model.entitys.system.SUser;
-import com.pan.serivce.SystemService;
-import com.pan.base.util.QueryResult;
 import com.pan.model.vo.JsonResult;
 import com.pan.model.vo.PermissionsVO;
 import com.pan.model.vo.user.UserVO;
+import com.pan.serivce.SystemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.authc.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +36,37 @@ public class SystemController extends BaseController{
 
     @Autowired
     private SystemService systemService;
+
+    @PostMapping("/login1")
+    //@Limit(key = "login1", period = 60, count = 20, name = "登录接口", prefix = "limit")
+    //@NotBlank(message = "{required}") String verifyCode,
+    // boolean rememberMe, HttpServletRequest request
+    public JsonResult login1(
+            @ApiParam(value = "用户名", required = true)
+            @RequestParam(name = "userName") String userName,
+            @ApiParam(value = "密码", required = true)
+            @RequestParam(name = "password") String password) throws Exception{
+        /*if (!CaptchaUtil.verify(verifyCode, request)) {
+            throw new FebsException("验证码错误！");
+        }*/
+        //password = MD5Util.encrypt(username.toLowerCase(), password);
+        Boolean rememberMe = false;
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, password, rememberMe);
+        try {
+            super.login(token);
+            // 保存登录日志
+            LoginLog loginLog = new LoginLog();
+            loginLog.setUsername(userName);
+            loginLog.setSystemBrowserInfo();
+            //this.loginLogService.saveLoginLog(loginLog);
+
+            return this.buildSuccessResult();
+        } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
+            throw new Exception(e.getMessage());
+        } catch (AuthenticationException e) {
+            throw new BOException(ResultCodeEnum.tokenError.getId(),"认证失败！");
+        }
+    }
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
@@ -107,6 +141,23 @@ public class SystemController extends BaseController{
     @ApiOperation(value = "左侧权限列表")
     @PostMapping("/userPermissionsList")
     public JsonResult<List<PermissionsVO>> userPermissionsList(HttpServletRequest request) throws Exception{
+
+        SUser user = (SUser)request.getAttribute("suser");
+
+        if (null == user) {
+            return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
+        }
+
+        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
+
+        List<PermissionsVO> list = systemService.userPermissionsList(user.getId());
+
+        return this.buildSuccessResult(list);
+    }
+
+    @ApiOperation(value = "左侧权限列表")
+    @PostMapping("/userPermissionsList1")
+    public JsonResult<List<PermissionsVO>> userPermissionsList1(HttpServletRequest request) throws Exception{
 
         SUser user = (SUser)request.getAttribute("suser");
 

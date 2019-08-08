@@ -4,9 +4,14 @@ import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.util.QueryResult;
 import com.pan.base.util.RequestUtils;
+import com.pan.model.User;
 import com.pan.model.vo.JsonResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -166,4 +171,35 @@ public class BaseController {
             return this.buildErrorResult(ResultCodeEnum.performError);
         }
     }
+
+    /**
+     * 处理权限
+     * @return
+     */
+    protected static Subject getSubject() {
+        return SecurityUtils.getSubject();
+    }
+
+    protected User getCurrentUser() {
+        return (User) getSubject().getPrincipal();
+    }
+
+    protected Session getSession() {
+        return getSubject().getSession();
+    }
+
+    protected Session getSession(Boolean flag) {
+        return getSubject().getSession(flag);
+    }
+
+    protected void login(AuthenticationToken token) {
+        getSubject().login(token);
+    }
+
+    /*protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("rows", pageInfo.getRecords());
+        data.put("total", pageInfo.getTotal());
+        return data;
+    }*/
 }

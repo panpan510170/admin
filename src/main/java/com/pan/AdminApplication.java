@@ -7,11 +7,13 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableScheduling
 @ServletComponentScan
+@EnableTransactionManagement
 @MapperScan("com.pan.dao.mapper*")
 @EntityScan("com.pan.model.entitys")
 public class AdminApplication {

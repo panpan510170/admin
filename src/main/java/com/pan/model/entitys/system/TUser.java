@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @ApiModel(value = "用户对象")
@@ -13,7 +14,10 @@ import java.util.Date;
 @Table(name = "t_user")
 @org.hibernate.annotations.Table(appliesTo = "t_user",comment="系统用户角色表")
 @Data
-public class TUser extends BaseDO {
+public class TUser extends BaseDO implements Serializable {
+
+    private static final long serialVersionUID = -4352868070794165001L;
+
     @ApiModelProperty(value = "主键id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +48,6 @@ public class TUser extends BaseDO {
     @Column(name = "status",nullable = false,columnDefinition = "int comment '状态(1-正常,2-注销,3-停用)'")
     private Integer status;
 
-    @Column(name = "create_time",nullable = false,columnDefinition = "datetime comment '创建时间'")
+    @Column(name = "reg_time",nullable = false,columnDefinition = "datetime comment '创建时间'")
     private Date regTime;
 }

@@ -115,7 +115,8 @@ public class UserService {
     public TUser selectUserByUserName(String userName) {
         TUser tUser = new TUser();
         tUser.setUserName(userName.trim());
-        return tUserMapper.selectUser(tUser);
+        TUser tUser1 = tUserMapper.selectUser(tUser);
+        return tUser1;
     }
 
     public String getRoleByUserName(String username) {
