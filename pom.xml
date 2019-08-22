@@ -254,7 +254,7 @@
             <version>1.2.49</version>
         </dependency>
 
-        <!--shiro-->
+        <!--shiro  开始-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
@@ -270,11 +270,29 @@
             <artifactId>thymeleaf-extras-shiro</artifactId>
             <version>2.0.0</version>
         </dependency>
+        <!--shiro 结束-->
 
+        <!--配置springboot支持jsp  添加tomcat支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
+        <!--配置springboot支持jsp  添加jsp支持 -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <!--配置springboot支持jsp  jsp对servlet容器的支持 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <!--在jsp页面使用jstl标签来处理界面逻辑，那么需要引入jstl maven-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
