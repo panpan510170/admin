@@ -45,7 +45,7 @@ public class BaseController {
      * 获取页面参数
      *
      * @param request
-     * @return
+     * @return JsonResult
      */
     public Map<String, Object> getQueryParams(HttpServletRequest request) {
         Map<String, Object> pageMap = RequestUtils.getQueryParams(request);
@@ -55,7 +55,7 @@ public class BaseController {
     /**
      * 成功  不返回数据
      *
-     * @return
+     * @return JsonResult
      */
     public <T> JsonResult buildSuccessResult() {
         return new JsonResult( ResultCodeEnum.success.getId(), ResultCodeEnum.success.getName());
@@ -64,7 +64,7 @@ public class BaseController {
     /**
      * 失败  不返回结果
      *
-     * @return
+     * @return JsonResult
      */
     public <T> JsonResult buildErrorResult() {
         return new JsonResult(ResultCodeEnum.error.getId(), ResultCodeEnum.error.getName());
@@ -73,8 +73,8 @@ public class BaseController {
     /**
      * 成功  返回数据
      *
-     * @param obj
-     * @return
+     * @param obj 结果对象
+     * @return JsonResult
      */
     public <T> JsonResult buildSuccessResult(T obj) {
         return new JsonResult(obj, ResultCodeEnum.success.getId(), ResultCodeEnum.success.getName());
@@ -83,8 +83,8 @@ public class BaseController {
     /**
      * 失败  返回数据
      *
-     * @param obj
-     * @return
+     * @param obj 结果对象
+     * @return JsonResult
      */
     public <T> JsonResult buildErrorResult(T obj) {
         return new JsonResult(obj, ResultCodeEnum.error.getId(), ResultCodeEnum.error.getName());
@@ -93,9 +93,9 @@ public class BaseController {
     /**
      * 成功结果  返回数据和结果
      *
-     * @param obj
-     * @param resultCodeEnum
-     * @return
+     * @param obj 结果对象
+     * @param resultCodeEnum 业务码
+     * @return JsonResult
      */
     public <T> JsonResult buildSuccessResult(T obj, ResultCodeEnum resultCodeEnum) {
         return new JsonResult(obj, resultCodeEnum.getId(), resultCodeEnum.getName());
@@ -104,8 +104,8 @@ public class BaseController {
     /**
      * 失败结果  返回数据和结果
      *
-     * @param resultCodeEnum
-     * @return
+     * @param resultCodeEnum  业务码
+     * @return JsonResult
      */
     public <T> JsonResult buildErrorResult(T obj,ResultCodeEnum resultCodeEnum) {
         return new JsonResult(obj,resultCodeEnum.getId(), resultCodeEnum.getName());
@@ -114,8 +114,8 @@ public class BaseController {
     /**
      * 失败  返回数据
      *
-     * @param resultCodeEnum
-     * @return
+     * @param resultCodeEnum  业务码
+     * @return JsonResult
      */
     public <T> JsonResult buildErrorResult(ResultCodeEnum resultCodeEnum) {
         return new JsonResult(null, resultCodeEnum.getId(), resultCodeEnum.getName());
@@ -124,8 +124,8 @@ public class BaseController {
     /**
      * 成功  返回数据
      *
-     * @param resultCodeEnum
-     * @return
+     * @param resultCodeEnum 业务码
+     * @return JsonResult
      */
     public <T> JsonResult buildSuccessResult(ResultCodeEnum resultCodeEnum) {
         return new JsonResult(null, resultCodeEnum.getId(), resultCodeEnum.getName());
@@ -135,7 +135,7 @@ public class BaseController {
     /**
      * 失败结果  返回异常信息
      *
-     * @return
+     * @return JsonResult
      */
     public <T> JsonResult buildErrorResult(Integer code, String msg) {
         return new JsonResult(code, msg);
@@ -143,7 +143,7 @@ public class BaseController {
 
     /**
      * list 封装结果集
-     * @return
+     * @return JsonResult
      */
     public <T> QueryResult buildQueryResult(QueryResult queryResult){
         return new QueryResult(queryResult.getRows(),queryResult.getTotal());
@@ -151,7 +151,7 @@ public class BaseController {
 
 
     /**
-     * @Description: 处理抛出到父类的异常信息
+     * 处理抛出到父类的异常信息
      * @Author pangaofeng
      * @Date 2018/8/30 11:26
      */
@@ -176,30 +176,23 @@ public class BaseController {
      * 处理权限
      * @return
      */
-    protected static Subject getSubject() {
+    public static Subject getSubject() {
         return SecurityUtils.getSubject();
     }
 
-    protected User getCurrentUser() {
+    public User getCurrentUser() {
         return (User) getSubject().getPrincipal();
     }
 
-    protected Session getSession() {
+    public Session getSession() {
         return getSubject().getSession();
     }
 
-    protected Session getSession(Boolean flag) {
+    public Session getSession(Boolean flag) {
         return getSubject().getSession(flag);
     }
 
-    protected void login(AuthenticationToken token) {
+    public void login(AuthenticationToken token) {
         getSubject().login(token);
     }
-
-    /*protected Map<String, Object> getDataTable(IPage<?> pageInfo) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("rows", pageInfo.getRecords());
-        data.put("total", pageInfo.getTotal());
-        return data;
-    }*/
 }
