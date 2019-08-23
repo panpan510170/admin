@@ -14,8 +14,10 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
@@ -91,8 +93,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put(shiroProperties.getLogoutUrl(), "logout");
 
         // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
-        //filterChainDefinitionMap.put("/**", "user");
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "user");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
@@ -156,8 +157,8 @@ public class ShiroConfig {
     /*@Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
-    }*/
-
+    }
+*/
     @Bean
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
@@ -181,5 +182,17 @@ public class ShiroConfig {
         sessionManager.setSessionDAO(redisSessionDAO());
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
+    }
+
+    /**
+     * 开通shiro注解
+     * @return
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator app=new DefaultAdvisorAutoProxyCreator();
+        app.setProxyTargetClass(true);
+        return app;
     }
 }

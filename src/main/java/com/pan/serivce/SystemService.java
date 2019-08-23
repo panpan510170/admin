@@ -124,13 +124,7 @@ public class SystemService {
         if(null == sPermissions.getType()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
 
         if(null == sPermissions.getSerialNumber()) throw new BOException(ResultCodeEnum.paramError.getId(),ResultCodeEnum.paramError.getName());
-        //查询一级权限
-        /*Integer max = sPermissionsMapper.getMaxPermissions(sPermissions.getType());
-        if(null == max){
-            if(1 == sPermissions.getType()) max = 0;
 
-            if(2 == sPermissions.getType()) max = 1000;
-        }*/
         sPermissions.setSerialNumber(sPermissions.getSerialNumber());
         sPermissions.setCreateTime(new Date());
         sPermissions.setUpdateTime(new Date());
@@ -208,7 +202,7 @@ public class SystemService {
         //所有一级
         for(SPermissions sPermissions : allPermissionsList){
             Map<String, Object> map = new HashMap<>();
-
+            //查询二级菜单
             SPermissions secondPermissions = new SPermissions();
             secondPermissions.setType(2);
             secondPermissions.setParentId(sPermissions.getId());
@@ -217,13 +211,36 @@ public class SystemService {
             List<Map<String, Object>> secondList = new ArrayList<>();
             for(SPermissions sp : secondPermissionslist){
                 Map<String, Object> secondMap = new HashMap<>();
+                //查询三级按钮
+                SPermissions thirdPermissions = new SPermissions();
+                thirdPermissions.setType(3);
+                thirdPermissions.setParentId(sp.getId());
+                List<SPermissions> thirdPermissionslist = sPermissionsMapper.rolePermissionsTreeList(thirdPermissions);
+                List<Map<String, Object>> thirdList = new ArrayList<>();
+                for(SPermissions thirdSp : thirdPermissionslist){
+                    Map<String, Object> thirdMap = new HashMap<>();
+                    thirdMap.put("id",thirdSp.getId());
+                    thirdMap.put("text",thirdSp.getPermissionsName());
+                    SRolePermissions thirdRolePermissions = new SRolePermissions();
+                    thirdRolePermissions.setRoleId(roleId);
+                    thirdRolePermissions.setPermissionsId(thirdSp.getId());
+                    SRolePermissions res = sRolePermissionsMapper.selectByObj(thirdRolePermissions);
+                    if(null != res) {//默认勾选
+                        thirdMap.put("state",stateMap);
+                    }
+                    thirdList.add(thirdMap);
+                }
                 secondMap.put("id",sp.getId());
                 secondMap.put("text",sp.getPermissionsName());
                 SRolePermissions sRolePermissions = new SRolePermissions();
                 sRolePermissions.setRoleId(roleId);
                 sRolePermissions.setPermissionsId(sp.getId());
                 SRolePermissions rolePermissions = sRolePermissionsMapper.selectByObj(sRolePermissions);
-                if(null != rolePermissions) secondMap.put("state",stateMap);//默认勾选
+                if(null != rolePermissions) {//默认勾选
+                    secondMap.put("state",stateMap);
+                }
+                secondMap.put("nodes",thirdList);
+                secondMap.put("ignoreChildren",true);
                 secondList.add(secondMap);
             }
             map.put("id",sPermissions.getId());
@@ -232,9 +249,11 @@ public class SystemService {
             sRolePermissions.setRoleId(roleId);
             sRolePermissions.setPermissionsId(sPermissions.getId());
             SRolePermissions rolePermissions = sRolePermissionsMapper.selectByObj(sRolePermissions);
-            if(null != rolePermissions) map.put("state",stateMap);//默认勾选
+            if(null != rolePermissions) {
+                map.put("state", stateMap);//默认勾选
+            }
             map.put("nodes",secondList);
-
+            map.put("ignoreChildren",true);
             listmap.add(map);
         }
         return listmap;
@@ -371,5 +390,16 @@ public class SystemService {
 
     public String getRoleByUserName(String userName) {
         return "管理员";
+    }
+
+    /**
+     * 查询用户的所有权限路径
+     * @param userId 用户id
+     * @return
+     */
+    public List<SPermissions> getUserPermissionsAllList(Long userId) {
+        SPermissions sPermissions = new SPermissions();
+        sPermissions.setUserId(userId);
+        return sPermissionsMapper.getUserPermissionsAllList(sPermissions);
     }
 }

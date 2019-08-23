@@ -1,16 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jsp/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!--360浏览器优先以webkit内核解析-->
-
     <title></title>
     <jsp:include page="/WEB-INF/jsp/common/common_header.jsp"></jsp:include>
 </head>
-
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="panel panel-default">

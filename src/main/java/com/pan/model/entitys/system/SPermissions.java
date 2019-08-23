@@ -26,8 +26,11 @@ public class SPermissions extends BaseDO {
     @Column(name = "serial_number",nullable = false,columnDefinition = "varchar(100) comment '优先级'")
     private Integer serialNumber;
 
-    @Column(name = "type",nullable = false,columnDefinition = "int comment '类型(1-一级权限,2-二级权限)'")
+    @Column(name = "type",nullable = false,columnDefinition = "int comment '类型(1-一级菜单权限,2-二级菜单权限),3-三级按钮权限'")
     private Integer type;
+
+    @Column(name = "permissions",nullable = false,columnDefinition = "varchar(100) comment '权限别名'")
+    private String permissions;
 
     @Column(name = "parent_id",columnDefinition = "bigint comment '父id'")
     private Long parentId;

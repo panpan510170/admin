@@ -2,6 +2,7 @@ package com.pan.controller;
 
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
+import com.pan.base.util.MyUtils;
 import com.pan.base.util.QueryResult;
 import com.pan.model.LoginLog;
 import com.pan.model.entitys.system.SPermissions;
@@ -17,6 +18,7 @@ import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -148,22 +150,20 @@ public class SystemController extends BaseController{
     @ApiOperation(value = "查询角色权限列表")
     @PostMapping("/rolePermissionsTreeList")
     public JsonResult<List<Map<String,Object>>> rolePermissionsTreeList(@RequestBody Map paramMap,HttpServletRequest request) throws Exception{
-
-        SUser user = (SUser)request.getAttribute("suser");
-
+        SUser user = MyUtils.getUserInfo();
         if (null == user) {
             return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
         }
-
-        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
-
+        if(null == user.getId()) {
+            return this.buildErrorResult(ResultCodeEnum.paramError);
+        }
         List<Map<String,Object>> list = systemService.rolePermissionsTreeList(paramMap);
-
         return this.buildSuccessResult(list);
     }
 
     @ApiOperation(value = "保存角色权限列表")
     @PostMapping("/saveRolePermissionsTree")
+    @RequiresPermissions("sys_user:add")
     public JsonResult saveRolePermissionsTree(@RequestBody Map<String,Object> paramMap,HttpServletRequest request) throws Exception{
         SUser user = (SUser)request.getAttribute("suser");
 

@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jsp/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!--360浏览器优先以webkit内核解析-->
-
     <title></title>
     <jsp:include page="/WEB-INF/jsp/common/common_header.jsp"></jsp:include>
 </head>
@@ -30,9 +28,11 @@
         </div>
     </div>
     <div id="toolbar" class="btn-group">
+        <shiro:hasPermission name="user:add">
         <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
         </button>
+        </shiro:hasPermission>
     </div>
     <div class="example-wrap">
         <div class="example">
@@ -199,11 +199,6 @@
 
         }
     });
-
-
-    function detailed(id){
-        location.href = "/business/issuer/v_issuerAccountDetailed.do?id=" + id;
-    }
 </script>
 </body>
 

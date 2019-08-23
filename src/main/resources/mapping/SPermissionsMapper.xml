@@ -8,12 +8,13 @@
     <result column="permissions_image_url" property="permissionsImageUrl" jdbcType="VARCHAR" />
     <result column="serial_number" property="serialNumber" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="permissions" property="permissions" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="udpate_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, permissions_name, permissions_url, permissions_image_url, serial_number, type, 
+    id, permissions_name, permissions_url, permissions_image_url, serial_number, type,permissions,
     parent_id, create_time
   </sql>
 
@@ -57,7 +58,7 @@
 
 
   <select id="userPermissionsList" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.system.SPermissions" >
-    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url
+    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url,sp.permissions
     from s_permissions sp
     inner join s_role_permissions srp
     on sp.id = srp.permissions_id
@@ -76,7 +77,7 @@
   </select>
 
   <select id="rolePermissionsTreeList" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.system.SPermissions" >
-    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url
+    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url,sp.permissions
     from s_permissions sp
     <where>
       <if test="type!=null and type!=''">and sp.type = #{type} </if>
@@ -85,7 +86,22 @@
     order by sp.serial_number
   </select>
 
-
+  <select id="getUserPermissionsAllList" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.system.SPermissions" >
+    select  sp.id,sp.permissions_name, sp.permissions_url, sp.permissions_image_url,sp.permissions
+    from s_permissions sp
+    inner join s_role_permissions srp
+    on sp.id = srp.permissions_id
+    inner join s_role sr
+    on srp.role_id = sr.id
+    inner join s_user_role sur
+    on sur.role_id = sr.id
+    inner join s_user su
+    on su.id = sur.user_id
+    <where>
+      <if test="userId!=null and userId!=''">and su.id = #{userId} </if>
+    </where>
+    order by sp.serial_number
+  </select>
 
 
 
@@ -103,17 +119,6 @@
     delete from s_permissions
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.pan.model.entitys.system.SPermissions" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into s_permissions (permissions_name, permissions_url, 
-      permissions_image_url, serial_number, type, 
-      parent_id, create_time)
-    values (#{permissionsName,jdbcType=VARCHAR}, #{permissionsUrl,jdbcType=VARCHAR}, 
-      #{permissionsImageUrl,jdbcType=VARCHAR}, #{serialNumber,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{parentId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
-  </insert>
   <insert id="insertSelective" parameterType="com.pan.model.entitys.system.SPermissions" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
@@ -134,6 +139,9 @@
       </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="permissions != null" >
+        permissions,
       </if>
       <if test="parentId != null" >
         parent_id,
@@ -160,6 +168,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="permissions != null" >
+        #{permissions,jdbcType=VARCHAR},
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=BIGINT},
@@ -190,6 +201,9 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="permissions != null" >
+        permissions = #{permissions,jdbcType=VARCHAR},
+      </if>
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=BIGINT},
       </if>
@@ -200,17 +214,6 @@
         update_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.pan.model.entitys.system.SPermissions" >
-    update s_permissions
-    set permissions_name = #{permissionsName,jdbcType=VARCHAR},
-      permissions_url = #{permissionsUrl,jdbcType=VARCHAR},
-      permissions_image_url = #{permissionsImageUrl,jdbcType=VARCHAR},
-      serial_number = #{serialNumber,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

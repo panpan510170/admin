@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jsp/common/common.jsp"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!--360浏览器优先以webkit内核解析-->
-
     <title></title>
     <jsp:include page="/WEB-INF/jsp/common/common_header.jsp"></jsp:include>
 </head>
@@ -39,13 +37,9 @@
         </div>
     </div>
     <div id="toolbar" class="btn-group">
-       <%-- glyphicon-import导入  glyphicon-download下载--%>
-        <%--<button id="btn_export" type="button" class="btn btn-primary" style="margin-right: 5px">
-            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>导出
-        </button>--%>
-        <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
-        </button>
+           <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
+           </button>
     </div>
     <div class="example-wrap">
         <div class="example">
@@ -81,6 +75,22 @@
                                 <input type="text" placeholder="权限路径" class="form-control" id="perUrl">
                             </td>
                         </tr>
+                        <tr>
+                            <td style="text-align: center;padding: 30px;font-size: 1em">
+                                <label>权限别名:</label>
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" placeholder="权限别名" class="form-control" id="permissions">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;padding: 30px;font-size: 1em">
+                                <label>排序:</label>
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" placeholder="排序" class="form-control" id="serialNumber">
+                            </td>
+                        </tr>
                         <%--<tr>
                             <td style="text-align: center;padding: 30px;font-size: 1em">
                                 <label>权限图片:</label>
@@ -96,9 +106,9 @@
                             <td style="text-align: center;" onchange="showShang()" id="type">
                                 <select class="form-control">
                                     <option value="">请选择</option>
-                                    <option value="1">一级权限</option>
-                                    <option value="2">二级权限</option>
-                                    <%--<option value="3">三级权限</option>--%>
+                                    <option value="1">一级权限菜单</option>
+                                    <option value="2">二级权限菜单</option>
+                                    <option value="3">三级权限按钮</option>
                                 </select>
                             </td>
                         </tr>
@@ -129,6 +139,8 @@
         var type = $("#type option:selected").val();
         var permissionsName = $("#perName").val();
         var permissionsUrl = $("#perUrl").val();
+        var permissions = $("#permissions").val();
+        var serialNumber = $("#serialNumber").val();
         var parentId = $("#parentId option:selected").val();
 
         if("" == permissionsName || null == permissionsName){
@@ -147,6 +159,8 @@
             var param = {
                 "permissionsName" : permissionsName,
                 "permissionsUrl" : permissionsUrl,
+                "permissions" : permissions,
+                "serialNumber" : serialNumber,
                 "type" : type,
                 "parentId" : parentId
             };
@@ -161,9 +175,8 @@
                 success: function (obj) {
                     if(1 != obj.code){
                         sweetAlert(obj.message);
-                        location.href = "login.jsp";
                     }else{
-                        location.href = "/view/system/sPermissionsList.jsp";
+                        location.href = "/system/sPermissionsList";
                     }
                 },
                 error: function (obj) {
