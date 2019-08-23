@@ -368,4 +368,8 @@ public class SystemService {
         sUser.setUserName(userName.trim());
         return sUserMapper.selectSUser(sUser);
     }
+
+    public String getRoleByUserName(String userName) {
+        return "管理员";
+    }
 }

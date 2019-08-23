@@ -1,6 +1,6 @@
 package com.pan.config.shiro;
 
-import com.pan.model.entitys.system.TUser;
+import com.pan.model.entitys.system.SUser;
 import com.pan.model.vo.PermissionsVO;
 import com.pan.serivce.SystemService;
 import com.pan.serivce.UserService;
@@ -50,45 +50,23 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
         System.out.println("————授权方法————");
-        TUser user = (TUser) SecurityUtils.getSubject().getPrincipal();
+        SUser user = (SUser) SecurityUtils.getSubject().getPrincipal();
         String userName = user.getUserName();
-
+        //查询用户角色
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-
-        // 获取用户角色集
-        /*List<Role> roleList = this.roleService.findUserRole(userName);
-        Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
-        simpleAuthorizationInfo.setRoles(roleSet);*/
-
-        String role = userService.getRoleByUserName(userName);
+        String role = systemService.getRoleByUserName(userName);
         Set<String> roleSet = new HashSet<>();
         roleSet.add(role);
         simpleAuthorizationInfo.setRoles(roleSet);
-        TUser tUser = userService.selectUserByUserName(userName);
-        // 获取用户权限集
-        //List<Menu> permissionList = this.menuService.findUserPermissions(userName);
-        //Set<String> permissionSet = permissionList.stream().map(Menu::getPerms).collect(Collectors.toSet());
-        //simpleAuthorizationInfo.setStringPermissions(permissionSet);
+        //查询用户权限
         Set<String> permissionSet = null;
         try {
-            List<PermissionsVO> permissionsVOS = systemService.userPermissionsList(tUser.getId());
+            List<PermissionsVO> permissionsVOS = systemService.userPermissionsList(user.getId());
             permissionSet = permissionsVOS.stream().map(PermissionsVO::getUrl).collect(Collectors.toSet());
         } catch (Exception e) {
             e.printStackTrace();
         }
         simpleAuthorizationInfo.setStringPermissions(permissionSet);
-
-        /*System.out.println("————权限认证————");
-        String username = (String) SecurityUtils.getSubject().getPrincipal();
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        //获得该用户角色
-        String role = userService.getRoleByUserName(username);
-        Set<String> set = new HashSet<>();
-        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
-        set.add(role);
-        //设置该用户拥有的角色
-        info.setRoles(set);
-        return info;*/
         return simpleAuthorizationInfo;
     }
 
@@ -101,34 +79,17 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        // 获取用户输入的用户名和密码
-        /*String userName = (String) token.getPrincipal();
-        String password = new String((char[]) token.getCredentials());
-
-        // 通过用户名到数据库查询用户信息
-        User user = this.userService.findByName(userName);
-
-        if (user == null)
-            throw new UnknownAccountException("用户名或密码错误！");
-        if (!StringUtils.equals(password, user.getPassword()))
-            throw new IncorrectCredentialsException("用户名或密码错误！");
-        if (User.STATUS_LOCK.equals(user.getStatus()))
-            throw new LockedAccountException("账号已被锁定,请联系管理员！");
-        return new SimpleAuthenticationInfo(user, password, getName());*/
-
         System.out.println("————身份认证方法————");
         String userName = (String) token.getPrincipal();
-        //String password = new String((char[]) token.getCredentials());
         // 从数据库获取对应用户名密码的用户
-        TUser tUser = userService.selectUserByUserName(userName);
-        String password = tUser.getPassword();
+        SUser user = systemService.getUserByUserName(userName);
+        String password = user.getPassword();
         if (null == password) {
             throw new AccountException("用户名不正确");
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {
             throw new AccountException("密码不正确");
         }
-        //return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
-        return new SimpleAuthenticationInfo(tUser, password, getName());
+        return new SimpleAuthenticationInfo(user, password, getName());
     }
 
     /**

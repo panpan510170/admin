@@ -4,12 +4,16 @@ import com.pan.model.BaseDO;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Table(name = "s_user")
 @org.hibernate.annotations.Table(appliesTo = "s_user",comment="系统用户表")
 @Data
-public class SUser extends BaseDO {
+public class SUser extends BaseDO  implements Serializable {
+
+    private static final long serialVersionUID = -4352868070794165001L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

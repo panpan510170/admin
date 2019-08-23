@@ -4,7 +4,7 @@ import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.util.QueryResult;
 import com.pan.base.util.RequestUtils;
-import com.pan.model.User;
+import com.pan.model.entitys.system.SUser;
 import com.pan.model.vo.JsonResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -180,8 +180,8 @@ public class BaseController {
         return SecurityUtils.getSubject();
     }
 
-    public User getCurrentUser() {
-        return (User) getSubject().getPrincipal();
+    public SUser getCurrentUser() {
+        return (SUser) getSubject().getPrincipal();
     }
 
     public Session getSession() {

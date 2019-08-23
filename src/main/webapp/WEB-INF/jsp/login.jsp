@@ -40,9 +40,8 @@
 <jsp:include page="/WEB-INF/jsp/common/common_footer.jsp"></jsp:include>
 <script>
     function login() {
-
         $.ajax({
-            url: url+"/system/login1",
+            url: "/system/login",
             type: "post",
             data:{
                 "userName":$("#userName").val(),
@@ -53,17 +52,9 @@
                 if(1 != obj.code){
                     sweetAlert(obj.message);
                 }else{
-                    /*alert(obj.data.token);
-                    alert(obj.data.userName);
-                    alert(obj.data.userId);*/
-                    sessionStorage.setItem("token",obj.data.token);
-                    sessionStorage.setItem("userId",obj.data.userId);
-                    sessionStorage.setItem("userName",obj.data.userName);
+                   location.href="/index";
                 }
             },
-            /*error: function (obj) {
-                alert(obj.message);
-            }*/
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("jqXHR.responseText:"+"["+jqXHR.responseText+"]---"+
                     "jqXHR.status"+"["+jqXHR.status+"]---"+

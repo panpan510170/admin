@@ -118,9 +118,4 @@ public class UserService {
         TUser tUser1 = tUserMapper.selectUser(tUser);
         return tUser1;
     }
-
-    public String getRoleByUserName(String username) {
-
-        return null;
-    }
 }
