@@ -19,14 +19,15 @@
         </div>
         <form class="m-t" role="form" action="index.html">
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Username" required="" id="userName" style="width: 100%">
+                <input type="text" class="form-control" placeholder="Username" required="" id="userName" style="width: 100%">
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" placeholder="Password" required="" id="password" style="width: 100%">
             </div>
-            <%--<div class="form-group">
-                <input type="vCode" class="form-control" placeholder="验证码" required="" id="vCode" style="width: 40%">
-            </div>--%>
+            <div class="form-group form-inline">
+                <input type="text" class="form-control" placeholder="验证码" required="" id="code" style="width: 57%;margin-right: 5%">
+                <img alt="" src="/imageCode/getCode" id="imageCode" onclick="refresh()">
+            </div>
 
             <button type="button" class="btn btn-primary block full-width m-b" onclick="login()">Login</button>
         </form>
@@ -34,13 +35,19 @@
 </div>
 <jsp:include page="/WEB-INF/jsp/common/common_footer.jsp"></jsp:include>
 <script>
+    function refresh(){
+        var temp = document.getElementById("imageCode");
+        var now = new Date();
+        temp.src = "/imageCode/getCode?code="+now.getTime();
+    }
     function login() {
         $.ajax({
             url: "/system/login",
             type: "post",
             data:{
                 "userName":$("#userName").val(),
-                "password":$("#password").val()
+                "password":$("#password").val(),
+                "code":$("#code").val()
             },
             dataType: "json",
             success: function (obj) {

@@ -189,7 +189,6 @@
                         "</li>")
                     var id = value.name;
                     $.each(value.list ,function (index,value) {
-                        /*alert(value.name);*/
                         $("#"+id).append("<li class="+'"quanxian"'+"><a href='"+value.url+"' target="+"content"+">"+value.name+"</a></li>");
                     });
 
@@ -203,16 +202,10 @@
 
 
     $("body").on("click","li",function(){
-        /*alert("事件绑定成功！");*/
-
         $(this).siblings('li').removeClass('active');
         $("ul").removeClass('in');
         $(this).addClass('active');
         $(this).children("ul").addClass('in');
-
-        /*$(this).addClass("active");
-        $(this).parent().addClass("in");
-        $(this).parent('li').addClass("active");*/
     });
 </script>
 </body>

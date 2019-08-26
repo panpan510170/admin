@@ -1,5 +1,6 @@
 package com.pan.controller;
 
+import com.pan.base.constants.RedisKeyConstant;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.util.MyUtils;
@@ -20,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,15 +42,24 @@ public class SystemController extends BaseController{
     private SystemService systemService;
     @Autowired
     private ShiroRealm shiroRealm;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
     public JsonResult<UserVO> login(@ApiParam(value = "用户名", required = true)
-                            @RequestParam(name = "userName") String userName,
-                            @ApiParam(value = "密码", required = true)
-                            @RequestParam(name = "password") String password) throws Exception{
+                                        @RequestParam(name = "userName") String userName,
+                                    @ApiParam(value = "密码", required = true)
+                                        @RequestParam(name = "password") String password,
+                                    @ApiParam(value = "验证码", required = true)
+                                        @RequestParam(name = "code") String code,HttpServletRequest request) throws Exception{
 
         logger.info("SystemController...login...系统用户登陆接口入参:用户名:[" + userName + "],密码:[" + password + "]");
+        //效验验证码
+        String vCode = String.valueOf(redisTemplate.opsForValue().get(RedisKeyConstant.systemLogin(request.getSession().getId())));
+        if(!code.equals(vCode)){
+            throw new BOException(ResultCodeEnum.bussinessError.getId(),"验证码不对！");
+        }
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password, false);
         try {
             super.login(token);
