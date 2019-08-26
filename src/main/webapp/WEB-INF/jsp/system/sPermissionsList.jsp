@@ -37,9 +37,11 @@
         </div>
     </div>
     <div id="toolbar" class="btn-group">
+        <shiro:hasPermission name="permissions:add">
            <button id="btn_add" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>增加
            </button>
+        </shiro:hasPermission>
     </div>
     <div class="example-wrap">
         <div class="example">

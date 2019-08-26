@@ -4,6 +4,7 @@ import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.util.MyUtils;
 import com.pan.base.util.QueryResult;
+import com.pan.config.shiro.ShiroRealm;
 import com.pan.model.LoginLog;
 import com.pan.model.entitys.system.SPermissions;
 import com.pan.model.entitys.system.SRole;
@@ -18,7 +19,6 @@ import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +38,8 @@ public class SystemController extends BaseController{
 
     @Autowired
     private SystemService systemService;
+    @Autowired
+    private ShiroRealm shiroRealm;
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")
@@ -117,7 +119,7 @@ public class SystemController extends BaseController{
     @PostMapping("/userPermissionsList")
     public JsonResult<List<PermissionsVO>> userPermissionsList(HttpServletRequest request) throws Exception{
 
-        /*SUser user = (SUser)request.getAttribute("suser");
+        /*SUser user = MyUtils.getUserInfo();
 
         if (null == user) {
             return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
@@ -133,17 +135,14 @@ public class SystemController extends BaseController{
     @ApiOperation(value = "左侧权限列表")
     @PostMapping("/userPermissionsList1")
     public JsonResult<List<PermissionsVO>> userPermissionsList1(HttpServletRequest request) throws Exception{
-
-        SUser user = (SUser)request.getAttribute("suser");
-
+        SUser user = MyUtils.getUserInfo();
         if (null == user) {
             return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
         }
-
-        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
-
+        if(null == user.getId()) {
+            return this.buildErrorResult(ResultCodeEnum.paramError);
+        }
         List<PermissionsVO> list = systemService.userPermissionsList(user.getId());
-
         return this.buildSuccessResult(list);
     }
 
@@ -163,18 +162,17 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "保存角色权限列表")
     @PostMapping("/saveRolePermissionsTree")
-    @RequiresPermissions("sys_user:add")
     public JsonResult saveRolePermissionsTree(@RequestBody Map<String,Object> paramMap,HttpServletRequest request) throws Exception{
-        SUser user = (SUser)request.getAttribute("suser");
-
+        SUser user = MyUtils.getUserInfo();
         if (null == user) {
             return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
         }
-
-        if(null == user.getId()) return this.buildErrorResult(ResultCodeEnum.paramError);
-
+        if(null == user.getId()) {
+            return this.buildErrorResult(ResultCodeEnum.paramError);
+        }
+        //清除权限缓存
+        shiroRealm.clearCache();
         systemService.saveRolePermissionsTree(paramMap);
-
         return this.buildSuccessResult();
     }
 
@@ -212,17 +210,13 @@ public class SystemController extends BaseController{
     @PostMapping("/updateSystemUser")
     public JsonResult updateSystemUser(@RequestBody Map paramMap,HttpServletRequest request) throws Exception{
         logger.info("SystemController...updateSystemUser...修改用户信息入参:[" + paramMap + "]");
-
-        SUser user = (SUser)request.getAttribute("suser");
-
+        SUser user = MyUtils.getUserInfo();
         if (null == user) {
             return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");
         }else{
             paramMap.put("id",user.getId());
         }
-
         systemService.updateSystemUser(paramMap);
-
         return this.buildSuccessResult();
     }
 

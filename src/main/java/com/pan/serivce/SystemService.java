@@ -240,7 +240,6 @@ public class SystemService {
                     secondMap.put("state",stateMap);
                 }
                 secondMap.put("nodes",thirdList);
-                secondMap.put("ignoreChildren",true);
                 secondList.add(secondMap);
             }
             map.put("id",sPermissions.getId());
@@ -253,7 +252,6 @@ public class SystemService {
                 map.put("state", stateMap);//默认勾选
             }
             map.put("nodes",secondList);
-            map.put("ignoreChildren",true);
             listmap.add(map);
         }
         return listmap;

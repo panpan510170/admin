@@ -106,9 +106,9 @@
                 success: function (obj) {
                     if(null == obj || "" == obj){
                         sweetAlert(obj.message);
-                        location.href = "/view/system/suserRoleList.jsp";
+                        location.href = "/system/suserRoleList";
                     }else{
-                        location.href = "/view/system/suserRoleList.jsp";
+                        location.href = "/system/suserRoleList";
                     }
                 },
                 error: function () {

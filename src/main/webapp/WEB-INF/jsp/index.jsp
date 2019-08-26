@@ -65,7 +65,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="login.jsp">
+                        <a href="/logout">
                             <i class="fa fa-sign-out"></i> 退出
                         </a>
                     </li>

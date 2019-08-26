@@ -160,9 +160,9 @@
            success: function (obj) {
                if(1 != obj.code){
                    sweetAlert(obj.message);
-                   location.href = "login.jsp";
+                   location.href = "/login";
                }else{
-                   location.href = "/view/system/sroleList.jsp";
+                   location.href = "/system/sroleList";
                }
            },
            error: function (result) {
@@ -278,6 +278,7 @@
                     showIcon: false,
                     showCheckbox: true
                 });
+
                 $("#roleId").val(id);
                 $("#myModal").show();
             },
@@ -286,9 +287,6 @@
             }
         });
     }
-
-
-
 
     function down() {
         $("#myModal").hide();

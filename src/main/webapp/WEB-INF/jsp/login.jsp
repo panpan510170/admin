@@ -14,26 +14,21 @@
 <body>
 <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
-        <div>
-
-            <h2 class="logo-name">free</h2>
-
+        <div style="margin-top: 70%;margin-bottom: 10%">
+            <h2 style="color: white">后台管理系统</h2>
         </div>
         <form class="m-t" role="form" action="index.html">
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Username" required="" id="userName">
+                <input type="email" class="form-control" placeholder="Username" required="" id="userName" style="width: 100%">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="" id="password">
+                <input type="password" class="form-control" placeholder="Password" required="" id="password" style="width: 100%">
             </div>
+            <%--<div class="form-group">
+                <input type="vCode" class="form-control" placeholder="验证码" required="" id="vCode" style="width: 40%">
+            </div>--%>
 
             <button type="button" class="btn btn-primary block full-width m-b" onclick="login()">Login</button>
-            <%--<shiro:hasPermission name="/business/issuer/v_add.do">
-                <button id="btn_add" type="button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-                </button>
-            </shiro:hasPermission>--%>
-            <%--<a href="login.html#"><small>Forgot password?</small></a>--%>
         </form>
     </div>
 </div>
