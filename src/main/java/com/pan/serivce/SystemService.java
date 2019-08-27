@@ -310,16 +310,16 @@ public class SystemService {
         sUserMapper.insertSelective(sUser);
 
         //封装token加密参数
-        TUser user = new TUser();
+       /* TUser user = new TUser();
         user.setId(sUser.getId());
-        String token = JwtUtils.encode(user,60*1000*60);
+        String token = JwtUtils.encode(user,60*1000*60);*/
 
         //保存token
-        SUserToken sUserToken = new SUserToken();
+       /* SUserToken sUserToken = new SUserToken();
         sUserToken.setUserId(user.getId());
         sUserToken.setToken(token);
         sUserToken.setCreateTime(new Date());
-        sUserTokenMapper.insertSelective(sUserToken);
+        sUserTokenMapper.insertSelective(sUserToken);*/
     }
 
     @Transactional

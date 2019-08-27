@@ -51,7 +51,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(new RequestInterceptor()).addPathPatterns("/**");
         //registry.addInterceptor(preDupSubmissionsIntercetor()).addPathPatterns("/**");
-        //因为websocket的原因，所以这个不效验token
+        //因为websocket的原因，所以这个不效验token,后集成shiro就不需要token了，因为token交给了shiro管理
         //registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**").excludePathPatterns(tokenExcludeUrlList);
         super.addInterceptors(registry);
     }

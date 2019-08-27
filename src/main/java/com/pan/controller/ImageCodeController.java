@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 图片验证码
@@ -31,6 +32,6 @@ public class ImageCodeController extends BaseController{
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String code = CaptchaUtil.outPng(110, 34, 4, Captcha.TYPE_ONLY_NUMBER, request, response);
         HttpSession session = request.getSession();
-        redisTemplate.opsForValue().set(RedisKeyConstant.systemLogin(session.getId()),code);
+        redisTemplate.opsForValue().set(RedisKeyConstant.systemLogin(session.getId()),code,10, TimeUnit.MINUTES);
     }
 }
