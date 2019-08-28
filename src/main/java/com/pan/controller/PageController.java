@@ -15,14 +15,17 @@ public class PageController extends BaseController{
     public String suserList() {
         return "system/suserList";
     }
+
     @RequestMapping(value = "/system/sroleList",method = RequestMethod.GET)
     public String sroleList() {
         return "system/sroleList";
     }
+
     @RequestMapping(value = "/system/suserRoleList",method = RequestMethod.GET)
     public String suserRoleList() {
         return "system/suserRoleList";
     }
+
     @RequestMapping(value = "/system/sPermissionsList",method = RequestMethod.GET)
     public String sPermissionsList() {
         return "system/sPermissionsList";

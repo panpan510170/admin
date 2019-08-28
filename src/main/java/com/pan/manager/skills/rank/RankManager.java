@@ -8,8 +8,7 @@ import com.pan.model.vo.rank.RankAddResultVO;
 import com.pan.model.vo.rank.RankInfoVO;
 import com.pan.model.vo.rank.RankVO;
 import com.pan.serivce.skills.rank.RankService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -25,11 +24,10 @@ import java.util.Map;
  * @author pan
  * @date 2019/6/20 11:00
  */
+@Slf4j
 @Component
 @Order(value = 2)
 public class RankManager implements CommandLineRunner {
-    private Logger logger = LogManager.getLogger(this.getClass());
-
     @Autowired
     private RankService rankService;
 
@@ -42,7 +40,7 @@ public class RankManager implements CommandLineRunner {
         try {
             load();
         } catch (Exception e) {
-            logger.error("初始化加载排行信息异常",null, e);
+            log.error("初始化加载排行信息异常",null, e);
         }
     }
 
@@ -50,10 +48,10 @@ public class RankManager implements CommandLineRunner {
      * 同步DB榜单配置到内存
      */
     private void load() {
-        logger.info("加载榜单信息");
+        log.info("加载榜单信息");
         CoreRank coreRank = new CoreRank();
         long time = System.currentTimeMillis();
-        logger.info("榜单信息加载--当前时间"+time);
+        log.info("榜单信息加载--当前时间"+time);
         coreRank.setStartTime(time);
         coreRank.setEndTime(time);
         List<CoreRank> list = rankService.getRankList(coreRank);

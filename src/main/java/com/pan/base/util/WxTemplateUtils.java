@@ -2,9 +2,8 @@ package com.pan.base.util;
 
 import com.pan.model.vo.TemplateData;
 import com.pan.model.vo.WxTemplate;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
@@ -19,8 +18,8 @@ import java.util.Map;
 /**
  * Created by Pangaofeng on 2018/11/16
  */
+@Slf4j
 public class WxTemplateUtils {
-    private static Logger logger = LogManager.getLogger(WxTemplateUtils.class);
     /**
      * 获取access_token
      * */
@@ -85,7 +84,7 @@ public class WxTemplateUtils {
         String forObject = restTemplate.getForObject(url, String.class, template);
         JSONObject result = JSONObject.fromObject(forObject);
 
-        logger.info("小程序推送结果={}", result);
+        log.info("小程序推送结果={}", result);
         return result;
     }
 

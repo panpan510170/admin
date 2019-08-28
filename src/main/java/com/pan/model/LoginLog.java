@@ -2,9 +2,8 @@ package com.pan.model;
 
 import com.pan.base.util.HttpContextUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -13,11 +12,11 @@ import java.util.Date;
  * @author pan
  * @date 2019/8/2 17:46
  */
+@Slf4j
 @Data
 public class LoginLog {
     private static final long serialVersionUID = 921991157363932095L;
 
-    private Logger logger = LogManager.getLogger(this.getClass());
     /**
      * id
      */
@@ -149,7 +148,7 @@ public class LoginLog {
             this.system = os;
             this.browser = StringUtils.replace(browser, "/", " ");
         } catch (Exception e) {
-            logger.error("获取登录信息失败：{}", e.getMessage());
+            log.error("获取登录信息失败：{}", e.getMessage());
             this.system = "";
             this.browser = "";
         }

@@ -1,6 +1,7 @@
 package com.pan.base.util;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -8,18 +9,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+@Slf4j
 public class HttpUtils {
-
-    public static final Logger logger = LoggerFactory
-            .getLogger(HttpUtils.class);
 
     public static void httpPost(String url, List<BasicNameValuePair> formparams)
             throws Exception {
@@ -66,7 +63,7 @@ public class HttpUtils {
             response = httpclient.execute(httppost);
             return response;
         } catch (Exception e) {
-            logger.error("remote post exception");
+            log.error("remote post exception");
         }
         return response;
     }
@@ -95,7 +92,7 @@ public class HttpUtils {
             client.executeMethod(method);
             String realUrl = method.getURI().getURI();//获取到真实地址*/
             String realUrl = null;
-            logger.info("301-实际地址："+realUrl);
+            log.info("301-实际地址："+realUrl);
             URL url;
             if(isHttps(realUrl)){
                 url = new URL(null, realUrl, new sun.net.www.protocol.https.Handler());
@@ -131,7 +128,7 @@ public class HttpUtils {
 
             return savePath+fileName;
         } catch (Exception e){
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
             e.printStackTrace();
             return "";
         }

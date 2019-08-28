@@ -1,12 +1,11 @@
 package com.pan.controller;
 
 import com.aliyun.oss.OSSClient;
-import com.pan.serivce.UserService;
 import com.pan.model.vo.JsonResult;
+import com.pan.serivce.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +21,11 @@ import java.io.File;
 /**
  * Created by Pangaofeng on 2018/9/6
  */
+@Slf4j
 @RestController
 @Api(tags = {"上传"})
 @RequestMapping("/upload")
 public class UploadController extends BaseController{
-
-    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     private UserService userService;
@@ -36,11 +34,8 @@ public class UploadController extends BaseController{
     @PostMapping("/uploadImg")
     public JsonResult<String> uploadImg(@RequestParam(value="myFileName") MultipartFile mf,
                                 HttpServletRequest request, HttpServletResponse response) throws Exception{
-
-        logger.info("UploadController...uploadImg...入参:"+mf);
-
+        log.info("UploadController...uploadImg...入参:"+mf);
         String realPath = request.getSession().getServletContext().getRealPath("upload");
-
         //获取源文件
         String fileName = mf.getOriginalFilename();
         String[] names=fileName.split("\\.");//
@@ -67,9 +62,7 @@ public class UploadController extends BaseController{
     @ApiOperation(value = "上传文本")
     @PostMapping("/uploadText")
     public JsonResult<String> uploadImg(@RequestParam(value="texts") String texts) throws Exception{
-
         System.out.println("first:"+texts.trim());
-
         return this.buildSuccessResult();
     }
 }

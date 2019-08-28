@@ -56,15 +56,8 @@ test:
 thirdApi:第三方接口
 
 
-
-
-
-
-
 二.日志管理
-正常类 ：private Logger logger = LogManager.getLogger(this.getClass());
-
-工具类 ：private static Logger logger = LogManager.getLogger(SFtpUtils.class);
+@Slf4j
 
 三.分层
 controller-->service-->repository/mapper(读写分离)

@@ -1,8 +1,6 @@
 package com.pan.base.util;
 
-import com.pan.controller.BaseController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +15,8 @@ import java.util.zip.ZipInputStream;
  * 解压
  * Created by snow on 2016/10/31.
  */
+@Slf4j
 public class DecoUtil {
-    private static Logger logger = LoggerFactory.getLogger(BaseController.class);
-
     /**
      * 解压缩
      * @param sZipPathFile 要解压的文件
@@ -64,7 +61,7 @@ public class DecoUtil {
             zins.close();
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("unzip 解压出错:" , e);
+            log.error("unzip 解压出错:" , e);
         }
         return allFileName;
     }
@@ -93,7 +90,7 @@ public class DecoUtil {
             zins.close();
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("unzip 解压出错" ,e);
+            log.error("unzip 解压出错" ,e);
         }
         return allFileName;
     }

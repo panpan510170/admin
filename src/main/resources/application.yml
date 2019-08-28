@@ -30,7 +30,6 @@ logging:
   level:
     com.pan: debug
 
-
 wechat:
   appId: wx16ea5811c16c2db2
   appSecret: 2fb1942ceb55c34dd0d47a3ff4529306

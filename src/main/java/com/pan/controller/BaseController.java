@@ -6,8 +6,6 @@ import com.pan.base.util.QueryResult;
 import com.pan.base.util.RequestUtils;
 import com.pan.model.entitys.system.SUser;
 import com.pan.model.vo.JsonResult;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.session.Session;
@@ -33,8 +31,6 @@ import java.util.Map;
  */
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public class BaseController {
-
-    private Logger logger = LogManager.getLogger(this.getClass());
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {

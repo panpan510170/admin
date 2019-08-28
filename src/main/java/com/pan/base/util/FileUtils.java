@@ -1,8 +1,7 @@
 package com.pan.base.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,9 +13,8 @@ import java.util.Map;
  * author:Pangaofeng
  * Date:2018/7/27
  */
+@Slf4j
 public class FileUtils {
-
-    private static Logger logger = LogManager.getLogger(FileUtils.class);
 
     /**
      * 获取路径下的所有文件/文件夹
@@ -55,7 +53,7 @@ public class FileUtils {
             File file = new File(filepath);
             for (File f : file.listFiles()){
                 System.out.println(f.getName());
-                logger.info(f.getName());
+                log.info(f.getName());
                 list.add(f.getName());
             }
         } catch (Exception e) {
@@ -74,19 +72,19 @@ public class FileUtils {
         try {
             File file = new File(filepath);
             if (!file.isDirectory()) {
-                logger.info("文件");
-                logger.info("path=" + file.getPath());
-                logger.info("absolutepath=" + file.getAbsolutePath());
-                logger.info("name=" + file.getName());
+                log.info("文件");
+                log.info("path=" + file.getPath());
+                log.info("absolutepath=" + file.getAbsolutePath());
+                log.info("name=" + file.getName());
             } else if (file.isDirectory()) {
-                logger.info("文件夹");
+                log.info("文件夹");
                 String[] filelist = file.list();
                 for (int i = 0; i < filelist.length; i++) {
                     File readfile = new File(filepath + "\\" + filelist[i]);
                     if (!readfile.isDirectory()) {
-                        logger.info("path=" + readfile.getPath());
-                        logger.info("absolutepath=" + readfile.getAbsolutePath());
-                        logger.info("name=" + readfile.getName());
+                        log.info("path=" + readfile.getPath());
+                        log.info("absolutepath=" + readfile.getAbsolutePath());
+                        log.info("name=" + readfile.getName());
                         list.add(readfile.getAbsolutePath());
                     } else if (readfile.isDirectory()) {
                         readfile(filepath + "\\" + filelist[i]);
@@ -94,7 +92,7 @@ public class FileUtils {
                 }
             }
         } catch (FileNotFoundException e) {
-            logger.info("readfile()   Exception:" + e.getMessage());
+            log.info("readfile()   Exception:" + e.getMessage());
         }
         return list;
     }

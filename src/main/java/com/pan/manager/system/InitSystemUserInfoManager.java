@@ -2,8 +2,7 @@ package com.pan.manager.system;
 
 import com.pan.model.entitys.system.SUser;
 import com.pan.serivce.SystemService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -19,11 +18,10 @@ import java.util.Map;
  * @author pan
  * @date 2019/8/1 17:11
  */
+@Slf4j
 @Component
 @Order(4)
 public class InitSystemUserInfoManager implements CommandLineRunner {
-
-    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     private SystemService systemService;
@@ -35,13 +33,13 @@ public class InitSystemUserInfoManager implements CommandLineRunner {
             param.put("userName","admin");
             param.put("phone","15811015507");
             systemService.addSystemUser(param);
-            logger.info("初始化admin用户信息完成");
+            log.info("初始化admin用户信息完成");
 
             Map<String, Object> roleParam = new HashMap<>();
             roleParam.put("roleName","管理员");
             roleParam.put("descrition","系统管理员");
             systemService.addRole(roleParam);
-            logger.info("初始化角色信息完成");
+            log.info("初始化角色信息完成");
 
             Map<String, Object> permissionsParam = new HashMap<>();
             permissionsParam.put("permissionsName","系统管理");
@@ -95,7 +93,7 @@ public class InitSystemUserInfoManager implements CommandLineRunner {
             permissionsParam.put("permissionsUrl","/system/addRole");
             permissionsParam.put("permissions","role:add");
             systemService.addPermissions(permissionsParam);
-            logger.info("初始化权限信息完成");
+            log.info("初始化权限信息完成");
 
             Map<String, Object> rolePermissionsParam = new HashMap<>();
             long roleId = 1;
@@ -135,13 +133,13 @@ public class InitSystemUserInfoManager implements CommandLineRunner {
             rolePermissionsList.add(map8);
             rolePermissionsParam.put("rolePermissionsList",rolePermissionsList);
             systemService.saveRolePermissionsTree(rolePermissionsParam);
-            logger.info("初始化角色权限信息完成");
+            log.info("初始化角色权限信息完成");
 
             Map<String, Object> userRoleParam = new HashMap<>();
             userRoleParam.put("userId",1);
             userRoleParam.put("roleId",1);
             systemService.saveUserRole(userRoleParam);
-            logger.info("初始化用户角色信息完成");
+            log.info("初始化用户角色信息完成");
         }
     }
 }

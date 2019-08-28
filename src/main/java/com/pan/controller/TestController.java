@@ -3,18 +3,16 @@ package com.pan.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
-import com.pan.model.entitys.Test;
-import com.pan.dao.repository.TestRepository;
-import com.pan.serivce.TestService;
 import com.pan.base.util.RedisKey;
+import com.pan.dao.repository.TestRepository;
+import com.pan.model.entitys.Test;
 import com.pan.model.vo.JsonResult;
-
 import com.pan.model.vo.testVO.UserVO;
+import com.pan.serivce.TestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,12 +31,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Pangaofeng on 2018/8/23
  */
+@Slf4j
 @RestController
 @Api(tags = {"测试"})
 @RequestMapping("/test")
 public class TestController extends BaseController {
-
-    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     private TestService testService;
@@ -53,14 +50,11 @@ public class TestController extends BaseController {
 
     @ApiOperation(value = "测试程序错误")
     @PostMapping("/testLoginErrorException")
-    public JsonResult testLoginParamError(@ApiParam(value = "a", required = true)
-                                              @RequestParam(name = "a") String a){
-
+    public JsonResult testLoginParamError(@ApiParam(value = "a", required = true) @RequestParam(name = "a") String a){
         Integer i = testService.testThrow(Integer.parseInt(a));
         if(i != 0){
             throw new BOException(ResultCodeEnum.bussinessError.getId(),"商品数量不足");
         }
-
         return this.buildErrorResult(ResultCodeEnum.performError.getId(), ResultCodeEnum.performError.getName());
     }
 
@@ -70,8 +64,7 @@ public class TestController extends BaseController {
                                 @RequestParam(name = "userName") String userName,
                                 @ApiParam(value = "密码", required = true)
                                 @RequestParam(name = "password") String password, HttpServletRequest request) {
-        logger.info("TestController...testloggerin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
-
+        log.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
         JSONObject resMap = null;
         try {
             resMap = new JSONObject();
@@ -80,20 +73,17 @@ public class TestController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        logger.info("TestController...testLogin...出参：" + resMap);
-
+        log.info("TestController...testLogin...出参：" + resMap);
         return this.buildSuccessResult(resMap);
     }
 
     @ApiOperation(value = "测试参数错误")
     @PostMapping("/testLoginParamError")
     public JsonResult<JSONObject> testLoginError(@ApiParam(value = "用户名")
-                                     @RequestParam(name = "userName") String userName,
-                                     @ApiParam(value = "密码", required = true)
-                                     @RequestParam(name = "password") String password, HttpServletRequest request) {
-        logger.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
-
+                                                    @RequestParam(name = "userName") String userName,
+                                                 @ApiParam(value = "密码", required = true)
+                                                    @RequestParam(name = "password") String password, HttpServletRequest request) {
+        log.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
         if ("".equals(userName.trim()) || userName == null ||
                 "".equals(password) || password == null) {
             return this.buildErrorResult(ResultCodeEnum.paramError);
@@ -106,30 +96,24 @@ public class TestController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        logger.info("TestController...testLogin...出参：" + resMap);
-
+        log.info("TestController...testLogin...出参：" + resMap);
         return this.buildSuccessResult(resMap);
     }
 
     @ApiOperation(value = "测试程序错误")
     @PostMapping("/testLoginError")
     public JsonResult testLoginParamError(@ApiParam(value = "用户名", required = true)
-                                          @RequestParam(name = "userName") String userName,
+                                                @RequestParam(name = "userName") String userName,
                                           @ApiParam(value = "密码", required = true)
-                                          @RequestParam(name = "password") String password, HttpServletRequest request) {
-        logger.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
-
-
+                                                @RequestParam(name = "password") String password, HttpServletRequest request) {
+        log.info("TestController...testLogin...入参：用户名：[" + userName + "]，密码：[" + password + "]");
         try {
             int a = 7 / 0;
         } catch (Exception e) {
             e.printStackTrace();
             return this.buildErrorResult(ResultCodeEnum.paramError);
         }
-
-        logger.info("TestController...testLogin...出参：");
-
+        log.info("TestController...testLogin...出参：");
         return this.buildErrorResult(ResultCodeEnum.paramError);
     }
 
@@ -139,8 +123,7 @@ public class TestController extends BaseController {
                                           @RequestParam(name = "userName") String userName,
                                           @ApiParam(value = "密码", required = true)
                                           @RequestParam(name = "password") String password, HttpServletRequest request) {
-        logger.info("TestController...testBaseVO...入参：用户名：[" + userName + "]，密码：[" + password + "]");
-
+        log.info("TestController...testBaseVO...入参：用户名：[" + userName + "]，密码：[" + password + "]");
         UserVO userVO = new UserVO();
         userVO.setUserName(userName);
         userVO.setUserNo("213");
@@ -152,9 +135,7 @@ public class TestController extends BaseController {
     @PostMapping("/redisTime")
     public void redisTime(HttpServletRequest request) {
         System.out.println("123");
-
         redisTemplate.opsForValue().set(RedisKey.test+"@"+"1234","1",1*60, TimeUnit.SECONDS);
-
         System.out.println("456");
     }
 
@@ -179,7 +160,7 @@ public class TestController extends BaseController {
         test.setAge(20);
         test.setName("孙婧");
         Test save = testRepository.save(test);
-        return this.buildSuccessResult(test);
+        return this.buildSuccessResult(save);
     }
 
 
@@ -225,7 +206,6 @@ public class TestController extends BaseController {
     @ApiOperation(value = "测试JPA---条件查询")
     @PostMapping("/testJPAFindByExample")
     public JsonResult testJPAFindByExample() {
-
        /* User user = new User();
         user.setUsername("y");
         user.setAddress("sh");
@@ -242,7 +222,7 @@ public class TestController extends BaseController {
 
         Example<Test> example = Example.of(test ,matching);
         List<Test> list = testRepository.findAll(example);
-        return this.buildSuccessResult();
+        return this.buildSuccessResult(list);
     }
 
     @ApiOperation(value = "测试JPA---分页")

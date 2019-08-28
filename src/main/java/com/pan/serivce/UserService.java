@@ -3,16 +3,15 @@ package com.pan.serivce;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.enums.UserStatusEnum;
 import com.pan.base.ex.BOException;
+import com.pan.base.util.JwtUtils;
+import com.pan.base.util.MD5Utils;
 import com.pan.dao.mapper.TUserMapper;
 import com.pan.dao.mapper.TUserTokenMapper;
 import com.pan.model.entitys.system.TUser;
 import com.pan.model.entitys.system.TUserToken;
-import com.pan.base.util.JwtUtils;
-import com.pan.base.util.MD5Utils;
 import com.pan.model.vo.regist.RegistVO;
 import com.pan.model.vo.user.UserVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +21,9 @@ import java.util.Date;
 /**
  * Created by Pangaofeng on 2018/9/11
  */
+@Slf4j
 @Service
 public class UserService {
-    private Logger logger = LoggerFactory.getLogger(UserService.class);
-
     @Autowired
     private TUserMapper tUserMapper;
 

@@ -1,8 +1,7 @@
 package com.pan.manager.system;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -17,11 +16,10 @@ import java.net.InetAddress;
  * @author pan
  * @date 2019/8/26 16:19
  */
+@Slf4j
 @Component
 @Order(99)
 public class StartedUpRunnerManager implements ApplicationRunner {
-
-    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     private ConfigurableApplicationContext context;
@@ -58,12 +56,12 @@ public class StartedUpRunnerManager implements ApplicationRunner {
                 url += contextPath;
             if (StringUtils.isNotBlank(loginUrl))
                 url += loginUrl;
-            logger.info(" __    ___   _      ___   _     ____ _____  ____ ");
-            logger.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
-            logger.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
-            logger.info("                                                      ");
-            logger.info("后台管理系统启动完毕，地址：{}", url);
-            logger.info("用户名：admin,密码:admin");
+            log.info(" __    ___   _      ___   _     ____ _____  ____ ");
+            log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
+            log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
+            log.info("                                                      ");
+            log.info("后台管理系统启动完毕，地址：{}", url);
+            log.info("用户名：admin,密码:admin");
         }
     }
 }

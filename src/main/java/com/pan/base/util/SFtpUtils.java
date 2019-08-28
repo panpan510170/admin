@@ -1,8 +1,7 @@
 package com.pan.base.util;
 
 import com.jcraft.jsch.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,9 +13,8 @@ import java.util.Vector;
 /**
  * Created by Pangaofeng on 2016/11/8.
  */
+@Slf4j
 public class SFtpUtils {
-
-    private static Logger logger = LogManager.getLogger(SFtpUtils.class);
 
     private static ChannelSftp sftp;
 
@@ -177,7 +175,7 @@ public class SFtpUtils {
                 }
             }
         } catch (Exception e) {
-            logger.error("删除失败",e);
+            log.error("删除失败",e);
             e.printStackTrace();
         }finally {
             disConnect();
