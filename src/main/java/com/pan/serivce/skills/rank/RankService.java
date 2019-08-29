@@ -1,13 +1,13 @@
 package com.pan.serivce.skills.rank;
 
-import com.pan.model.entitys.skills.rank.CoreRank;
-import com.pan.model.entitys.skills.rank.RankInfo;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
 import com.pan.base.handler.DataHandler;
 import com.pan.dao.mapper.skills.rank.TCoreRankMapper;
 import com.pan.dao.repository.skills.rank.CoreRankRepository;
 import com.pan.dao.repository.skills.rank.RankInfoRepository;
+import com.pan.model.entitys.skills.rank.CoreRank;
+import com.pan.model.entitys.skills.rank.RankInfo;
 import com.pan.model.vo.rank.RankAddResultVO;
 import com.pan.model.vo.rank.RankInfoVO;
 import com.pan.model.vo.rank.RankVO;
@@ -161,7 +161,7 @@ public class RankService {
             Set<DefaultTypedTuple> formerSet = redisTemplate.opsForZSet().reverseRangeWithScores(key, selfRank - 1, selfRank - 1);
             if(DataHandler.isNotEmpty(formerSet)) {
                 for(DefaultTypedTuple t : formerSet) {
-                    rankInfoVO.setFormer(new RankVO(rankVO.getName(),rankVO.getDimValue(),DataHandler.getLong(t.getValue()),getScore(DataHandler.getLong(t.getScore()),coreRank.getBasics(),false),selfRank,rankVO.getTime()));
+                    rankInfoVO.setFormer(new RankVO(rankVO.getName(),rankVO.getDimValue(), DataHandler.getLong(t.getValue()),getScore(DataHandler.getLong(t.getScore()),coreRank.getBasics(),false),selfRank,rankVO.getTime()));
                 }
             }
         }
@@ -169,7 +169,7 @@ public class RankService {
         Set<DefaultTypedTuple> latterSet = redisTemplate.opsForZSet().reverseRangeWithScores(key,selfRank+1, selfRank+1);
         if(DataHandler.isNotEmpty(latterSet)) {
             for(DefaultTypedTuple t : latterSet) {
-                rankInfoVO.setLatter(new RankVO(rankVO.getName(),rankVO.getDimValue(),DataHandler.getLong(t.getValue()),getScore(DataHandler.getLong(t.getScore()),coreRank.getBasics(),false),selfRank+2,rankVO.getTime()));
+                rankInfoVO.setLatter(new RankVO(rankVO.getName(),rankVO.getDimValue(), DataHandler.getLong(t.getValue()),getScore(DataHandler.getLong(t.getScore()),coreRank.getBasics(),false),selfRank+2,rankVO.getTime()));
             }
         }
         return rankInfoVO;

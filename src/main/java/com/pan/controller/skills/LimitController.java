@@ -1,6 +1,6 @@
 package com.pan.controller.skills;
 
-import com.pan.base.handler.DataHandler;
+import com.pan.base.handler.BeanHandler;
 import com.pan.controller.BaseController;
 import com.pan.manager.skills.limit.LimitManager;
 import com.pan.model.entitys.skills.limit.CoreLimit;
@@ -41,13 +41,13 @@ public class LimitController extends BaseController {
     @PostMapping("/addCoreLimit")
     public JsonResult add(AddCoreLimitVO coreLimitVO){
         //保存限制信息
-        CoreLimit coreLimit = DataHandler.beanConver(coreLimitVO, CoreLimit.class);
+        CoreLimit coreLimit = BeanHandler.beanConver(coreLimitVO, CoreLimit.class);
         coreLimit.setCreateTime(new Date());
         CoreLimit cl = limitService.save(coreLimit);
         //转换限制项信息
         List<LimitItem> limitItemList = new ArrayList<>();
         for(LimitItemVO limitItemVO : coreLimitVO.getList()){
-            LimitItem limitItem = DataHandler.beanConver(limitItemVO, LimitItem.class);
+            LimitItem limitItem = BeanHandler.beanConver(limitItemVO, LimitItem.class);
             limitItem.setLimitId(cl.getId());
             limitItem.setCreateTime(new Date());
             limitItemList.add(limitItem);
@@ -61,7 +61,7 @@ public class LimitController extends BaseController {
     @PostMapping("/editLimitCount")
     public JsonResult editLimitCount(LimitInfoVO limitInfoVO){
         //保存限制信息
-        LimitInfo limitInfo = DataHandler.beanConver(limitInfoVO, LimitInfo.class);
+        LimitInfo limitInfo = BeanHandler.beanConver(limitInfoVO, LimitInfo.class);
         limitInfo.setCreateTime(new Date());
         LimitInfo result = limitManager.editLimitCount(limitInfo);
         return this.buildSuccessResult(result);
@@ -71,9 +71,9 @@ public class LimitController extends BaseController {
     @PostMapping("/getLimitCountInfo")
     public JsonResult getLimitCountInfo(LimitInfoVO limitInfoVO){
         //保存限制信息
-        LimitInfo limitInfo = DataHandler.beanConver(limitInfoVO, LimitInfo.class);
+        LimitInfo limitInfo = BeanHandler.beanConver(limitInfoVO, LimitInfo.class);
         LimitInfo result = limitManager.getLimitCountInfo(limitInfo);
-        LimitInfoVO res = DataHandler.beanConver(result, LimitInfoVO.class);
+        LimitInfoVO res = BeanHandler.beanConver(result, LimitInfoVO.class);
         return this.buildSuccessResult(res);
     }
 }

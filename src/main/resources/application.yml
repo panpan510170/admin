@@ -20,15 +20,10 @@ spring:
         naming_strategy: org.hibernate.cfg.ImprovedNamingStrate
         naming:
           physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml,classpath:mapping/**/*Mapper.xml,classpath:mapping/**/**/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
-
-logging:
-  level:
-    com.pan: debug
 
 wechat:
   appId: wx16ea5811c16c2db2

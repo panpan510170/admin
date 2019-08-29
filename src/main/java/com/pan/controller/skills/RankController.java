@@ -3,7 +3,7 @@ package com.pan.controller.skills;
 import com.pan.controller.BaseController;
 import com.pan.model.entitys.skills.rank.CoreRank;
 import com.pan.model.entitys.skills.rank.RankInfo;
-import com.pan.base.handler.DataHandler;
+import com.pan.base.handler.BeanHandler;
 import com.pan.serivce.skills.rank.RankService;
 import com.pan.manager.skills.rank.RankManager;
 import com.pan.model.vo.JsonResult;
@@ -38,7 +38,7 @@ public class RankController extends BaseController {
     @ApiOperation(value = "添加榜单")
     @PostMapping("/addCoreRank")
     public JsonResult add(CoreRankVO coreRankVO){
-        CoreRank coreRank = DataHandler.beanConver(coreRankVO, CoreRank.class);
+        CoreRank coreRank = BeanHandler.beanConver(coreRankVO, CoreRank.class);
         coreRank.setCreateTime(new Date());
         rankService.save(coreRank);
         return this.buildSuccessResult();
@@ -47,7 +47,7 @@ public class RankController extends BaseController {
     @ApiOperation(value = "持久化榜单数据")
     @PostMapping("/addCoreRankLog")
     public JsonResult addCoreRankLog(RankInfoLogVO rankInfoLogVO){
-        RankInfo rankInfo = DataHandler.beanConver(rankInfoLogVO, RankInfo.class);
+        RankInfo rankInfo = BeanHandler.beanConver(rankInfoLogVO, RankInfo.class);
         rankInfo.setTime(System.currentTimeMillis());
         rankInfo.setCreateTime(new Date());
         rankService.saveLog(rankInfo);
