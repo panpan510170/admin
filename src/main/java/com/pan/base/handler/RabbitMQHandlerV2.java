@@ -61,9 +61,9 @@ public class RabbitMQHandlerV2 {
             //判断交换机存不存在
             if(DataHandler.isEmpty(msg.exchange)){
                 //若是交换机没有传，就用路由key先创建一个交换机
-                channel.exchangeDeclare(msg.exchange, "direct",true);
-            }else{
                 channel.exchangeDeclare(msg.routing, "direct",true);
+            }else{
+                channel.exchangeDeclare(msg.exchange, "direct",true);
             }
             //发布消息
             channel.basicPublish(msg.exchange, msg.routing, null, JSON.toJSONBytes(msg));
