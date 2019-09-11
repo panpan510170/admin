@@ -36,7 +36,15 @@ spring:
     host: 127.0.0.1
     port: 5672
     username: guest
-    addresses: guest
+    password: guest
+    virtual-host: /
+    #连接时长
+    connection-timeout: 15000
+    #开启 confirm 确认机制
+    publisher-confirms: true
+    #开启 return 确认机制
+    publisher-returns: true
+    
 aliyun:
   oss:
     AccessKeyID: LTAIPxACpM1voKll

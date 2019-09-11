@@ -6,7 +6,6 @@ import com.pan.base.ex.BOException;
 import com.pan.base.util.MyUtils;
 import com.pan.base.util.QueryResult;
 import com.pan.config.shiro.ShiroRealm;
-import com.pan.model.LoginLog;
 import com.pan.model.entitys.system.SPermissions;
 import com.pan.model.entitys.system.SRole;
 import com.pan.model.entitys.system.SUser;
@@ -61,11 +60,6 @@ public class SystemController extends BaseController{
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password, false);
         try {
             super.login(token);
-            // 保存登录日志
-            LoginLog loginLog = new LoginLog();
-            loginLog.setUsername(userName);
-            loginLog.setSystemBrowserInfo();
-            //this.loginLogService.saveLoginLog(loginLog);
             return this.buildSuccessResult();
         } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
             throw new Exception(e.getMessage());

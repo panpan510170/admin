@@ -9,6 +9,7 @@ import com.pan.base.util.JwtUtils;
 import com.pan.base.util.MD5Utils;
 import com.pan.base.util.QueryResult;
 import com.pan.dao.mapper.*;
+import com.pan.dao.repository.system.SUserLogRepository;
 import com.pan.model.entitys.system.*;
 import com.pan.model.vo.PermissionsVO;
 import com.pan.model.vo.user.UserVO;
@@ -41,6 +42,10 @@ public class SystemService {
 
     @Autowired
     private SUserTokenMapper sUserTokenMapper;
+
+    @Autowired
+    private SUserLogRepository sUserLogRepository;
+
 
     @Transactional
     public UserVO login(String userName, String password) throws Exception{
@@ -396,5 +401,13 @@ public class SystemService {
         SPermissions sPermissions = new SPermissions();
         sPermissions.setUserId(userId);
         return sPermissionsMapper.getUserPermissionsAllList(sPermissions);
+    }
+
+    /**
+     * 保存系统用户操作日志
+     * @param sUserLog
+     */
+    public void saveSyetemUserOptLog(SUserLog sUserLog) {
+        sUserLogRepository.save(sUserLog);
     }
 }

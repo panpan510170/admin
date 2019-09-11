@@ -2,6 +2,7 @@ package com.pan.model.msg;
 
 import com.pan.base.handler.MapHandler;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -10,7 +11,10 @@ import java.util.Map;
  * @author pan
  * @date 2019/8/29 19:13
  */
-public abstract class MQMessage {
+public abstract class MQMessage implements Serializable {
+
+    private static final long serialVersionUID = -1387614514139837482L;
+
     /**
      * 所使用的mq名称
      */

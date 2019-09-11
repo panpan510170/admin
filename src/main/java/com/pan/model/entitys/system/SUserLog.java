@@ -17,9 +17,10 @@ public class SUserLog extends BaseDO {
     @Column(name = "user_id",nullable = false,columnDefinition = "bigint(20) comment '用户id'")
     private Long userId;
 
-    @Column(name = "type",nullable = false,columnDefinition = "int(2) comment '类型1，2'")
+    @Column(name = "type",nullable = false,columnDefinition = "int(2) comment '见SystemUserEnum'")
     private Integer type;
 
     @Column(name = "create_time",nullable = false,columnDefinition = "datetime comment '创建时间'")
     private Date createTime;
+
 }

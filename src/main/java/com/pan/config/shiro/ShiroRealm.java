@@ -1,8 +1,11 @@
 package com.pan.config.shiro;
 
+import com.pan.base.enums.system.SystemUserLogEnum;
 import com.pan.base.handler.DataHandler;
+import com.pan.base.handler.MqsHandler;
 import com.pan.model.entitys.system.SPermissions;
 import com.pan.model.entitys.system.SUser;
+import com.pan.model.msg.SystemUserLogMsg;
 import com.pan.serivce.SystemService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -13,6 +16,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +31,8 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
     private SystemService systemService;
+    @Autowired
+    private MqsHandler mqsHandler;
 
     /**
      * 用户认证
@@ -47,6 +53,8 @@ public class ShiroRealm extends AuthorizingRealm {
         } else if (!password.equals(new String((char[]) token.getCredentials()))) {
             throw new AccountException("密码不正确");
         }
+        //发送异步MQ消息  保存登录日志
+        mqsHandler.sendMsgByRBMQ(new SystemUserLogMsg(user.getId(), SystemUserLogEnum.login.getId(),new Date()),true);
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 
