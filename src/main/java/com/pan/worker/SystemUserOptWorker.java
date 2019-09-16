@@ -40,6 +40,7 @@ public class SystemUserOptWorker {
                     key = "SystemUserLogMsg"
             )})
     public void SaveSystemUserLog(Message msg){
+        //获取消息体
         SUserLog sUserLog = mqsHandler.getMsgObj(msg, SUserLog.class);
         sUserLog.setType(333);
         systemService.saveSyetemUserOptLog(sUserLog);
@@ -56,6 +57,7 @@ public class SystemUserOptWorker {
                     key = "SystemUserLogMsg"
             )})
     public void receiveWithMessage(Message msg){
+        //获取消息体
         SUserLog sUserLog = mqsHandler.getMsgObj(msg, SUserLog.class);
         sUserLog.setType(444);
         systemService.saveSyetemUserOptLog(sUserLog);

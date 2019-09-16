@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
+ * 页面跳转控制
  * @author pan
  * @date 2019/8/8 15:08
  */
