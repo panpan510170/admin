@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/jsp/common/common.jsp"%>
 <html>
 <head>
     <title>free-后台管理</title>
@@ -15,18 +16,19 @@
                     <div class="dropdown profile-element">
                         <span>
                             <img alt="image" class="img-circle" src="/statics/img/profile_small.jpg" />
+                            <b style="margin-left: 7%;color: white"><shiro:principal property="userName"/></b>
                         </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <%--<a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                             <span class="clear">
                                 <span class="block m-t-xs">
                                     <strong class="font-bold" id="userName11" style="padding: auto"></strong>
                                 </span>
                             </span>
-                        </a>
+                        </a>--%>
                     </div>
-                    <div class="logo-element">
+                    <%--<div class="logo-element">
                         IN+
-                    </div>
+                    </div>--%>
                 </li>
                <%-- <li>
                     <a><i class="fa fa-th-large"></i> <span class="nav-label">系统管理</span> <span class="fa arrow"></span></a>
