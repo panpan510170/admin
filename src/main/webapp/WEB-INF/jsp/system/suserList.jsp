@@ -104,12 +104,7 @@
                 data:JSON.stringify(param),
                 dataType: "json",
                 success: function (obj) {
-                    if(1 != obj.code){
-                        sweetAlert(obj.message);
-                        location.href = "/login";
-                    }else{
-                        location.href = "/system/suserList";
-                    }
+                    deal(obj,"/system/suserList","/system/suserList");
                 },
                 error: function (obj) {
                     alert(obj);
@@ -171,7 +166,7 @@
                 title: "id",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<a onclick="detailed('+row.id+')">'+value+'</a>';
+                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
                 }
             },
             {

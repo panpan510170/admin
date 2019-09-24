@@ -17,8 +17,8 @@ public class BubbleSort {
         System.out.println("----------------");
         for(int i = 0; i < a.length-1; i++){
             for(int j = 0; j < a.length-1-i; j++){
-                System.out.println("a[j]"+a[j]);
-                System.out.println("a[j+1 ]"+a[j+1]);
+                System.out.println("PerListVO[j]"+a[j]);
+                System.out.println("PerListVO[j+1 ]"+a[j+1]);
                 if (a[j] > a[j + 1]) {
                     int temp = a[j];
                     a[j] = a[j + 1];

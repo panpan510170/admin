@@ -27,7 +27,7 @@ public class IndexController extends BaseController{
     public String index(Model model) {
         AuthorizationInfo authorizationInfo = shiroHelper.getCurrentuserAuthorizationInfo();
         SUser user = super.getCurrentUser();
-        user.setPassword("It's a secret");
+        user.setPassword("It's PerListVO secret");
         model.addAttribute("user", systemService.getUserByUserName(user.getUserName())); // 获取实时的用户信息
         model.addAttribute("permissions", authorizationInfo.getStringPermissions());
         model.addAttribute("roles",authorizationInfo.getRoles());

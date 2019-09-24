@@ -1,4 +1,4 @@
-package com.pan.model.vo;
+package com.pan.base.constants;
 
 /**
  * Created by Pangaofeng on 2018/9/11

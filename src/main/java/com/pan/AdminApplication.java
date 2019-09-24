@@ -50,6 +50,12 @@ public class AdminApplication {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+
+    /**
+     * rabbit
+     * @param connectionFactory
+     * @return
+     */
     @Autowired
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
@@ -71,3 +77,4 @@ public class AdminApplication {
         return rabbitTemplate;
     }
 }
+

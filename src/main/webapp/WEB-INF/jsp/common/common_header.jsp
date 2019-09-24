@@ -19,7 +19,6 @@
     <link href="/statics/css/style.css" rel="stylesheet">
     <!--弹窗-->
     <link href="/statics/css/sweetalert.css" rel="stylesheet">
-
     <link href="/statics/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet"/>
 </head>
 <body>

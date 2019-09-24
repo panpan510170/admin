@@ -2,7 +2,7 @@ package com.pan.serivce;
 
 import com.pan.base.enums.WXRequestUrlEnum;
 import com.pan.base.util.WxTemplateUtils;
-import com.pan.model.vo.WxTemplate;
+import com.pan.model.vo.wx.WxTemplate;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

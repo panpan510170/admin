@@ -2614,7 +2614,7 @@ a.forum-item-title:hover {
 }
 /* New Timeline style */
 .vertical-container {
-  /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
+  /* this class is used to give PerListVO max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 90%;
   max-width: 1170px;
   margin: 0 auto;

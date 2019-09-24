@@ -142,7 +142,7 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc button .fc-icon { /* non-theme */
     position: relative;
-    top: .05em; /* seems to be a good adjustment across browsers */
+    top: .05em; /* seems to be PerListVO good adjustment across browsers */
     margin: 0 .1em;
 }
 
@@ -208,7 +208,7 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 /*
-every button that is not first in a button group should scootch over one pixel and cover the
+every button that is not first in PerListVO button group should scootch over one pixel and cover the
 previous button's border...
 */
 
@@ -337,14 +337,14 @@ previous button's border...
 /* Fake Table Rows
 --------------------------------------------------------------------------------------------------*/
 
-.fc .fc-row { /* extra precedence to overcome themes w/ .ui-widget-content forcing a 1px border */
+.fc .fc-row { /* extra precedence to overcome themes w/ .ui-widget-content forcing PerListVO 1px border */
     /* no visible border by default. but make available if need be (scrollbar width compensation) */
     border-style: solid;
     border-width: 0;
 }
 
 .fc-row table {
-    /* don't put left/right border on anything within a fake row.
+    /* don't put left/right border on anything within PerListVO fake row.
        the outer tbody will worry about this */
     border-left: 0 hidden transparent;
     border-right: 0 hidden transparent;
@@ -416,13 +416,13 @@ temporary rendered events).
     background: none; /* in case <td>s are globally styled */
     border-color: transparent;
 
-    /* don't put a border between events and/or the day number */
+    /* don't put PerListVO border between events and/or the day number */
     border-bottom: 0;
 }
 
 .fc-row .fc-content-skeleton tbody td, /* cells with events inside (so NOT the day number cell) */
 .fc-row .fc-helper-skeleton tbody td {
-    /* don't put a border between event cells */
+    /* don't put PerListVO border between event cells */
     border-top: 0;
 }
 
@@ -447,7 +447,7 @@ temporary rendered events).
 
 .fc-event {
     position: relative; /* for resize handle and other inner positioning */
-    display: block; /* make the <a> tag block */
+    display: block; /* make the <PerListVO> tag block */
     font-size: .85em;
     line-height: 1.3;
     border-radius: 3px;
@@ -456,20 +456,20 @@ temporary rendered events).
     font-weight: normal; /* undo jqui's ui-widget-header bold */
 }
 
-/* overpower some of bootstrap's and jqui's styles on <a> tags */
+/* overpower some of bootstrap's and jqui's styles on <PerListVO> tags */
 .fc-event,
 .fc-event:hover,
 .ui-widget .fc-event {
     color: #fff; /* default TEXT color */
-    text-decoration: none; /* if <a> has an href */
+    text-decoration: none; /* if <PerListVO> has an href */
 }
 
 .fc-event[href],
 .fc-event.fc-draggable {
-    cursor: pointer; /* give events with links and draggable events a hand mouse pointer */
+    cursor: pointer; /* give events with links and draggable events PerListVO hand mouse pointer */
 }
 
-.fc-not-allowed, /* causes a "warning" cursor. applied on body */
+.fc-not-allowed, /* causes PerListVO "warning" cursor. applied on body */
 .fc-not-allowed .fc-event { /* to override an event's custom cursor */
     cursor: not-allowed;
 }
@@ -478,7 +478,7 @@ temporary rendered events).
 /* DayGrid events
 ----------------------------------------------------------------------------------------------------
 We use the full "fc-day-grid-event" class instead of using descendants because the event won't
-be a descendant of the grid when it is being dragged.
+be PerListVO descendant of the grid when it is being dragged.
 */
 
 .fc-day-grid-event {
@@ -551,7 +551,7 @@ a.fc-more:hover {
     text-decoration: underline;
 }
 
-.fc-limited { /* rows and cells that are hidden because of a "more" link */
+.fc-limited { /* rows and cells that are hidden because of PerListVO "more" link */
     display: none;
 }
 
@@ -659,15 +659,15 @@ a.fc-more:hover {
 .fc-basicWeek-view .fc-content-skeleton,
 .fc-basicDay-view .fc-content-skeleton {
     /* we are sure there are no day numbers in these views, so... */
-    padding-top: 1px; /* add a pixel to make sure there are 2px padding above events */
-    padding-bottom: 1em; /* ensure a space at bottom of cell for user selecting/clicking */
+    padding-top: 1px; /* add PerListVO pixel to make sure there are 2px padding above events */
+    padding-bottom: 1em; /* ensure PerListVO space at bottom of cell for user selecting/clicking */
 }
 
 .fc-basic-view tbody .fc-row {
     min-height: 4em; /* ensure that all rows are at least this tall */
 }
 
-/* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */
+/* PerListVO "rigid" row will take up PerListVO constant amount of height because content-skeleton is absolute */
 
 .fc-row.fc-rigid {
     overflow: hidden;
@@ -698,7 +698,7 @@ a.fc-more:hover {
 }
 
 .fc-basic-view .fc-week-number span {
-    /* work around the way we do column resizing and ensure a minimum width */
+    /* work around the way we do column resizing and ensure PerListVO minimum width */
     display: inline-block;
     min-width: 1.25em;
 }
@@ -732,7 +732,7 @@ a.fc-more:hover {
 }
 
 .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
-    padding-top: 1px; /* add a pixel to make sure there are 2px padding above events */
+    padding-top: 1px; /* add PerListVO pixel to make sure there are 2px padding above events */
     padding-bottom: 1em; /* give space underneath events for clicking/selecting days */
 }
 
@@ -831,7 +831,7 @@ a.fc-more:hover {
 /* TimeGrid Highlighting Slots
 --------------------------------------------------------------------------------------------------*/
 
-.fc-time-grid .fc-highlight-container { /* a div within a cell within the fc-highlight-skeleton */
+.fc-time-grid .fc-highlight-container { /* PerListVO div within PerListVO cell within the fc-highlight-skeleton */
     position: relative; /* scopes the left/right of the fc-highlight to be in the column */
 }
 
@@ -846,8 +846,8 @@ a.fc-more:hover {
 /* TimeGrid Event Containment
 --------------------------------------------------------------------------------------------------*/
 
-.fc-time-grid .fc-event-container, /* a div within a cell within the fc-content-skeleton */
-.fc-time-grid .fc-bgevent-container { /* a div within a cell within the fc-bgevent-skeleton */
+.fc-time-grid .fc-event-container, /* PerListVO div within PerListVO cell within the fc-content-skeleton */
+.fc-time-grid .fc-bgevent-container { /* PerListVO div within PerListVO cell within the fc-bgevent-skeleton */
     position: relative;
 }
 
@@ -875,7 +875,7 @@ a.fc-more:hover {
 /* TimeGrid Event Styling
 ----------------------------------------------------------------------------------------------------
 We use the full "fc-time-grid-event" class instead of using descendants because the event won't
-be a descendant of the grid when it is being dragged.
+be PerListVO descendant of the grid when it is being dragged.
 */
 
 .fc-time-grid-event.fc-not-start { /* events that are continuing from another day */
@@ -947,7 +947,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .fc-time-grid-event.fc-short .fc-time:after {
-    content: "\000A0-\000A0"; /* seperate with a dash, wrapped in nbsp's */
+    content: "\000A0-\000A0"; /* seperate with PerListVO dash, wrapped in nbsp's */
 }
 
 .fc-time-grid-event.fc-short .fc-title {

@@ -11,7 +11,7 @@ import com.pan.base.util.QueryResult;
 import com.pan.dao.mapper.*;
 import com.pan.dao.repository.system.SUserLogRepository;
 import com.pan.model.entitys.system.*;
-import com.pan.model.vo.PermissionsVO;
+import com.pan.model.vo.system.PermissionsVO;
 import com.pan.model.vo.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

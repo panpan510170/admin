@@ -97,19 +97,14 @@
         };
         if(flag){
             $.ajax({
-                url: url+"/system/saveUserRole",
+                url: "/system/saveUserRole",
                 type: "post",
                 contentType:"application/json",
                 data:JSON.stringify(param),
                 dataType: "json",
                 //headers:{"Access-Token":token,"Access-Source":"2"},
                 success: function (obj) {
-                    if(null == obj || "" == obj){
-                        sweetAlert(obj.message);
-                        location.href = "/system/suserRoleList";
-                    }else{
-                        location.href = "/system/suserRoleList";
-                    }
+                    deal(obj,"/system/suserRoleList","/system/suserRoleList");
                 },
                 error: function () {
                     alert("错误！")
@@ -173,7 +168,7 @@
                 title: "用户id",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<a onclick="detailed('+row.id+')">'+value+'</a>';
+                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
                 }
             },
             {
@@ -193,9 +188,9 @@
                 field: "id",
                 formatter: function (value, row, index) {
                     if(null == row.roleName || "" == row.roleName){
-                        return '<a onclick="toAddUserRole('+row.id+')">分配角色</a>';
+                        return '<PerListVO onclick="toAddUserRole('+row.id+')">分配角色</PerListVO>';
                     }else{
-                        return '<a onclick="toAddUserRole('+row.id+')">修改角色</a>';
+                        return '<PerListVO onclick="toAddUserRole('+row.id+')">修改角色</PerListVO>';
                     }
 
                 }
@@ -217,11 +212,16 @@
             contentType:"application/json",
             data:JSON.stringify(param),
             dataType: "json",
-            headers:{"Access-Token":token,"Access-Source":"2"},
+            //headers:{"Access-Token":token,"Access-Source":"2"},
             success: function (obj) {
                 if(null == obj || "" == obj){
-                    sweetAlert("查询错误");
-                    location.href = "login.jsp";
+                    sweetAlert({
+                        title: "OMG!",
+                        text: "查询错误",
+                        type: "error"
+                    }, function () {
+                        location.href = "login";
+                    });
                 }else{
                     for (var i = 0; i < obj.data.length; i++) {
                         $("#parentId").append("<option value='"+obj.data[i].id+"'>"+obj.data[i].roleName+"</option>");

@@ -3,7 +3,7 @@ package com.pan.admin;
 import com.pan.serivce.TestService;
 import com.pan.base.util.thread.ThreadRunner;
 import com.pan.base.util.thread.testThread;
-import com.pan.model.vo.Constants;
+import com.pan.base.constants.Constants;
 import com.pan.model.vo.PageVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;

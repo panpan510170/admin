@@ -122,8 +122,8 @@ public class DecoUtil {
 
 
     public static void main(String[] args) throws IOException {
-//        ArrayList<String> a = DecoUtil.unzip("C:\\a.zip"); // 返回解压缩出来的文件列表
-//        for(String s : a){
+//        ArrayList<String> PerListVO = DecoUtil.unzip("C:\\PerListVO.zip"); // 返回解压缩出来的文件列表
+//        for(String s : PerListVO){
 //            System.out.println(s);
 //        }
 //
@@ -141,8 +141,8 @@ public class DecoUtil {
 //            UploadUtils.uploadFile("image/ebank/upload/pro_detail/"+uploadPath,f,fname);
         }
         deleteTempFile(tempPath+"demo");
-//        ArrayList<String> a = ectract("E:\\test\\demo.zip", "E:\\test\\"); // 返回解压缩出来的文件列表
-//        for(String s : a){
+//        ArrayList<String> PerListVO = ectract("E:\\test\\demo.zip", "E:\\test\\"); // 返回解压缩出来的文件列表
+//        for(String s : PerListVO){
 //            System.out.println(s);
 //        }
 

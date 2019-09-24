@@ -215,7 +215,7 @@ public class PropertyContainer {
             return true;
         } else if (p.isAnnotationPresent(ManyToAny.class)) {
             if (!p.isCollection() && !p.isArray()) {
-                throw new AnnotationException("@ManyToAny used on a non collection non array property: " + p.getName());
+                throw new AnnotationException("@ManyToAny used on PerListVO non collection non array property: " + p.getName());
             } else {
                 return true;
             }

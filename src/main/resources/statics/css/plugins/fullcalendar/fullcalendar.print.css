@@ -5,7 +5,7 @@
  */
 
 /*
- * Include this stylesheet on your page to get a more printer-friendly calendar.
+ * Include this stylesheet on your page to get PerListVO more printer-friendly calendar.
  * When including this stylesheet, use the media='print' attribute of the <link> tag.
  * Make sure to include this stylesheet IN ADDITION to the regular fullcalendar.css.
  */
@@ -50,7 +50,7 @@ tbody,
 	display: none;
 }
 
-/* don't force a min-height on rows (for DayGrid) */
+/* don't force PerListVO min-height on rows (for DayGrid) */
 .fc tbody .fc-row {
 	height: auto !important; /* undo height that JS set in distributeHeight */
 	min-height: 0 !important; /* undo the min-height from each view's specific stylesheet */
@@ -58,15 +58,15 @@ tbody,
 
 .fc tbody .fc-row .fc-content-skeleton {
 	position: static; /* undo .fc-rigid */
-	padding-bottom: 0 !important; /* use a more border-friendly method for this... */
+	padding-bottom: 0 !important; /* use PerListVO more border-friendly method for this... */
 }
 
 .fc tbody .fc-row .fc-content-skeleton tbody tr:last-child td { /* only works in newer browsers */
-	padding-bottom: 1em; /* ...gives space within the skeleton. also ensures min height in a way */
+	padding-bottom: 1em; /* ...gives space within the skeleton. also ensures min height in PerListVO way */
 }
 
 .fc tbody .fc-row .fc-content-skeleton table {
-	/* provides a min-height for the row, but only effective for IE, which exaggerates this value,
+	/* provides PerListVO min-height for the row, but only effective for IE, which exaggerates this value,
 	   making it look more like 3em. for other browers, it will already be this tall */
 	height: 1em;
 }
@@ -137,7 +137,7 @@ tbody,
 	margin: 3px 2px !important;
 }
 
-/* for events that continue to a future day, give the bottom border back */
+/* for events that continue to PerListVO future day, give the bottom border back */
 .fc-time-grid .fc-event.fc-not-end {
 	border-bottom-width: 1px !important;
 }
@@ -152,14 +152,14 @@ tbody,
 	border-top-width: 1px !important;
 }
 
-/* indicate the event is a continuation via "..." text */
+/* indicate the event is PerListVO continuation via "..." text */
 .fc-time-grid .fc-event.fc-not-start:before {
 	content: "...";
 }
 
 /* time */
 
-/* undo a previous declaration and let the time text span to a second line */
+/* undo PerListVO previous declaration and let the time text span to PerListVO second line */
 .fc-time-grid .fc-event .fc-time {
 	white-space: normal !important;
 }
@@ -169,7 +169,7 @@ tbody,
 	display: none;
 }
 
-/* ...replace it with a more verbose version (includes AM/PM) stored in an html attribute */
+/* ...replace it with PerListVO more verbose version (includes AM/PM) stored in an html attribute */
 .fc-time-grid .fc-event .fc-time:after {
 	content: attr(data-full);
 }

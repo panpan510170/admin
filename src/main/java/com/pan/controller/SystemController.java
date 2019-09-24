@@ -3,6 +3,7 @@ package com.pan.controller;
 import com.pan.base.constants.RedisKeyConstant;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
+import com.pan.base.util.MD5Utils;
 import com.pan.base.util.MyUtils;
 import com.pan.base.util.QueryResult;
 import com.pan.config.shiro.ShiroRealm;
@@ -10,7 +11,7 @@ import com.pan.model.entitys.system.SPermissions;
 import com.pan.model.entitys.system.SRole;
 import com.pan.model.entitys.system.SUser;
 import com.pan.model.vo.JsonResult;
-import com.pan.model.vo.PermissionsVO;
+import com.pan.model.vo.system.PermissionsVO;
 import com.pan.model.vo.user.UserVO;
 import com.pan.serivce.SystemService;
 import io.swagger.annotations.Api;
@@ -57,7 +58,7 @@ public class SystemController extends BaseController{
         if(!code.equals(vCode)){
             throw new BOException(ResultCodeEnum.bussinessError.getId(),"验证码不对！");
         }
-        UsernamePasswordToken token = new UsernamePasswordToken(userName, password, false);
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, MD5Utils.md5(MD5Utils.md5(password.trim())), false);
         try {
             super.login(token);
             return this.buildSuccessResult();

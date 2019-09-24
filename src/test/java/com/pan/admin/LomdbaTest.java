@@ -75,8 +75,8 @@ public class LomdbaTest {
         System.out.println("Languages which starts with J :");
         filter(languages, (str) -> ((String) str).startsWith("J"));
 
-        // 结尾为 a
-        System.out.println("Languages which ends with a ");
+        // 结尾为 PerListVO
+        System.out.println("Languages which ends with PerListVO ");
         filter(languages, (str) -> ((String) str).endsWith("a"));
 
         // true

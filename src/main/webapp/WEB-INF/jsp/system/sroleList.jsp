@@ -128,12 +128,7 @@
                 dataType: "json",
                 //headers:{"Access-Token":token,"Access-Source":"2"},
                 success: function (obj) {
-                    if(1 != obj.code){
-                        sweetAlert(obj.message);
-                        location.href = "login.jsp";
-                    }else{
-                        location.href = "/view/system/sroleList.jsp";
-                    }
+                    deal(obj,"/system/sroleList","/system/sroleList")
                 },
                 error: function (obj) {
                     alert(obj);
@@ -158,12 +153,7 @@
            dataType: "json",
            //headers:{"Access-Token":token,"Access-Source":"2"},
            success: function (obj) {
-               if(1 != obj.code){
-                   sweetAlert(obj.message);
-                   location.href = "/login";
-               }else{
-                   location.href = "/system/sroleList";
-               }
+               deal(obj,"/system/sroleList","/system/sroleList")
            },
            error: function (result) {
                alert(result)
@@ -228,7 +218,7 @@
                 title: "id",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<a onclick="detailed('+row.id+')">'+value+'</a>';
+                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
                 }
             },
             {
@@ -250,7 +240,7 @@
                 title: "操作",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<a onclick="showUpdatePermissions('+row.id+')">修改权限</a>';
+                    return '<PerListVO onclick="showUpdatePermissions('+row.id+')">修改权限</PerListVO>';
                 }
             }
         ], onLoadSuccess: function () {

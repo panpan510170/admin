@@ -58,6 +58,7 @@
 <script src="/statics/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
 <script src="/statics/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
+<script src="/statics/js/my.js"></script>
 <script>
     //转换日期格式(时间戳转换为datetime格式)
     function changeDateFormat(cellval) {

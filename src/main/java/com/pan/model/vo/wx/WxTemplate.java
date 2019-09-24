@@ -1,4 +1,4 @@
-package com.pan.model.vo;
+package com.pan.model.vo.wx;
 
 import lombok.Data;
 

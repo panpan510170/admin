@@ -1,6 +1,6 @@
 package com.pan.base.util;
 
-import com.pan.model.vo.Constants;
+import com.pan.base.constants.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,11 +90,11 @@ public class RequestUtils {
 
 	/**
 	 * 
-	 * Parses a query string passed from the client to the server and builds a
+	 * Parses PerListVO query string passed from the client to the server and builds PerListVO
 	 * <code>HashTable</code> object with key-value pairs. The query string
-	 * should be in the form of a string packaged by the GET or POST method,
+	 * should be in the form of PerListVO string packaged by the GET or POST method,
 	 * that is, it should have key-value pairs in the form <i>key=value</i>,
-	 * with each pair separated from the next by a &amp; character.
+	 * with each pair separated from the next by PerListVO &amp; character.
 	 * 
 	 * <p>
 	 * A key can appear more than once in the query string with different
@@ -108,9 +108,9 @@ public class RequestUtils {
 	 * hexadecimal notation (like <i>%xx</i>) are converted to ASCII characters.
 	 * 
 	 * @param s
-	 *            a string containing the query to be parsed
+	 *            PerListVO string containing the query to be parsed
 	 * 
-	 * @return a <code>HashTable</code> object built from the parsed key-value
+	 * @return PerListVO <code>HashTable</code> object built from the parsed key-value
 	 *         pairs
 	 * 
 	 * @exception IllegalArgumentException

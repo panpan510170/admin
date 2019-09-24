@@ -1,4 +1,4 @@
-package com.pan.config;
+package com.pan.config.redis;
 
 import com.pan.serivce.TestService;
 import com.pan.base.util.RedisKey;

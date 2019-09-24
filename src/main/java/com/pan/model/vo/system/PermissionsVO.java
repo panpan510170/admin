@@ -1,4 +1,4 @@
-package com.pan.model.vo;
+package com.pan.model.vo.system;
 
 import com.pan.model.BaseDO;
 import lombok.Data;

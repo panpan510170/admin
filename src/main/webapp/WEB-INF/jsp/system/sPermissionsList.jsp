@@ -175,11 +175,7 @@
                 dataType: "json",
                 //headers:{"Access-Token":token,"Access-Source":"2"},
                 success: function (obj) {
-                    if(1 != obj.code){
-                        sweetAlert(obj.message);
-                    }else{
-                        location.href = "/system/sPermissionsList";
-                    }
+                    deal(obj,"/system/sPermissionsList","/system/sPermissionsList")
                 },
                 error: function (obj) {
                     alert(obj);
@@ -283,7 +279,7 @@
                 title: "id",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<a onclick="detailed('+row.id+')">'+value+'</a>';
+                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
                 }
             },
             {
@@ -313,7 +309,7 @@
                 title: "操作",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<a onclick="delPermissions('+row.id+')">删除</a>';
+                    return '<PerListVO onclick="delPermissions('+row.id+')">删除</PerListVO>';
                 }
             }
         ], onLoadSuccess: function () {
