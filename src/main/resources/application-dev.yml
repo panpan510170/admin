@@ -44,7 +44,7 @@ spring:
     publisher-confirms: true
     #开启 return 确认机制
     publisher-returns: true
-    
+#阿里云配置
 aliyun:
   oss:
     AccessKeyID: LTAIPxACpM1voKll
@@ -53,11 +53,23 @@ aliyun:
     sonAccessKeyID: LTAIHgdiUYGPuRsG
     sonAccessKeySecret: 2pgaiHc9TKwcUKwrxt0N2LSy3ZS4qn
     roleArn: acs:ram::1861742825276971:role/aliyunosstokengeneratorrole
+#可视化接口文档
 swagger2:
   enable: true
 # 打印sql
 logging:
   level:
     com.pan : debug
+#微信商户配置
+wechat:
+  appId: wx16ea5811c16c2db2
+  appSecret: 2fb1942ceb55c34dd0d47a3ff4529306
+  # 商户号
+  mchId: 1516918841
+  # 商品描述
+  body: test测试1
+  # 商户key
+  key: Blbbianliba11223344Blbbianliba12
+  p12Pass: 1516918841
 
 

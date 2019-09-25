@@ -20,19 +20,9 @@ spring:
         naming_strategy: org.hibernate.cfg.ImprovedNamingStrate
         naming:
           physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+#mybatis扫描
 mybatis:
   mapper-locations: classpath:mapping/*Mapper.xml,classpath:mapping/**/*Mapper.xml,classpath:mapping/**/**/*Mapper.xml
   configuration:
     #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
     map-underscore-to-camel-case: true
-
-wechat:
-  appId: wx16ea5811c16c2db2
-  appSecret: 2fb1942ceb55c34dd0d47a3ff4529306
-  # 商户号
-  mchId: 1516918841
-  # 商品描述
-  body: test测试1
-  # 商户key
-  key: Blbbianliba11223344Blbbianliba12
-  p12Pass: 1516918841
