@@ -18,46 +18,12 @@
                             <img alt="image" class="img-circle" src="/statics/img/profile_small.jpg" />
                             <b style="margin-left: 7%;color: white"><shiro:principal property="userName"/></b>
                         </span>
-                        <%--<a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-                            <span class="clear">
-                                <span class="block m-t-xs">
-                                    <strong class="font-bold" id="userName11" style="padding: auto"></strong>
-                                </span>
-                            </span>
-                        </a>--%>
                     </div>
-                    <%--<div class="logo-element">
-                        IN+
-                    </div>--%>
                 </li>
-               <%-- <li>
-                    <a><i class="fa fa-th-large"></i> <span class="nav-label">系统管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="/system/suserList" target="content">系统用户管理</a></li>
-                        <li><a href="/view/system/sroleList.jsp" target="content">角色管理</a></li>
-                        <li><a href="/view/system/sPermissionsList.jsp" target="content">权限管理</a></li>
-                        <li><a href="/view/system/suserList.jsp" target="content">用户角色管理</a></li>
-                        <li><a href="/view/system/suserList.jsp" target="content">角色权限管理</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a><i class="fa fa-th-large"></i> <span class="nav-label">系统管理123</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="/system/suserList" target="content">系统用户管理123</a></li>
-                        <li><a href="/view/system/suserList.jsp" target="content">角色管理123</a></li>
-                        <li><a href="/view/system/suserList.jsp" target="content">权限管理123</a></li>
-                        <li><a href="/view/system/suserList.jsp" target="content">用户角色管理123</a></li>
-                        <li><a href="/view/system/suserList.jsp" target="content">角色权限管理123</a></li>
-                    </ul>
-                </li>--%>
-
             </ul>
         </div>
     </nav>
-
     <div id="page-wrapper" class="gray-bg dashbard-1">
-
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;background-color: #1a2d41">
                 <ul class="nav navbar-top-links navbar-right">
@@ -74,13 +40,11 @@
                 </ul>
             </nav>
         </div>
-
         <div class="row  border-bottom white-bg dashboard-header">
-            <iframe  name="content" src=""  width="100%" height="100%"  frameborder="0"></iframe>
+            <iframe name="content" src="/system/data"  width="100%" height="100%"  frameborder="0"></iframe>
         </div>
     </div>
 </div>
-
 <!-- 修改密码 -->
 <div class="modal inmodal" id="myModalPassword" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -112,22 +76,17 @@
 </div>
 <jsp:include page="/WEB-INF/jsp/common/common_footer.jsp"></jsp:include>
 <script type="text/javascript">
-
     var userId = sessionStorage.getItem("userId");
-
     function doUpdatePassword(){
         var flag = true;
         var password = $("#password").val();
-
         if("" == password || null == password){
             flag = false;
         }
-
         if(flag){
             var param = {
                 "password" : password
             };
-
             $.ajax({
                 url: "/system/updateSystemUser",
                 type: "post",
@@ -201,8 +160,6 @@
             location.href = "login.jsp";
         }
     });
-
-
     $("body").on("click","li",function(){
         $(this).siblings('li').removeClass('active');
         $("ul").removeClass('in');
@@ -211,5 +168,4 @@
     });
 </script>
 </body>
-
 </html>

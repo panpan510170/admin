@@ -35,7 +35,6 @@ public class InitSystemUserInfoManager implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         SUser suser = systemService.getUserByUserName("admin");
-        System.out.println(permissionsList);
         if(null == suser){
             Map<String, Object> param = new HashMap<>();
             param.put("userName","admin");

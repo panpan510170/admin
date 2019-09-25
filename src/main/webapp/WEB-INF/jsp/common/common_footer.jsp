@@ -59,6 +59,13 @@
 <script src="/statics/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
 <script src="/statics/js/my.js"></script>
+
+<!-- Jvectormap -->
+<script src="/statics/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+<script src="/statics/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+<!-- iCheck -->
+<script src="/statics/js/plugins/iCheck/icheck.min.js"></script>
 <script>
     //转换日期格式(时间戳转换为datetime格式)
     function changeDateFormat(cellval) {

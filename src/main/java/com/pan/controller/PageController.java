@@ -36,4 +36,9 @@ public class PageController extends BaseController{
     public String sendSocketMsg() {
         return "/platform/sendSocket";
     }
+
+    @RequestMapping(value = "/system/data",method = RequestMethod.GET)
+    public String data() {
+        return "/data";
+    }
 }
