@@ -31,4 +31,9 @@ public class PageController extends BaseController{
     public String sPermissionsList() {
         return "system/sPermissionsList";
     }
+
+    @RequestMapping(value = "/platForm/send/socketMsg",method = RequestMethod.GET)
+    public String sendSocketMsg() {
+        return "/platform/sendSocket";
+    }
 }
