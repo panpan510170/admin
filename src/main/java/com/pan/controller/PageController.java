@@ -41,4 +41,9 @@ public class PageController extends BaseController{
     public String data() {
         return "/data";
     }
+
+    @RequestMapping(value = "/video/upload",method = RequestMethod.GET)
+    public String videoManager() {
+        return "/video/upload";
+    }
 }
