@@ -186,21 +186,23 @@ public class SystemService {
     }
 
     public List<Map<String, Object>> rolePermissionsTreeList(Map<String, Object> paramMap) throws Exception {
-
-        if(null == paramMap.get("roleId")) throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
-
-        if("".equals(paramMap.get("roleId").toString())) throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
-
+        if(null == paramMap.get("roleId")) {
+            throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
+        }
+        if("".equals(paramMap.get("roleId").toString())) {
+            throw new BOException(ResultCodeEnum.paramError.getId(),"角色id必传");
+        }
         Long roleId = Long.parseLong(paramMap.get("roleId").toString());
-
+        //查询一级菜单
         List<Map<String, Object>> listmap = new ArrayList<>();
-
         SPermissions firstPermissions = new SPermissions();
         firstPermissions.setType(1);
         List<SPermissions> allPermissionsList = sPermissionsMapper.rolePermissionsTreeList(firstPermissions);
-
         Map<String, Object> stateMap = new HashMap<>();
         stateMap.put("checked",true);//默认勾选
+        stateMap.put("expanded",true);//节点默认展开
+        Map<String, Object> expandedMap = new HashMap<>();
+        expandedMap.put("expanded",true);//节点默认展开
         //所有一级
         for(SPermissions sPermissions : allPermissionsList){
             Map<String, Object> map = new HashMap<>();
@@ -240,6 +242,8 @@ public class SystemService {
                 SRolePermissions rolePermissions = sRolePermissionsMapper.selectByObj(sRolePermissions);
                 if(null != rolePermissions) {//默认勾选
                     secondMap.put("state",stateMap);
+                }else{
+                    secondMap.put("state",expandedMap);//节点默认展开
                 }
                 secondMap.put("nodes",thirdList);
                 secondList.add(secondMap);
@@ -252,6 +256,8 @@ public class SystemService {
             SRolePermissions rolePermissions = sRolePermissionsMapper.selectByObj(sRolePermissions);
             if(null != rolePermissions) {
                 map.put("state", stateMap);//默认勾选
+            }else{
+                map.put("state", expandedMap);//节点默认展开
             }
             map.put("nodes",secondList);
             listmap.add(map);

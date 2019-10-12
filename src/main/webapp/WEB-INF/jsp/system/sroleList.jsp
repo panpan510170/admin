@@ -260,6 +260,7 @@
             contentType:"application/json",
             data:JSON.stringify(param),
             dataType: "json",
+            async:false,
             //headers:{"Access-Token":token,"Access-Source":"2"},
             success: function (result) {
                 /*alert(result.data);*/
