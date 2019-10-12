@@ -20,6 +20,36 @@
                         </span>
                     </div>
                 </li>
+                <%--<li>
+                    <a>
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">Graphs</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="graph_flot.html">Flot Charts</a></li>
+                        <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                        <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                        <li><a href="graph_chartjs.html">Chart.js</a></li>
+                        <li><a href="graph_chartist.html">Chartist</a></li>
+                        <li><a href="c3.html">c3 charts</a></li>
+                        <li><a href="graph_peity.html">Peity Charts</a></li>
+                        <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-th-large"></i>
+                        <span class="nav-label">系统管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse" id="系统管理1">
+                        <li><a href="/system/suserList" target="content">用户管理</a></li>
+                        <li><a href="/system/sroleList" target="content">角色管理</a></li>
+                        <li><a href="/system/sPermissionsList" target="content">权限管理</a></li>
+                        <li><a href="/system/suserRoleList" target="content">用户角色管理</a></li>
+                    </ul>
+                </li>--%>
             </ul>
         </div>
     </nav>
@@ -126,6 +156,7 @@
             "userId":userId
         },
         dataType: "json",
+        async:false,
         //headers:{"Access-Token":token,"Access-Source":"2"},
         success: function (obj) {
             if(1 != obj.code){
@@ -140,32 +171,30 @@
             }else{
                 $.each(obj.data ,function (index,value) {
                     $("#side-menu").append(
-                        "<li class="+'"zhui"'+">" +
-                        "<a class="+'"zhui"'+">" +
+                        "<li>" +
+                        "<a>" +
                         "<i class="+'"fa fa-th-large"'+"></i>" +
-                        "<span class="+'"nav-label zhui"'+">"+value.name+"</span>" +
-                        "<span class="+'"fa arrow"'+"></span>" +
-                        "</a>" +
-                        "<ul class="+'"nav nav-second-level collapse"'+" id='"+value.name+"'></ul>" +
-                        "</li>")
+                        "<span class=" +'"nav-label"'+">"+value.name+"</span>" +
+                        "<span class="+'"fa arrow"'+"></span></a> " +
+                        "<ul class="+'"nav nav-second-level collapse"'+" id='"+value.name+"'></ul></li>")
                     var id = value.name;
                     $.each(value.list ,function (index,value) {
-                        $("#"+id).append("<li class="+'"quanxian"'+"><a href='"+value.url+"' target="+"content"+">"+value.name+"</a></li>");
+                        $("#"+id).append("<li><a href='"+value.url+"' target="+"content"+">"+value.name+"</a></li>");
                     });
-
                 });
+
             }
         },
         error: function (obj) {
             location.href = "login.jsp";
         }
     });
-    $("body").on("click","li",function(){
+    /*$("body").on("click","li",function(){
         $(this).siblings('li').removeClass('active');
         $("ul").removeClass('in');
         $(this).addClass('active');
         $(this).children("ul").addClass('in');
-    });
+    });*/
 </script>
 </body>
 </html>
