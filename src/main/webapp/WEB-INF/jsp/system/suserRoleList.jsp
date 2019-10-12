@@ -47,7 +47,7 @@
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">分配角色</h4>
             </div>
             <div class="modal-body">
@@ -77,6 +77,7 @@
 <jsp:include page="/WEB-INF/jsp/common/common_footer.jsp"></jsp:include>
 <script>
     function down() {
+        $("#parentId").empty();
         $("#myModal").hide();
     }
 
@@ -166,10 +167,7 @@
         columns: [
             {
                 title: "用户id",//标题
-                field: "id",
-                formatter: function (value, row, index) {
-                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
-                }
+                field: "id"
             },
             {
                 title: "用户名称",//标题
@@ -188,9 +186,9 @@
                 field: "id",
                 formatter: function (value, row, index) {
                     if(null == row.roleName || "" == row.roleName){
-                        return '<shiro:hasPermission name="user:updateRole"><PerListVO onclick="toAddUserRole('+row.id+')">分配角色</PerListVO></shiro:hasPermission>';
+                        return '<shiro:hasPermission name="user:updateRole"><a onclick="toAddUserRole('+row.id+')">分配角色</a></shiro:hasPermission>';
                     }else{
-                        return '<shiro:hasPermission name="user:updateRole"><PerListVO onclick="toAddUserRole('+row.id+')">修改角色</PerListVO></shiro:hasPermission>';
+                        return '<shiro:hasPermission name="user:updateRole"><a onclick="toAddUserRole('+row.id+')">修改角色</a></shiro:hasPermission>';
                     }
 
                 }

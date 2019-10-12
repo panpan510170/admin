@@ -277,10 +277,7 @@
         columns: [
             {
                 title: "id",//标题
-                field: "id",
-                formatter: function (value, row, index) {
-                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
-                }
+                field: "id"
             },
             {
                 title: "权限名称",//标题
@@ -309,7 +306,7 @@
                 title: "操作",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<shiro:hasPermission name="permissions:del"><PerListVO onclick="delPermissions('+row.id+')">删除</PerListVO></shiro:hasPermission>';
+                    return '<shiro:hasPermission name="permissions:del"><a onclick="delPermissions('+row.id+')">删除</a></shiro:hasPermission>';
                 }
             }
         ], onLoadSuccess: function () {

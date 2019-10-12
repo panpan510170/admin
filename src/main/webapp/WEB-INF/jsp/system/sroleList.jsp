@@ -216,10 +216,7 @@
         columns: [
             {
                 title: "id",//标题
-                field: "id",
-                formatter: function (value, row, index) {
-                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
-                }
+                field: "id"
             },
             {
                 title: "角色名称",//标题
@@ -240,7 +237,7 @@
                 title: "操作",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<shiro:hasPermission name="role:updatePermissions"><PerListVO onclick="showUpdatePermissions('+row.id+')">修改权限</PerListVO></shiro:hasPermission>';
+                    return '<shiro:hasPermission name="role:updatePermissions"><a onclick="showUpdatePermissions('+row.id+')">修改权限</a></shiro:hasPermission>';
                 }
             }
         ], onLoadSuccess: function () {

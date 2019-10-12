@@ -164,10 +164,7 @@
         columns: [
             {
                 title: "id",//标题
-                field: "id",
-                formatter: function (value, row, index) {
-                    return '<PerListVO onclick="detailed('+row.id+')">'+value+'</PerListVO>';
-                }
+                field: "id"
             },
             {
                 title: "用户名",//标题
