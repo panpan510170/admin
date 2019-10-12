@@ -188,9 +188,9 @@
                 field: "id",
                 formatter: function (value, row, index) {
                     if(null == row.roleName || "" == row.roleName){
-                        return '<PerListVO onclick="toAddUserRole('+row.id+')">分配角色</PerListVO>';
+                        return '<shiro:hasPermission name="user:updateRole"><PerListVO onclick="toAddUserRole('+row.id+')">分配角色</PerListVO></shiro:hasPermission>';
                     }else{
-                        return '<PerListVO onclick="toAddUserRole('+row.id+')">修改角色</PerListVO>';
+                        return '<shiro:hasPermission name="user:updateRole"><PerListVO onclick="toAddUserRole('+row.id+')">修改角色</PerListVO></shiro:hasPermission>';
                     }
 
                 }

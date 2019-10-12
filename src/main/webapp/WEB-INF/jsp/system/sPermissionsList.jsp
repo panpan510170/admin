@@ -24,9 +24,9 @@
                     <div class="col-sm-2">
                         <select class="form-control" id="permissionsType">
                             <option value="">请选择</option>
-                            <option value="1">一级权限</option>
-                            <option value="2">二级权限</option>
-                            <%--<option value="3">三级权限</option>--%>
+                            <option value="1">一级菜单权限</option>
+                            <option value="2">二级菜单权限</option>
+                            <option value="3">三级按钮权限</option>
                         </select>
                     </div>
                     <div class="col-sm-2" style="text-align:right;">
@@ -309,7 +309,7 @@
                 title: "操作",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<PerListVO onclick="delPermissions('+row.id+')">删除</PerListVO>';
+                    return '<shiro:hasPermission name="permissions:del"><PerListVO onclick="delPermissions('+row.id+')">删除</PerListVO></shiro:hasPermission>';
                 }
             }
         ], onLoadSuccess: function () {

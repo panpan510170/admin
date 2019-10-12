@@ -240,7 +240,7 @@
                 title: "操作",//标题
                 field: "id",
                 formatter: function (value, row, index) {
-                    return '<PerListVO onclick="showUpdatePermissions('+row.id+')">修改权限</PerListVO>';
+                    return '<shiro:hasPermission name="role:updatePermissions"><PerListVO onclick="showUpdatePermissions('+row.id+')">修改权限</PerListVO></shiro:hasPermission>';
                 }
             }
         ], onLoadSuccess: function () {
