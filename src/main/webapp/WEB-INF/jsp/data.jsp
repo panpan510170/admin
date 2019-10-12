@@ -54,6 +54,66 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <a href="/actuator/health">
+                <div class="col-lg-4">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-rss fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h2 class="font-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看项目运行状态</font></font></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/actuator/heapdump">
+                <div class="col-lg-4">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-rss fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h2 class="font-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下载heapdump文件</font></font></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/actuator/httptrace">
+                <div class="col-lg-4">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-rss fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h2 class="font-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看最近100个HTTP请求</font></font></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="row">
+            <a href="/actuator/env">
+                <div class="col-lg-4">
+                    <div class="widget style1 navy-bg">
+                        <div class="row vertical-align">
+                            <div class="col-xs-3">
+                                <i class="fa fa-rss fa-3x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h2 class="font-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看项目运行环境及配置</font></font></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
         <div class="row m-t-lg">
             <div class="col-lg-12">
                 <div class="ibox-content">

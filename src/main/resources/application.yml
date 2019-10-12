@@ -26,3 +26,10 @@ mybatis:
   configuration:
     #配置项：开启下划线到驼峰的自动转换. 作用：将数据库字段根据驼峰规则自动注入到对象属性。
     map-underscore-to-camel-case: true
+
+###通过下面的配置启用所有的监控端点，默认情况下，这些端点是禁用的；加入这个配置。监控所有接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
