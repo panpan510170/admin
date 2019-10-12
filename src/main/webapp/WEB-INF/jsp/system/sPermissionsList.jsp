@@ -332,13 +332,7 @@
             dataType: "json",
             //headers:{"Access-Token":token,"Access-Source":"2"},
             success: function (obj) {
-                if(null == obj || "" == obj){
-                    sweetAlert("查询错误");
-                    location.href = "login.jsp";
-                }else{
-                    location.href = "/view/system/sPermissionsList.jsp";
-                }
-
+                deal(obj,"/system/sPermissionsList","/system/sPermissionsList");
             },
             error: function (obj) {
                 alert(obj);
