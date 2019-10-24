@@ -111,7 +111,7 @@ public class SystemController extends BaseController{
 
     @ApiOperation(value = "左侧权限列表")
     @PostMapping("/userPermissionsList")
-    public JsonResult<List<PermissionsVO>> userPermissionsList(HttpServletRequest request) throws Exception{
+    public JsonResult<List<PermissionsVO>> userPermissionsList() throws Exception{
         SUser user = MyUtils.getUserInfo();
         if (null == user || null == user.getId()) {
             return this.buildErrorResult(ResultCodeEnum.bussinessError.getId(), "用户信息未获取到,请重新登录");

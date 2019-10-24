@@ -17,3 +17,14 @@ function deal(obj,successUrl,errorUrl){
         });
     }
 }
+
+
+function alertErrorMsg(msg,errorUrl){
+    sweetAlert({
+        title: "OMG!",
+        text: msg,
+        type: "error"
+    }, function () {
+        location.href = errorUrl;
+    });
+}

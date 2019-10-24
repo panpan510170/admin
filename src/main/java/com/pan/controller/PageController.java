@@ -46,4 +46,9 @@ public class PageController extends BaseController{
     public String videoManager() {
         return "/video/upload";
     }
+
+    @RequestMapping(value = "/lottery/type",method = RequestMethod.GET)
+    public String lotteryType() {
+        return "/lottery/manage";
+    }
 }

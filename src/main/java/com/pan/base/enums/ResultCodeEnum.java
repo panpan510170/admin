@@ -13,7 +13,8 @@ public enum ResultCodeEnum {
     loginError(6, "用户未登陆"),
     sessionExpire(7, "Headers请求参数错误"),
     IOError(8, "IO异常,请联系技术"),
-    tokenError(9, "登录认证失效,请重新登录");
+    tokenError(9, "登录认证失效,请重新登录"),
+    thirdError(10, "第三方接口错误");
 
     private int id;
     private String name;

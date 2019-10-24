@@ -72,4 +72,7 @@ wechat:
   key: Blbbianliba11223344Blbbianliba12
   p12Pass: 1516918841
 
-
+admin:
+  lift:
+    status: 0
+    lottery: b301b8629b2b2874bff62699f1c8bf45

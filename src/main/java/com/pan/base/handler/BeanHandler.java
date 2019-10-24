@@ -51,7 +51,7 @@ public class BeanHandler {
     }
 
     /**
-     * JsonString转javaBean
+     * JsonString转javaBean 支持复杂json
      * @param json
      * @param clazz bean.class
      * @return

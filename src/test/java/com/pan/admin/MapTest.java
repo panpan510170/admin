@@ -2,10 +2,14 @@ package com.pan.admin;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.pan.base.utils.life.LifeUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author pan
@@ -14,6 +18,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MapTest {
+
+    @Test
+    public void testMap(){
+        Map<String, Object> param = new HashMap<>();
+        param.put("key","123456789");
+        param.put("id","wer");
+        System.out.println(LifeUtils.buildParamByLife(param));
+    }
 
     /**
      * 双键map
