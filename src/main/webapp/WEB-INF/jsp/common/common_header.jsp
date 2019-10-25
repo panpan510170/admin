@@ -22,6 +22,10 @@
     <link href="/statics/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet"/>
 
     <link href="/statics/css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <!-- 富文本编辑器 -->
+    <link href="/statics/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/statics/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
 </head>
 <body>
 

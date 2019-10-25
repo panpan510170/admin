@@ -66,6 +66,10 @@
 
 <!-- iCheck -->
 <script src="/statics/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- 富文本编辑器 -->
+<script src="/statics/js/plugins/summernote/summernote.min.js"></script>
+<script type="text/javascript" src='/statics/js/wangEditor-video.min.js'></script>
 <script>
     //转换日期格式(时间戳转换为datetime格式)
     function changeDateFormat(cellval) {

@@ -51,4 +51,9 @@ public class PageController extends BaseController{
     public String lotteryType() {
         return "/lottery/manage";
     }
+
+    @RequestMapping(value = "/video/context",method = RequestMethod.GET)
+    public String contextEdit() {
+        return "/video/context";
+    }
 }

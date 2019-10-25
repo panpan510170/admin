@@ -117,7 +117,7 @@
                 success: function (obj) {
                     if(obj.code == 1){
                         $("#title_ssq").html(obj.data.lottery_name+"--"+obj.data.lottery_no);
-                        $("#remark_ssq").html("开奖日期:"+obj.data.lottery_date+"---兑奖截止日期:"+obj.data.lottery_exdate+"<br/>本期销售额:"+obj.data.lottery_sale_amount+"---奖池滚存:"+obj.data.lottery_pool_amount);
+                        $("#remark_ssq").html("开奖日期:"+obj.data.lottery_date+"---兑奖截止日期:"+obj.data.lottery_exdate+"<br/>本期销售额:"+obj.data.lottery_sale_amount+"---奖池滚存:"+obj.data.lottery_pool_amount+"<br/>中奖号码:"+obj.data.lottery_res);
                         var str = "";
                         $.each(obj.data.lottery_prize,function (index,value) {
                             str +=
