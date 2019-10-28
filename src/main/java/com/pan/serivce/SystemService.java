@@ -416,4 +416,12 @@ public class SystemService {
     public void saveSyetemUserOptLog(SUserLog sUserLog) {
         sUserLogRepository.save(sUserLog);
     }
+
+    /**
+     * 获取所有菜单
+     * @return
+     */
+    public List<SPermissions> getPermissionsAll() {
+        return sPermissionsMapper.getPermissionsAll();
+    }
 }

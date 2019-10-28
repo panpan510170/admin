@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 彩票管理控制层
  * @author pan
  * @date 2019/10/23 18:09
  */

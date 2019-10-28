@@ -32,4 +32,6 @@ public interface SPermissionsMapper {
     List<SPermissions> rolePermissionsTreeList(SPermissions firstPermissions);
 
     List<SPermissions> getUserPermissionsAllList(SPermissions sPermissions);
+
+    List<SPermissions> getPermissionsAll();
 }

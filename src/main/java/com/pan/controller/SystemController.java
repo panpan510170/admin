@@ -1,5 +1,6 @@
 package com.pan.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.pan.base.constants.RedisKeyConstant;
 import com.pan.base.enums.ResultCodeEnum;
 import com.pan.base.ex.BOException;
@@ -206,6 +207,13 @@ public class SystemController extends BaseController{
         log.info("SystemController...saveUserRole...保存用户角色入参:[" + paramMap + "]");
         systemService.saveUserRole(paramMap);
         return this.buildSuccessResult();
+    }
+
+    @ApiOperation(value = "获取所有菜单")
+    @PostMapping("/getPermissionsAll")
+    public JsonResult<String> getPermissionsAll() throws Exception{
+        List<SPermissions> list = systemService.getPermissionsAll();
+        return this.buildSuccessResult(JSON.toJSON(list));
     }
 
 }

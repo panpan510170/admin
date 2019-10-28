@@ -17,5 +17,9 @@ public class LifePrivateKey {
     private int status;
     //彩票
     private String lottery;
+    //笑话
+    private String joke;
+    // QQ号码测吉凶
+    private String qqResult;
 
 }

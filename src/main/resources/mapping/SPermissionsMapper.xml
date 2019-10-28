@@ -103,6 +103,12 @@
     order by sp.serial_number
   </select>
 
+  <select id="getPermissionsAll" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.system.SPermissions" >
+    select  sp.id,sp.permissions_name,sp.type,sp.serial_number,sp.permissions_url, sp.permissions_image_url,sp.permissions,sp.parent_id
+    from s_permissions sp
+    order by sp.id asc
+  </select>
+
 
 
 
