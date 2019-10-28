@@ -91,10 +91,10 @@ public class ShiroConfig {
         }
         // 配置退出过滤器，其中具体的退出代码 Shiro已经替我们实现了
         filterChainDefinitionMap.put(shiroProperties.getLogoutUrl(), "logout");
-
-        // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
-        //filterChainDefinitionMap.put("/**", "user");
-
+        if(shiroProperties.getIsAuth()==1){
+            // 除上以外所有 url都必须认证通过才可以访问，未通过认证自动访问 LoginUrl
+            filterChainDefinitionMap.put("/**", "user");
+        }
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

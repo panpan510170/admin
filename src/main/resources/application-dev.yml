@@ -3,7 +3,7 @@ spring:
   datasource:
     druid:
       min-idle: 100
-      url: jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://localhost:3306/test1?zeroDateTimeBehavior=convertToNull
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: 111111
@@ -78,3 +78,9 @@ admin:
     lottery: b301b8629b2b2874bff62699f1c8bf45
     joke: 6f6001110b93b2b3ec0acddcf120bb03
     qqResult: b88201743b1ba9d56e0070c7954511eb
+    dream: ade9d9356fb7ceb2cdb0c1d726eaa233
+    laohuangli: 516426ef843a35ddc6d90e30ab6fd066
+    simpleWeather: aaf3aa9b98ff381a92b72e4f62f85da1
+    lishi: 0df778dfe73b49e8e40624d1fffa7d8f
+    news: f60697a4634470df2f80fe7fa822ff0e
+    dianyi: b5142113ebdbe080d483f39b30daa3e6

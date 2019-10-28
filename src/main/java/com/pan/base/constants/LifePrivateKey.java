@@ -21,5 +21,11 @@ public class LifePrivateKey {
     private String joke;
     // QQ号码测吉凶
     private String qqResult;
+    // 周公解梦
+    private String dream;
+    // 老黄历
+    private String laohuangli;
+    // 天气预报
+    private String simpleWeather;
 
 }

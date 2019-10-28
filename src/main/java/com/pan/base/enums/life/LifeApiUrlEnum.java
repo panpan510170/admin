@@ -5,18 +5,16 @@ package com.pan.base.enums.life;
  * @author pan
  * @date 2019/10/23 18:27
  */
-public enum LittleGameApiUrlEnum {
+public enum LifeApiUrlEnum {
 
-    qqResult("QQ号码测吉凶","http://japi.juhe.cn/qqevaluate/qq"),
-    category("周公解梦--梦境类型查询","http://v.juhe.cn/dream/category"),
-    dreamQuery("周公解梦--梦境类型查询","http://v.juhe.cn/dream/query"),
-    laohuangliD("老黄历--日期","http://v.juhe.cn/laohuangli/d"),
-    laohuangliH("老黄历--时辰","http://v.juhe.cn/laohuangli/h");
+    weather("天气预报查询","http://apis.juhe.cn/simpleWeather/query"),
+    weatherType("天气种类列表","http://apis.juhe.cn/simpleWeather/wids"),
+    getCityList("支持城市列表","http://apis.juhe.cn/simpleWeather/cityList");
 
     private String name;
     private String url;
 
-    LittleGameApiUrlEnum(String name, String url) {
+    LifeApiUrlEnum(String name, String url) {
         this.name = name;
         this.url = url;
     }

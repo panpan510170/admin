@@ -20,4 +20,5 @@ public class ShiroProperties {
     private String logoutUrl;
     private String unauthorizedUrl;
     private boolean openAopLog = true;
+    private int isAuth;
 }
