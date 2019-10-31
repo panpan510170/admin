@@ -159,7 +159,7 @@
             // editor.command(null, 'insertHtml', '<img src="' + url + '" alt="' + url + '" style="max-width:100%;"/>');
             // result 必须是一个 JSON 格式字符串！！！否则报错
             customInsert: function (insertImg, result, editor) {
-                //TODO 判断上传文件格式类型，执行不同的逻辑
+                //判断上传文件格式类型，执行不同的逻辑
                 var url =result.data;
                 var imggeshi = ".jpg|.bmp|.gif|.ico|.png";
                 var index1=url.lastIndexOf(".");
