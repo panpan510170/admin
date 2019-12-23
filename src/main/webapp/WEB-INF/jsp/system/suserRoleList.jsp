@@ -15,7 +15,7 @@
         <div class="panel-body">
             <form id="formSearch" class="form-horizontal">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="userName">角色名称</label>
+                    <label class="control-label col-sm-2" for="userName">用户名称</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="userName" name="userName">
                     </div>
