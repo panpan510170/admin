@@ -66,7 +66,7 @@ public class SystemController extends BaseController{
         } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
             throw new Exception(e.getMessage());
         } catch (AuthenticationException e) {
-            throw new BOException(ResultCodeEnum.tokenError.getId(),"认证失败！");
+            throw new BOException(ResultCodeEnum.tokenError.getId(),"用户名或密码错误！");
         }
     }
 

@@ -32,7 +32,7 @@
   </sql>
 
   <sql id="limitVarSql">
-    <if test="pageNo!=null and pageSize != null"> limit ${pageNo * pageSize},${pageSize} </if>
+    <if test="pageNo!=null and pageSize != null"> limit ${pageNo},${pageSize} </if>
   </sql>
 
   <select id="getPermissionsList" resultMap="BaseResultMap" parameterType="com.pan.model.entitys.system.SPermissions" >
